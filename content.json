@@ -1,0 +1,14 @@
+[
+    {
+        "title": "My path to Cybersecurity",
+        "file": "article1.md"
+    },
+    {
+        "title": "Setting up a basic home lab",
+        "file": "article2.md"
+    },
+    {
+        "title": "Network traffic analysis with wireshark",
+        "file": "article3.md"
+    }
+]
