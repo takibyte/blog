@@ -10,5 +10,9 @@
     {
         "title": "Network traffic analysis with wireshark",
         "file": "article3.md"
+    },
+        {
+        "title": "Setting up a Pi-hole",
+        "file": "setting-up-a-pihole.md"
     }
 ]

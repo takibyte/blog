@@ -11,7 +11,7 @@ fetch('content.json')
       list.appendChild(li);
     });
 
-     // Load post from URL hash on initial load
+     // Load .md from URL hash on initial load
     const initial = window.location.hash.replace('#', '');
     if (initial) {
       loadMarkdown(initial);
