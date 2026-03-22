@@ -12,7 +12,11 @@
         "file": "article3.md"
     },
         {
-        "title": "Setting up a Pi-hole",
-        "file": "setting-up-a-pihole.md"
+        "title": "Setting up a Pi-hole Part 1",
+        "file": "setting-up-a-pihole-part1.md"
+    },
+        {
+        "title": "Setting up a Pi-hole Part 2",
+        "file": "setting-up-a-pihole-part2.md"
     }
 ]
