@@ -1,21 +1,24 @@
 // main.js
 
+// Load .md from URL hash on initial load
+const initial = window.location.hash.replace('#', '');
+if (initial) {
+  loadMarkdown(initial);
+}
+
+
 // Load article list from content.json and create links
 fetch('content.json')
   .then(response => response.json())
   .then(articles => {
     const list = document.getElementById('article-list');
+    if (!list) return;
+    
     articles.forEach(article => {
       const li = document.createElement('li');
       li.innerHTML = `<a href="#${article.file}" onclick="loadMarkdown('${article.file}')" class="art-link">${article.title}</a>`;
       list.appendChild(li);
     });
-
-     // Load .md from URL hash on initial load
-    const initial = window.location.hash.replace('#', '');
-    if (initial) {
-      loadMarkdown(initial);
-    }
 
   });
 
@@ -29,6 +32,8 @@ function loadMarkdown(file) {
         const safe = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
 
         const container = document.getElementById('md-container');
+        if (!container) return;
+        
         container.innerHTML = safe;
 
         // Update URL hash (so navigation is shareable)
@@ -59,3 +64,4 @@ window.addEventListener('hashchange', () => {
     loadMarkdown(file);
   }
 });
+

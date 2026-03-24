@@ -33,8 +33,3 @@ Study for CompTIA Network+ and Security+. Whilst working towards attaining these
 7. Simple Intrusion Detection / SIEM Setup
 
 
-
-- [one](#article1.md)
-- [two](#article2.md)
-- [three](#article3.md)
-
