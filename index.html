@@ -6,36 +6,52 @@
     <title>Home</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/nav.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/template.css'>
     <script src='js/main.js'></script> 
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="title" class="nav-link">takibyte</div>
-        
-        <div class="nav">
-            <div class="nav-option">
-                <a href="/" class="nav-link active">Home</a>
-            </div>
 
-            <div class="nav-option">
-                <a href="projects.html" class="nav-link">Projects</a>
-            </div>
+    <div class="template">
 
-            <div class="nav-option">
-                <a href="blog.html" class="nav-link">Blog</a>
-            </div>
-            
-            <div class="nav-option">
-                <a href="about.html" class="nav-link">About</a>
+        <div class="nav-container">
+
+            <div class="title" class="nav-link">takibyte</div>
+
+            <div class="nav">
+                <div class="nav-option">
+                    <a href="/" class="nav-link active">Home</a>
+                </div>
+
+                <div class="nav-option">
+                    <a href="projects.html" class="nav-link">Projects</a>
+                </div>
+
+                <div class="nav-option">
+                    <a href="blog.html" class="nav-link">Blog</a>
+                </div>
+                
+                <div class="nav-option">
+                    <a href="about.html" class="nav-link">About</a>
+                </div>
             </div>
 
         </div>
+
     </div>
 
-    <div id="md-container"></div>
-        
+    <div class="home-content">
+
+            <a class="home-image-link" href="projects.html">
+                <div class="home-image" style="background-image: url(content/images/pi-closeup.jpeg);"><span>Projects</span></div>
+            </a>
+
+            <a class="home-image-link" href="blog.html">
+                <div class="home-image" style="background-image: url(content/images/laptop-closeup.jpeg);"><span>Blog</span></div>
+            </a>
+
+    </div>
+
 </body>
 </html>

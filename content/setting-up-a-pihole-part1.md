@@ -135,12 +135,12 @@ After running the command and entering the passphrase, i successfully connected 
 
 To optimize this a bit, i found a way to ssh into the pi without having to be explicit each time. I added/edited the config file at `~/.ssh/config` to include a shortcut command:
 
-```
-Host pi
-    HostName pi.local
-    User user
-    IdentityFile ~/.ssh/id_lab_ed25519
-    IdentitiesOnly yes
-```
+>```
+>Host pi
+>    HostName pi.local
+>    User user
+>    IdentityFile ~/.ssh/id_lab_ed25519
+>    IdentitiesOnly yes
+>```
 
 With this now, to connect to the pi, all a have to do is type: `ssh pi`, and the `pi` command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍

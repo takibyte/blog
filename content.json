@@ -4,19 +4,20 @@
         "file": "article1.md"
     },
     {
+        "title": "Setting up a Pi-hole Part 1",
+        "file": "setting-up-a-pihole-part1.md"
+    },
+    {
+        "title": "Setting up a Pi-hole Part 2",
+        "file": "setting-up-a-pihole-part2.md"
+    },
+    {
         "title": "Setting up a basic home lab",
         "file": "article2.md"
     },
     {
         "title": "Network traffic analysis with wireshark",
         "file": "article3.md"
-    },
-        {
-        "title": "Setting up a Pi-hole Part 1",
-        "file": "setting-up-a-pihole-part1.md"
-    },
-        {
-        "title": "Setting up a Pi-hole Part 2",
-        "file": "setting-up-a-pihole-part2.md"
     }
+    
 ]
