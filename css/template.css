@@ -36,11 +36,12 @@
 }
 
 .nav-link, .nav-link:visited, .nav-link:hover, .nav-link:active {
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     font-weight: 300;
     height: 40px;
     line-height: 40px;
-    width: 80%;
+    max-width: 100%;
+    min-width: 80%;
     border-radius: 6px;
     text-align: center;
     text-decoration: underline;
@@ -59,4 +60,14 @@
     color: var(--background);
     border-radius: 6px;
     text-decoration: none;
+}
+
+
+@media (min-width: 800px) {
+
+    .nav-link, .nav-link:visited, .nav-link:hover, .nav-link:active {
+        font-size: 2.4rem;
+        line-height: 40px;
+    }
+
 }

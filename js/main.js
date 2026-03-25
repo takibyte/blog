@@ -1,10 +1,14 @@
 // main.js
 
+history.scrollRestoration = 'manual';
+
 // Load .md from URL hash on initial load
-const initial = window.location.hash.replace('#', '');
-if (initial) {
-  loadMarkdown(initial);
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const initial = window.location.hash.replace('#', '');
+  if (initial) {
+    loadMarkdown(initial);
+  }
+});
 
 
 // Load article list from content.json and create links
@@ -16,7 +20,7 @@ fetch('content.json')
     
     articles.forEach(article => {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="#${article.file}" onclick="loadMarkdown('${article.file}')" class="art-link">${article.title}</a>`;
+      li.innerHTML = `<a href="#${article.file}" onclick="loadMarkdown('${article.file}');" class="art-link">${article.title}</a>`;
       list.appendChild(li);
     });
 
@@ -35,6 +39,13 @@ function loadMarkdown(file) {
         if (!container) return;
         
         container.innerHTML = safe;
+
+        setTimeout(() => {
+          container.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 50);
 
         // Update URL hash (so navigation is shareable)
         window.location.hash = file;
@@ -65,3 +76,13 @@ window.addEventListener('hashchange', () => {
   }
 });
 
+
+
+function scroll_to(id) {
+    const element = document.querySelector(id);
+    if (!element) return;
+    
+    element.scrollIntoView({
+        behavior: 'smooth'
+    });
+}

@@ -78,6 +78,18 @@ body {
                           'md';                     
 }
 
+.back {
+  position: fixed;
+  right: 10px;
+  top: 120px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--accent2);
+  padding: 4px 10px;
+  visibility: hidden;
+}
+
 .project-content {
   display: grid;
   grid-auto-flow: row;
@@ -114,7 +126,7 @@ body {
 }
 
 .about-content {
-  
+
 }
 
 span {
@@ -153,6 +165,8 @@ code {
   min-width: 0;
   box-sizing: border-box;
   padding: 10px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 img {
@@ -179,12 +193,12 @@ ul {
     text-decoration: none;
 }
 
-a {
+a, .back {
   text-decoration: underline;
   color: var(--accent2);
 }
 
-a:hover {
+a:hover, .back:hover {
   background-color: var(--overlay);
   border-radius: 5px;
   text-decoration: none;
@@ -227,6 +241,10 @@ h3 {
 
     #md-container {
       padding: 10px 20% 100px 20%;
+    }
+
+    .back {
+        visibility: visible;
     }
 
 }
