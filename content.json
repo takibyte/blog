@@ -1,7 +1,7 @@
 [
     {
         "title": "My path to Cybersecurity",
-        "file": "article1.md"
+        "file": "my-path-to-cybersecurity.md"
     },
     {
         "title": "Setting up a Pi-hole Part 1",
@@ -13,11 +13,11 @@
     },
     {
         "title": "Setting up a basic home lab",
-        "file": "article2.md"
+        "file": "setting-up-a-basic-home-lab.md"
     },
     {
         "title": "Network traffic analysis with wireshark",
-        "file": "article3.md"
+        "file": "network-traffic-analysis-with-wireshark.md"
     }
     
 ]
