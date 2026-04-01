@@ -154,7 +154,7 @@ code {
   border-radius: 4px;
 }
 
-#article-list {
+#post-list {
   grid-area: alist;
 
 }
@@ -179,13 +179,13 @@ ul {
   line-height: 30px;
 }
 
-.art-link {
+.post-link {
   font-size: 2.2rem;
   text-decoration: underline;
   color: var(--text);
 }
 
-.art-link:hover {
+.post-link:hover {
     background-color: var(--overlay);
     color: var(--text);
     border-radius: 5px;

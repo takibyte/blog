@@ -14,13 +14,13 @@ window.addEventListener('DOMContentLoaded', () => {
 // Load article list from content.json and create links
 fetch('content.json')
   .then(response => response.json())
-  .then(articles => {
-    const list = document.getElementById('article-list');
+  .then(posts => {
+    const list = document.getElementById('post-list');
     if (!list) return;
     
-    articles.forEach(article => {
+    posts.forEach(post => {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="#${article.file}" onclick="loadMarkdown('${article.file}');" class="art-link">${article.title}</a>`;
+      li.innerHTML = `<a href="#${post.file}" onclick="loadMarkdown('${post.file}');" class="post-link">${post.title}</a>`;
       list.appendChild(li);
     });
 
