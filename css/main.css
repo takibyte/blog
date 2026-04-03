@@ -19,7 +19,7 @@ body {
     background-color: var(--background);
     color: var(--text);
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 2.4rem; /* 24px */
+    font-size: 2.2rem; /* 24px */
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -180,7 +180,7 @@ ul {
 }
 
 .post-link {
-  font-size: 2.2rem;
+  font-size: 2rem;
   text-decoration: underline;
   color: var(--text);
 }
