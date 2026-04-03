@@ -1,0 +1,9 @@
+[
+    { "slug": "2026-03-my-path-to-cybersecurity", "title": "My path to Cybersecurity", "file": "my-path-to-cybersecurity.md" },
+    { "slug": "2026-03-setting-up-a-pihole-part1", "title": "Setting up a Pi-hole Part 1", "file": "setting-up-a-pihole-part1.md" },
+    { "slug": "2026-04-setting-up-a-pihole-part2", "title": "Setting up a Pi-hole Part 2", "file": "setting-up-a-pihole-part2.md" },
+    { "slug": "2026-04-setting-up-a-basic-home-lab", "title": "Setting up a basic home lab", "file": "setting-up-a-basic-home-lab.md" },
+    { "slug": "2026-04-network-traffic-analysis-with-wireshark", "title": "Network traffic analysis with wireshark", "file": "network-traffic-analysis-with-wireshark.md" }
+   
+    
+]   

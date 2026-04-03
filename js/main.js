@@ -11,8 +11,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Load article list from content.json and create links
-fetch('content.json')
+// Load article list from manifest.json and create links
+fetch('posts/manifest.json')
   .then(response => response.json())
   .then(posts => {
     const list = document.getElementById('post-list');
@@ -20,7 +20,7 @@ fetch('content.json')
     
     posts.forEach(post => {
       const li = document.createElement('li');
-      li.innerHTML = `<a href="#${post.file}" onclick="loadMarkdown('${post.file}');" class="post-link">${post.title}</a>`;
+      li.innerHTML = `<a href="#${post.slug}" onclick="loadMarkdown('${post.slug}');" class="post-link">${post.title}</a>`;
       list.appendChild(li);
     });
 
@@ -28,8 +28,9 @@ fetch('content.json')
 
 
 // Fetch the markdown file, parse to HTML, sanitize, and insert into md-container div
-function loadMarkdown(file) {
-  fetch(`content/${file}`)
+function loadMarkdown(slug) {
+
+  fetch(`posts/${slug}/index.md`)
     .then(response => response.text())
     .then(md => {
         const html = marked.parse(md);
