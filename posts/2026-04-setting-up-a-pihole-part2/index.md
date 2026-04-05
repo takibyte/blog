@@ -24,7 +24,7 @@ Now the installer will run us through the onboarding setup, it's going to let us
 
 ### Static IP and DHCP Reservation
 
-In this next screen, the installer tells us that we need to set a static IP address for the raspberry pi running pi-hole. This is because the pi-hole will act as a DNS (Domain Name Server) for the router and/or the other hosts on the local network. If the pi's IP address was dynamic (and not static) it will be periodically changing and receiving a new IP address from the DHCP (Dynamic Host Configuration Protocol) server. Whenever the other hosts on the network go to make a DNS request via the pi-hole, it's address would likely have changed, and therefore, the pi would not be able to respond to the host making the request.
+In this next screen, the installer tells us that we need to set a static IP address for the raspberry pi running pi-hole. This is because the pi-hole will act as a DNS (Domain Name System) for the router and/or the other hosts on the local network. If the pi's IP address was dynamic (and not static) it will be periodically changing and receiving a new IP address from the DHCP (Dynamic Host Configuration Protocol) server. Whenever the other hosts on the network go to make a DNS request via the pi-hole, it's address would likely have changed, and therefore, the pi would not be able to respond to the host making the request.
 <br>
 
 To circumvent this we'll do a DHCP reservation, with this we can tell the DHCP server to always give the raspberry pi the same static IP address when it comes time for it to renew all of the IP address leases for the hosts on the network.
@@ -69,7 +69,7 @@ Back to the installer now, it asks us to select a network interface. I selected 
 
 Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn't know much about them at the time, more info can be found in pi-holes documentation [here](https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream). I decided to go with Cloudflare's 1.1.1.1 DNS as my upstream DNS provider, because it is said to be fast and good for privacy. 
 
-Briefly, this is my understanding as to what upstream DNS providers are for. Ordinarily as a *client* computer, when connecting to a website *hosted* on a web server on the internet - we as humans who recognise words much better than numbers - would use a web address consisting of a domain name, and other aspects of the address (***example***.com). 
+Briefly, this is my understanding as to what upstream DNS providers are for. Ordinarily as a *client* computer, when connecting to a website hosted on a web *server* on the internet - we as humans who recognise words much better than numbers - would use a web address consisting of a domain name, and other aspects of the address (***example***.com). 
 
 A DNS is used to resolve a domain name with its corresponding public IP address, eg. example.com becomes `x.x.x.x`. An upstream DNS is required, because they are large providers which have access to all of the records linking the domain names to their respective IP addresses. My router by default has its DNS server set to automatic, which is just deferring to whichever upstream DNS provider is set by the upstream network: most likely the ISP (internet service provider), or a VPN if one is enabled.
 
@@ -81,7 +81,7 @@ The pi-hole acts as an *intermediary DNS*. When a client connecting through it m
 
 ### Blocklists
 
-The set up now asks if we want to include the default blocklist, i just went with yes, as the default list is apparently good and well maintained, there are plenty of other blocklists that appear to be good and recommended online too. As the set up says you can add and remove lists easily later. 
+The set up now asks if we want to include the default blocklist, i just went with yes, as the default list is apparently good and well maintained, there are plenty of other blocklists that appear to be good and recommended online too. As the set up says, you can add and remove lists easily later. 
 
 
 ![pi installer](posts/2026-04-setting-up-a-pihole-part2/images/installer6.png)
