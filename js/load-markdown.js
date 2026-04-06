@@ -28,7 +28,7 @@ export async function loadMarkdown(slug) {
 
     // Inject date and minutes content into the DOM
     const meta = document.querySelector('#meta');
-    meta.textContent = `${manifest[slug].date} · ${minutes} min read`;
+    meta.textContent = `${manifest[slug].date} · ⏱ ${minutes} min read`;
 
 
 

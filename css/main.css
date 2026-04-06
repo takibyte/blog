@@ -1,11 +1,3 @@
-@font-face {
-  font-display: swap; 
-  font-family: 'Silkscreen';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/assets/fonts/silkscreen-regular.woff2') format('woff2');
-}
-
 :root {
   --background: #2e3440;
   --overlay: #3b4253;
@@ -16,6 +8,30 @@
 }
 
 
+@font-face {
+  font-display: swap; 
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/silkscreen-v6-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/noto-sans-jp-v56-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/roboto-mono-v31-latin-regular.woff2') format('woff2');
+}
+
 html { 
   font-size: 62.5%; /* 1rem = 10px */
 } 
@@ -24,7 +40,7 @@ html {
 body {
   background-color: var(--background);
   color: var(--text);
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Noto Sans JP', 'Helvetica Neue', sans-serif;
   font-size: 2rem; /* 22px */
   font-weight: 400;
   margin: 0;
@@ -60,6 +76,7 @@ code {
   background-color: var(--overlay);
   padding: 2px 4px;
   border-radius: 5px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 img {
@@ -115,7 +132,7 @@ ul {
 }
 
 .home-image-link {
-  font-family: 'Silkscreen';
+  font-family: 'Silkscreen', 'Helvetica Neue', sans-serif;
   text-decoration: none;
   border-radius: 0px;
   width: 100%;
