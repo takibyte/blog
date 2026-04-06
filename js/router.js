@@ -1,4 +1,4 @@
-import { loadMarkdown } from './load-md.js';
+import { loadMarkdown } from './load-markdown.js';
 
 export function initRouter() {
   initBackButton();
@@ -18,6 +18,8 @@ function handleInitialHash() {
 function initBackButton() {
   const backBtn = document.querySelector('.back');
   const postList = document.getElementById('post-list');
+
+  if (!backBtn || !postList) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

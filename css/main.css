@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Silkscreen&display=swap');
+@font-face {
+  font-display: swap; 
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/silkscreen-regular.woff2') format('woff2');
+}
 
 :root {
   --background: #2e3440;
@@ -7,7 +13,6 @@
   --accent1: #d2876d;
   --accent2: #8ebcbb;
   --accent3: #5d80ae;
-
 }
 
 
@@ -44,29 +49,17 @@ h3 {
   line-height: 2.2rem;
 }
 
-span {
-  width: 100%;
-  text-align: center;
-  font-size: 2.8rem;
-  opacity: 0.9;
-  background-color: #000;
-  color: var(--text);
-  padding: 10px 10px;
-  border-radius: 6px;
-}
-
-
 pre {
   background-color: var(--overlay);
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: 5px;
   overflow-x: auto;
 }
 
 code {
   background-color: var(--overlay);
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 img {
@@ -83,8 +76,8 @@ ul {
 }
 
 .profile{
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
@@ -122,7 +115,7 @@ ul {
 }
 
 .home-image-link {
-  font-family: 'Silkscreen', cursive;
+  font-family: 'Silkscreen';
   text-decoration: none;
   border-radius: 0px;
   width: 100%;
@@ -140,13 +133,25 @@ ul {
   border-radius: 10px;
 }
 
+.home-span {
+  width: 100%;
+  text-align: center;
+  font-size: 2.8rem;
+  opacity: 0.9;
+  background-color: #000;
+  color: var(--text);
+  padding: 10px 10px;
+  border-radius: 6px;
+}
+
 
 .blog-content {
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr;
   grid-template-areas:  
-  'posts' 
+  'posts'
+  'meta' 
   'md';                   
 }
 
@@ -235,6 +240,14 @@ ul {
   gap: 10px;
 }
 
+#meta {
+  grid-area: meta;
+  box-sizing: border-box;
+  padding: 60px 0px 0px 0px;
+  color: var(--accent3);
+  font-style: italic;
+}
+
 #md-container {
   grid-area: md;
   line-height: 30px;
@@ -285,7 +298,7 @@ a:hover, .back:hover {
   }
 
   #md-container {
-    padding: 10px 0px 100px 0px;
+    padding: 10px 0px 50px 0px;
     max-width: 750px;
     margin: 0 auto;  
   }
