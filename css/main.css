@@ -237,10 +237,11 @@ ul {
 }
 
 .post-link:hover {
-  background-color: var(--overlay);
-  color: var(--text);
+  background-color: var(--accent3);
+  color: var(--background);
   border-radius: 5px;
-  padding: 2px 8px;
+  box-sizing: border-box;
+  padding: 0px 2px;
   text-decoration: none;
 }
 
@@ -285,7 +286,6 @@ a:hover, .back:hover {
   border-radius: 5px;
   text-decoration: none;
 }
-
 
 @media (min-width: 800px) {
   .home-content {
