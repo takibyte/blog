@@ -173,12 +173,12 @@ ul {
 }
 
 .back {
+  display: inline-block;
   position: fixed;
   left: 10px;
   top: 10px;
   text-align: center;
   cursor: pointer;
-  text-decoration: underline;
   color: var(--accent2);
   padding: 4px 10px;
   visibility: hidden;
@@ -187,9 +187,10 @@ ul {
   transition: opacity 0.3s ease;
 }
 
-.back.back-visible {
+.back-visible {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
 }
 
 .project-content {
@@ -261,9 +262,10 @@ ul {
 #meta {
   grid-area: meta;
   box-sizing: border-box;
-  padding: 60px 0px 0px 0px;
+  padding: 60px 20px 0px 20px;
   color: var(--accent3);
   font-style: italic;
+  box-sizing: border-box;
 }
 
 #md-container {
@@ -276,15 +278,21 @@ ul {
   word-break: break-word;
 }
 
-a, .back {
+a {
   text-decoration: underline;
   color: var(--accent2);
 }
 
-a:hover, .back:hover {
+a:hover {
   background-color: var(--overlay);
   border-radius: 5px;
   text-decoration: none;
+}
+
+
+.back:hover {
+  background-color: var(--overlay);
+  border-radius: 5px;
 }
 
 @media (min-width: 800px) {
@@ -319,5 +327,10 @@ a:hover, .back:hover {
     max-width: 750px;
     margin: 0 auto;  
   }
+
+  #meta {
+    padding: 60px 0px 0px 0px;
+  }
+
 
 }
