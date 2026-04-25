@@ -5,7 +5,7 @@ export async function loadPostList() {
   if (!list) return;
 
   try {
-    const manifest = await fetch('posts/manifest.json').then(r => r.json());
+    const manifest = await fetch('./manifest.json').then(r => r.json());
 
     Object.entries(manifest).forEach(([slug, post]) => {
       const li = document.createElement('li');

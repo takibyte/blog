@@ -41,7 +41,7 @@ body {
   background-color: var(--background);
   color: var(--text);
   font-family: 'Noto Sans JP', 'Helvetica Neue', sans-serif;
-  font-size: 2rem; /* 22px */
+  font-size: 2rem; /* 20px */
   font-weight: 400;
   margin: 0;
   padding: 0;

@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    const markdown = await fetch('posts/this-website/index.md').then(r => r.text());
+    const markdown = await fetch('../posts/this-website/index.md').then(r => r.text());
     const html = marked.parse(markdown);
     const safe = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
 

@@ -3,8 +3,8 @@ export async function loadMarkdown(slug) {
     // Fetch markdown for the post, and manifest for metadata date
 
     const [mdResponse, manifestResponse] = await Promise.all([
-      fetch(`posts/${slug}/index.md`),
-      fetch('posts/manifest.json')
+      fetch(`./${slug}/index.md`),
+      fetch('./manifest.json')
     ]);
 
     const markdown = await mdResponse.text();
