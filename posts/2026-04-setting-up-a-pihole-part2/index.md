@@ -146,7 +146,7 @@ And success! We can see that queries are successfully coming through, we can als
 
 Without getting too lost in all of the different settings and features just yet, lets just look at the four panels at the top of Pi-holes's admin panel. From left to right we have: Total queries, queries blocked, percentage blocked, and domains on list.
 
-1. Total queries: here we can see how many domains are being queried, and how many clients are connected. If we were to click through here we would see all of the query urls, and which client they ar coming from. At the moment, there are only 2 clients connected: the router and the pi.
+1. Total queries: here we can see how many domains are being queried, and how many clients are connected. If we were to click through here we would see all of the query urls, and which client they are coming from. At the moment, there are only 2 clients connected: the router and the pi.
 2. Queries blocked: here we can see the amount of domain queries that have been checked against the block-list, matched a blocked domain name, and been blocked. We can click through and see which domain names have been blocked.
 3. Percentage blocked: this should be rather self-explanatory, the percentage of total queries that have been blocked.
 4. Domains on list: this is the block-list, the long list of domain names which will be filtered/checked against to determine whether a query should be blocked or not. If we click through, we can view the block-lists, configure them per device, add additional block-list/remove them etc.
