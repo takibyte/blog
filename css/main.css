@@ -1,11 +1,30 @@
-:root {
+[data-theme="nord"] {
   --background: #2e3440;
-  --overlay: #3b4253;
-  --text: #d8dee9;
-  --accent1: #d2876d;
-  --accent2: #8ebcbb;
-  --accent3: #5d80ae;
+  --overlay:    #3b4253;
+  --text:       #d8dee9;
+  --accent1:    #d2876d;
+  --accent2:    #8ebcbb;
+  --accent3:    #5d80ae;
 }
+
+[data-theme="tokyonight"] {
+  --background: #1a1b26;
+  --overlay:    #24283b;
+  --text:       #c0caf5;
+  --accent1:    #ff9e64;
+  --accent2:    #bb9af7;
+  --accent3:    #7aa2f7;
+}
+
+[data-theme="mocha"] {
+  --background: #1e1e2e;
+  --overlay:    #313244;
+  --text:       #cdd6f4;
+  --accent1:    #fab387;
+  --accent2:    #a6e3a1;
+  --accent3:    #89b4fa;
+}
+
 
 
 @font-face {
@@ -92,6 +111,35 @@ ul {
   line-height: 30px;
 }
 
+.theme {
+  display: grid;
+  margin: 0 auto;
+  max-width: 100%;
+  justify-content: center;
+  grid-auto-flow: column;
+  gap: 10px;
+}
+
+#theme-select {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+
+  background-color: var(--background);
+  color: var(--text);
+  border: 2px solid var(--overlay);
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#theme-select:hover {
+  border-color: var(--accent1);
+}
+
 .profile{
   width: 250px;
   height: 250px;
@@ -129,6 +177,8 @@ ul {
   cursor: pointer;
   transition: all 0.5s;
   border-radius: 10px;
+  border: 2px solid var(--overlay);
+  box-sizing: border-box;
 }
 
 .home-image-link {
@@ -148,6 +198,7 @@ ul {
 
 .home-image-link:hover {
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .home-span {
@@ -212,7 +263,9 @@ ul {
   /* height: calc((100vh - 140px)/2); */
   height: calc((100vh - 30px)/2);
   width: 100%;
-  background-color: var(--overlay);
+  background-color: var(--background);
+  border: 2px solid var(--overlay);
+  box-sizing: border-box;
   border-radius: 10px;
 }
 

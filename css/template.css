@@ -9,7 +9,8 @@
     grid-template-rows: repeat(2, 1fr);
     height: 100px;
     width: 100%;
-    background-color: var(--overlay);
+    background-color: var(--background);
+    border: 2px solid var(--overlay);
     color: #d8dee9;
     border-radius: 10px 10px 10px 10px;
     box-sizing: border-box;
@@ -46,18 +47,19 @@
     text-align: center;
     text-decoration: underline;
     color: inherit;
-    transition: background-color 0.3s;
+
 }
 
 .active {
-    background-color: var(--background);
+    background-color: var(--overlay);
+
     border-radius: 6px;
     text-decoration: none;
 }
 
 .nav-link:hover {
     background-color: var(--accent1);
-    color: var(--background);
+    color: var(--overlay);
     border-radius: 6px;
     text-decoration: none;
 }

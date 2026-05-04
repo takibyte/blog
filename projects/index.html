@@ -8,12 +8,17 @@
     content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. 
     It features projects and posts, focussed on hands-on learning and experimentation.">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png">
     <link rel="manifest" href="../assets/icons/site.webmanifest">
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/template.css'>
+    <script type="module" src='../js/main.js'></script>
 </head>
 <body>
     
@@ -51,13 +56,13 @@
         <div class="project-div">
             <div class="project-image" style="background-image: url(../assets/images/pi-closeup2.jpg);"></div>
             <div class="project-info">
-                <h3>Pi-hole</h3>
+                <h3>Setting up a Pi-hole DNS sinkhole</h3>
                 <ul>
                     <li><a class="post-link" href="../posts/#2026-03-setting-up-a-pihole-part1">Setting up a Pi-hole part 1</a></li>
                     <li><a class="post-link" href="../posts/#2026-04-setting-up-a-pihole-part2">Setting up a Pi-hole part 2</a></li>
                 </ul>
             </div>
-        </div>
+        </div>  
 
         <div class="project-div">
             <div class="project-image" style="background-image: url(../assets/images/homelab1.jpg);"></div>
@@ -69,8 +74,18 @@
             </div>
         </div>
 
+         <div class="project-div">
+            <div class="project-image" style="background-image: url(../assets/images/portscanner2.jpg);"></div>
+            <div class="project-info">
+                <h3>Build a port scanner with python</h3>
+                <ul>
+                    <li><a class="post-link" href="../posts/#2026-04-setting-up-a-basic-home-lab">Building a port scanner with python</a></li>
+                </ul>
+            </div>
+        </div>     
+
         <div class="project-div">
-            <div class="project-image" style="background-image: url(../assets/images/wireshark-wiki.jpg);"></div>
+            <div class="project-image" style="background-image: url(../assets/images/wireshark.jpg);"></div>
             <div class="project-info">
                 <h3>Network traffic analysis with wireshark</h3>
                 <ul>
@@ -80,7 +95,7 @@
         </div>
 
         <div class="project-div">
-            <div class="project-image" style="background-image: url(../assets/images/laptop-closeup.jpg);"></div>
+            <div class="project-image" style="background-image: url(../assets/images/portscanner4.jpg);"></div>
             <div class="project-info">
                 <h3>Recon and port scanning</h3>
 

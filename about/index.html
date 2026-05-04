@@ -8,12 +8,17 @@
     content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. 
     It features projects and posts, focussed on hands-on learning and experimentation.">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png">
     <link rel="manifest" href="../assets/icons/site.webmanifest">
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/template.css'>
+    <script type="module" src='../js/main.js'></script>
     <script src="../js/about.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
@@ -52,9 +57,19 @@
 
         <img src="../assets/images/profile.jpg" alt="profile" class="profile">
         <br>
+        <div class="theme">
+            <span>Theme:</span>
+            <select id="theme-select">
+                <option value="nord">Nord</option>
+                <option value="tokyonight">Tokyo Night</option>
+                <option value="mocha">Mocha</option>
+            </select>  
+        </div>
+
         <div id="md-container"></div>
 
     </div>
+     
 
 </body>
 </html>
