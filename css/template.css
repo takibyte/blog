@@ -40,16 +40,18 @@
     font-size: 1.6rem;
     font-weight: 300;
     height: 40px;
-    line-height: 40px;
     max-width: 100%;
     min-width: 80%;
     border-radius: 6px;
-    text-align: center;
     text-decoration: underline;
     color: inherit;
-
-
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .active {
     background-color: var(--overlay);
@@ -62,8 +64,12 @@
     background-color: initial;
     border-radius: 6px;
     text-decoration: none;
-    background-color: var(--accent1);
-    color: var(--overlay);
+    border: 2px solid var(--accent1);
+    box-sizing: border-box;
+}
+
+.nav-link.active:hover {
+    background-color: var(--overlay);
 }
 
 
