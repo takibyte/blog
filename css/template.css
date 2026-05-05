@@ -11,7 +11,7 @@
     width: 100%;
     background-color: var(--background);
     border: 2px solid var(--overlay);
-    color: #d8dee9;
+    color: var(--text);
     border-radius: 10px 10px 10px 10px;
     box-sizing: border-box;
 }
