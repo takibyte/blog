@@ -157,9 +157,13 @@ ul {
 
 .home-content {
   display: grid;
+  grid-template-areas: 
+                       'projects-card'
+                       'posts-card'
+                       'welcome-card';
   grid-auto-flow: row;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr) 50px;
   place-items: center;
   gap: 10px;
   box-sizing: border-box;
@@ -172,7 +176,7 @@ ul {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: calc((100vh - 140px)/2);
+  height: calc((100vh - 200px)/2);
   width: 100%;
   cursor: pointer;
   transition: all 0.5s;
@@ -212,6 +216,43 @@ ul {
   border-radius: 6px;
 }
 
+.welcome-card {
+  grid-area: welcome-card;
+  display: grid;
+  height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid var(--overlay);
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  justify-content: center;
+  align-items: center;
+  grid-auto-flow: column;
+  gap: 10px;
+}
+
+.home-link {
+  color: var(--text); 
+  font-family: 'Silkscreen', 'Helvetica Neue', sans-serif;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.home-link:hover {
+  color: var(--background);
+  background-color: var(--accent3);
+}
+
+
+.projects-card {
+  grid-area: projects-card;
+}
+
+.posts-card {
+  grid-area: posts-card;
+}
 
 .blog-content {
   display: grid;
@@ -350,11 +391,20 @@ a:hover {
 
 @media (min-width: 800px) {
   .home-content {
+    grid-template-areas: 
+                      'projects-card posts-card'
+                      'welcome-card welcome-card';
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr 50px ;
   }
   .home-image {
-    height: calc(100vh - 130px);
+    height: calc((100vh - 190px));
+  }
+  .welcome-card {
+    gap: 40px;
+  }
+  .home-link {
+    font-size: 2rem;
   }
 
   .project-content {

@@ -48,6 +48,7 @@
     text-decoration: underline;
     color: inherit;
 
+
 }
 
 .active {
@@ -58,10 +59,11 @@
 }
 
 .nav-link:hover {
-    background-color: var(--accent1);
-    color: var(--overlay);
+    background-color: initial;
     border-radius: 6px;
     text-decoration: none;
+    background-color: var(--accent1);
+    color: var(--overlay);
 }
 
 
