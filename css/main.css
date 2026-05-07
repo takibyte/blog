@@ -1,3 +1,12 @@
+:root {
+  --background: #1a1b26;
+  --overlay:    #24283b;
+  --text:       #c0caf5;
+  --accent1:    #ff9e64;
+  --accent2:    #bb9af7;
+  --accent3:    #7aa2f7;
+}
+
 [data-theme="nord"] {
   --background: #2e3440;
   --overlay:    #3b4253;
