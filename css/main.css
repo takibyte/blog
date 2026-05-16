@@ -25,6 +25,15 @@
   --accent3:    #7aa2f7;
 }
 
+[data-theme="tokyonightlight"] {
+  --background: #e6e7ed;
+  --overlay:    #d5d8df;
+  --text:       #40434f;
+  --accent1:    #965027;
+  --accent2:    #5a3e8e;
+  --accent3:    #2959aa;
+}
+
 [data-theme="mocha"] {
   --background: #1e1e2e;
   --overlay:    #313244;
@@ -218,9 +227,9 @@ ul {
 .home-span {
   width: 100%;
   font-size: 1.8rem;
-  opacity: 0.9;
+  opacity: 0.85;
   background-color: #000;
-  color: var(--text);
+  color: #fff;
   padding: 8px 8px;
   border-radius: 6px;
   display: flex;
