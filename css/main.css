@@ -16,6 +16,15 @@
   --accent3:    #5d80ae;
 }
 
+[data-theme="nordlight"] {
+  --background: #eceff4;
+  --overlay:    #d8dee9;
+  --text:       #2e3440;
+  --accent1:    #d2876d;
+  --accent2:    #8ebcbb;
+  --accent3:    #5d80ae;
+}
+
 [data-theme="tokyonight"] {
   --background: #1a1b26;
   --overlay:    #24283b;
