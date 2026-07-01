@@ -264,7 +264,7 @@ ul {
 
 .home-link {
   color: var(--text); 
-  font-family: 'Silkscreen', 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1.6rem;
   display: flex;
   align-items: center;
