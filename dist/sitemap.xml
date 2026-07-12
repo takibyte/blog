@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://blog.takibyte.com/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/projects/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/about/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-05-building-a-port-scanner-with-python/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-04-network-traffic-analysis-with-wireshark/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-04-setting-up-a-basic-home-lab/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-04-setting-up-a-pihole-part-2/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-03-my-path-to-cybersecurity/</loc>
+  </url>
+  <url>
+    <loc>https://blog.takibyte.com/posts/2026-03-setting-up-a-pihole-part-1/</loc>
+  </url>
+</urlset>

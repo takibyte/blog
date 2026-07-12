@@ -10,7 +10,7 @@ const template = fs.readFileSync('./templates/post.html', 'utf-8');
 const postsIndexTemplate = fs.readFileSync(path.join(postsDir, 'index.html'), 'utf-8');
 
 // Top-level files/folders that should be copied into dist as-is (no processing)
-const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'projects'];
+const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'projects', 'favicon.ico'];
 
 // --- helpers ---
 
@@ -90,5 +90,24 @@ const postListHtml = postsList
 const postsIndexPage = postsIndexTemplate.replace('{{postList}}', postListHtml);
 fs.mkdirSync(path.join(outDir, 'posts'), { recursive: true });
 fs.writeFileSync(path.join(outDir, 'posts', 'index.html'), postsIndexPage);
+
+
+// --- 5. generate sitemap.xml ---
+
+const siteUrl = 'https://blog.takibyte.com';
+
+const staticUrls = ['/', '/projects/', '/posts/', '/about/'];
+const postUrls = postsList.map(p => `/posts/${p.slug}/`);
+
+const allUrls = [...staticUrls, ...postUrls];
+
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allUrls.map(url => `  <url>\n    <loc>${siteUrl}${url}</loc>\n  </url>`).join('\n')}
+</urlset>
+`;
+
+fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemapXml);
+
 
 console.log('Build complete → ./dist');
