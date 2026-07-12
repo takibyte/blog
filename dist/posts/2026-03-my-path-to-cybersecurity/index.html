@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>about</title>
+    <title>posts</title>
     <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     
@@ -21,8 +21,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
 
-    <!-- Scripts -->
-    <script src='/js/theme.js'></script>
+    <!-- Scripts --> 
 </head>
 <body>
 
@@ -31,7 +30,7 @@
         <div class="nav-container">
 
             <div class="title">takibyte blog</div>
-            
+
             <div class="nav">
                 <div class="nav-option">
                     <a href="/" class="nav-link">Home</a>
@@ -42,43 +41,52 @@
                 </div>
 
                 <div class="nav-option">
-                    <a href="/posts/" class="nav-link">Posts</a>
+                    <a href="/posts/" class="nav-link active">Posts</a>
                 </div>
                 
                 <div class="nav-option">
-                    <a href="/about/" class="nav-link active">About</a>
+                    <a href="/about/" class="nav-link">About</a>
                 </div>
-
             </div>
+
         </div>
 
     </div>
 
-    <div class="about-content">
+    <div class="blog-content">
 
-        <img src="/assets/images/profile.webp" alt="profile" class="profile">
-        <br>
-        <div class="theme">
-            <span>Theme:</span>
-            <select id="theme-select">
-                <option value="nord">Nord</option>
-                <option value="nordlight">Nord Light</option>
-                <option value="tokyonight">Tokyo Night</option>
-                <option value="tokyonightlight">Tokyo Night Light</option>
-                <option value="mocha">Mocha</option>
-            </select>  
-        </div>
-
-        <div id="md-container">
-            <h1>About this Website</h1>
-
-            <p>Hello, i'm takibyte. This website is a simple blog-style website, which i created with the intention of documenting my progress while learning Cybersecurity, Networking, and related subjects.</p>
-            <p>I've included a projects page, which will hopefully continue to grow as i make progress and take on more projects.</p>
-            <p>You can read more about my path and plan in the post: <a class="post-link" href="../posts/2026-03-my-path-to-cybersecurity">My path to Cybersecurity</a></p>
+        <div id="post-container">
+            <ul id="post-list"></ul>
         </div>
         
-    </div>
-     
+        <span id="meta"></span>
 
+        <div id="md-container">
+            <h1>My path to Cybersecurity</h1>
+<h2>The plan</h2>
+<p>Study for CompTIA Network+ and Security+. Whilst working towards attaining these certs, work towards the following projects/lab ideas.</p>
+<ol>
+<li><p>Build a cybersecurity homelab</p>
+</li>
+<li><p>Network traffic analysis with wireshark</p>
+</li>
+<li><p>Recon and port scanning (nmap + python script)</p>
+</li>
+<li><p>Firewall configuration &amp; testing (pfsense or iptables)</p>
+</li>
+<li><p>Vulnerability scanning &amp; basic assessment</p>
+</li>
+<li><p>Basic cryptography implementation</p>
+</li>
+<li><p>Simple Intrusion Detection / SIEM Setup</p>
+</li>
+</ol>
+
+        </div>
+
+        <span class="back">back to top &#8617</span>
+        
+    </div>
+    
 </body>
 </html>
