@@ -1,5 +1,9 @@
+---
+title: My Path to Cybersecurity
+date: 2026-03
+---
 
-# My path to Cybersecurity
+# My Path to Cybersecurity
 
 ## The plan
 

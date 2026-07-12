@@ -57,9 +57,14 @@ for (const folder of fs.readdirSync(postsDir)) {
   const { data, content } = matter(raw);
   const html = marked.parse(content);
 
+  // Reading time estimate: assuming 200 words per minute
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / 200);
+
   const page = template
     .replace('{{title}}', data.title ?? '')
     .replace('{{date}}', data.date ?? '')
+    .replace('{{minutes}}', minutes)
     .replace('{{content}}', html);
 
   const slug = data.slug || folder;

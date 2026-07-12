@@ -1,3 +1,7 @@
+---
+title: Setting up a Basic Home Lab
+date: 2026-04
+---
 
 # Setting up a basic home lab
 

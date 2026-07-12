@@ -1,3 +1,7 @@
+---
+title: Setting up a Pi-hole Part 2
+date: 2026-04
+---
 
 # Setting up a Pi-hole part 2
 
