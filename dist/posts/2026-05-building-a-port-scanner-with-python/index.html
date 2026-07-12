@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>about</title>
+    <title>posts</title>
     <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     
@@ -21,8 +21,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
 
-    <!-- Scripts -->
-    <script src='/js/theme.js'></script>
+    <!-- Scripts --> 
 </head>
 <body>
 
@@ -31,7 +30,7 @@
         <div class="nav-container">
 
             <div class="title">takibyte blog</div>
-            
+
             <div class="nav">
                 <div class="nav-option">
                     <a href="/" class="nav-link">Home</a>
@@ -42,43 +41,43 @@
                 </div>
 
                 <div class="nav-option">
-                    <a href="/posts/" class="nav-link">Posts</a>
+                    <a href="/posts/" class="nav-link active">Posts</a>
                 </div>
                 
                 <div class="nav-option">
-                    <a href="/about/" class="nav-link active">About</a>
+                    <a href="/about/" class="nav-link">About</a>
                 </div>
-
             </div>
+
         </div>
 
     </div>
 
-    <div class="about-content">
+    <div class="blog-content">
 
-        <img src="/assets/images/profile.webp" alt="profile" class="profile">
-        <br>
-        <div class="theme">
-            <span>Theme:</span>
-            <select id="theme-select">
-                <option value="nord">Nord</option>
-                <option value="nordlight">Nord Light</option>
-                <option value="tokyonight">Tokyo Night</option>
-                <option value="tokyonightlight">Tokyo Night Light</option>
-                <option value="mocha">Mocha</option>
-            </select>  
-        </div>
-
-        <div id="md-container">
-            <h1>About this Website</h1>
-
-            <p>Hello, i'm takibyte. This website is a simple blog-style website, which i created with the intention of documenting my progress while learning Cybersecurity, Networking, and related subjects.</p>
-            <p>I've included a projects page, which will hopefully continue to grow as i make progress and take on more projects.</p>
-            <p>You can read more about my path and plan in the post: <a class="post-link" href="../posts/2026-03-my-path-to-cybersecurity">My path to Cybersecurity</a></p>
+        <div id="post-container">
+            <ul id="post-list"></ul>
         </div>
         
-    </div>
-     
+        <span id="meta"></span>
 
+        <div id="md-container">
+            <h1>Building a port scanner with python</h1>
+<h2>What is a port scanner?</h2>
+<h2>Why build a port scanner?</h2>
+<h2>The core of my port scanner</h2>
+<h2>Making the first socket connection</h2>
+<h2>Scanning multiple ports</h2>
+<h2>From loops to threads</h2>
+<h2>Error handling</h2>
+<h2>Adding argparse</h2>
+<h2>Final thoughts</h2>
+
+        </div>
+
+        <span class="back">back to top &#8617</span>
+        
+    </div>
+    
 </body>
 </html>

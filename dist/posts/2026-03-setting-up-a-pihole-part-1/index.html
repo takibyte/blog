@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>posts</title>
+    <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <script>
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+    </script>
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+
+    <!-- Styles -->
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+
+    <!-- Scripts --> 
+</head>
+<body>
+
+    <div class="template">
+
+        <div class="nav-container">
+
+            <div class="title">takibyte blog</div>
+
+            <div class="nav">
+                <div class="nav-option">
+                    <a href="/" class="nav-link">Home</a>
+                </div>
+
+                <div class="nav-option">
+                    <a href="/projects/" class="nav-link">Projects</a>
+                </div>
+
+                <div class="nav-option">
+                    <a href="/posts/" class="nav-link active">Posts</a>
+                </div>
+                
+                <div class="nav-option">
+                    <a href="/about/" class="nav-link">About</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="blog-content">
+
+        <div id="post-container">
+            <ul id="post-list"></ul>
+        </div>
+        
+        <span id="meta"></span>
+
+        <div id="md-container">
+            <h1>Setting up a Pi-hole part 1</h1>
+<p>In this article i will walk through how i set up a Raspberry Pi (specifically a raspberry pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>
+<p>Why do this? It&#39;s just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the pi and some linux.</p>
+<p>So the basic steps so far are:</p>
+<ol>
+<li><p>Setup the raspberry pi with a basic clean install of Linux, I&#39;ll go with Raspberry Pi OS Lite.</p>
+</li>
+<li><p>Configure the raspberry pi with a remote ssh connection.</p>
+</li>
+<li><p>Install Pi-hole, and any other necessary software with a remote ssh bash terminal.</p>
+</li>
+<li><p>Configure the Pi-hole and learn how to use it to suite my situation.</p>
+</li>
+</ol>
+<h2>Setting up the Pi</h2>
+<p>Setting up the pi was really easy. The best and easiest way to set it up is to go to <a href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a>, get the raspberry pi imager software, install it, and use it to create an image of the OS of your choice on the micro sd card - which will then be slotted into the Pi&#39;s card reader.</p>
+<h3>Choose your pi hardware</h3>
+<p>This is pretty self explanatory, just choose what pi model you have.</p>
+<p><img src="./images/pi-imager1.webp" alt="pi imager"></p>
+<h3>Choose the OS</h3>
+<p>Next, i had to choose an operating system. It seems that with the pi you can use many linux distributions, as long as they are ARM based (because the pi has a CPU with ARM architecture). Apparently, the constraints of the pi&#39;s compute power should also be taken into consideration when choosing an OS. </p>
+<p>I decided to go with the Raspberry Pi OS Lite (64-bit) version, because it&#39;s recommended, supported, lightweight, headless (i want to get better with the CLI), and it&#39;s debian based (same as Kali and Ubuntu etc), so will feel a bit familiar moving between those distros while learning.</p>
+<p><img src="./images/pi-imager2.webp" alt="pi imager"></p>
+<h3>Select your micro sd card</h3>
+<p>Just select the micro sd card you have plugged in, the one you will be slotting into the pi after installing  the OS.</p>
+<p><img src="./images/pi-imager3.webp" alt="pi imager"></p>
+<h3>Choose the hostname</h3>
+<p>Choose the hostname of your raspberry pi. This i&#39;ll use to be able to connect from my laptop via ssh later. I just named it <em><strong>pi</strong></em> to keep it simple for documenting here, and because it&#39;s going to be the only pi on my local network. This can easily be changed later.</p>
+<p><img src="./images/pi-imager4.webp" alt="pi imager"></p>
+<h3>Choose username</h3>
+<p>This will be my main (or first) user account used to login to the pi. I&#39;ll also be needing this to ssh in later. Choose a username and password that makes sense for your situation.</p>
+<p><img src="./images/pi-imager5.webp" alt="pi imager"></p>
+<h3>Choose wi-fi</h3>
+<p>I think this is optional (like a few of these customisation settings), but it is convenient to already have the wifi configured in the installation process, because it&#39;ll allow me to not need any keyboard, monitor, or ethernet cable plugged in to be able to establish a connection to the pi&#39;s terminal initially.</p>
+<p><img src="./images/pi-imager6.webp" alt="pi imager"></p>
+<h3>SSH authentication</h3>
+<p>This part is crucial to my set up. Since i want to run the pi remotely and headless (without a monitor), i need to configure a way to establish a secure ssh connection. This imager software makes it really easy.</p>
+<p>After enabling ssh, i&#39;m given two authentication options: password or public key. I&#39;ve researched around previously on which is better, and the consensus online seems to be that using the public key method is the preferred method as it is more secure and can be more convenient too. </p>
+<p><img src="./images/pi-imager7.webp" alt="pi imager"></p>
+<p>To use this method you first need to generate a public and private key pair using the ssh-keygen command in the terminal. The resulting generated key pair will be saved by default in <code>~/.ssh</code> or the equivalent <code>/Users/user/.ssh</code>. There, two keys will be generated: a private key and a public key. The private key is to be stored on the client computer (my laptop, the machine i will be connecting to the pi/host from), the private key is the equivalent of the password or &#39;secret&#39; which will prove our authorization with the public key and authenticate. The public key is to be stored on the host machine (the pi or server to be accessed remotely). This public key (as the names denotes) isn&#39;t a secret or the password key, so it doesn&#39;t need to be kept safe like the private key does.
+The private key by default will look like this <code>id_ed25519</code> and the public key will look like this <code>id_ed25519.pub</code>.</p>
+<p>The command is as follows:</p>
+<blockquote>
+<p><code>ssh-keygen -t ed25519 -C &quot;lab-›pi+server&quot; -f ~/.ssh/id_lab_ed25519</code></p>
+</blockquote>
+<ul>
+<li>The option -t specifies the keygen type, ed25519 is considered the standard. </li>
+<li>-C sets a comment for the key files, allowing for identification of which key is which later.</li>
+<li>-f specifies the output file name and location.</li>
+</ul>
+<p>All of these settings are optional and you can simply use:</p>
+<blockquote>
+<p><code>ssh-keygen</code></p>
+</blockquote>
+<p>which will set the default for everything. In my case, i wanted to create a ssh key pair with a non-default name to differentiate it from a key pair i had already created for a different server. </p>
+<p>You can also set a passphase for authenticating with the key pair for an added layer of security. My output can be seen below.</p>
+<p><img src="./images/terminal1.webp" alt="terminal 1"></p>
+<h3>Raspberry pi connect</h3>
+<p>This is an entirely optional but useful way to connect to your pi remotely in your browser with screen sharing or with just a remote shell. Pi connect uses WebRTC to setup a secure connection peer to peer.</p>
+<h3>Finalize and write the image</h3>
+<p>Check that all of the configurations we just made are what we want, and confirm the write details.</p>
+<p><img src="./images/pi-imager8.webp" alt="pi imager"></p>
+<p>Continue on and write the image...</p>
+<p><img src="./images/pi-imager9.webp" alt="pi imager"></p>
+<p>And we&#39;re finished setting up the pi. Now just eject the micro sd and slot it into the card reader in the pi, and power it on. From here we just need to establish the ssh connection to access the cli of the pi, and then we can start with installing the Pi-hole.</p>
+<p><img src="./images/pi-imager10.webp" alt="pi imager"></p>
+<h3>Connecting to the pi</h3>
+<p>Now that the pi is powered on, i want to connect via ssh.</p>
+<blockquote>
+<p><code>ssh user@pi.local</code></p>
+</blockquote>
+<p>This should ordinarily work, but i ran into an issue unfortunately (permission denied):</p>
+<p><img src="./images/terminal2.webp" alt="terminal 2"></p>
+<p>After some investigating, and by running the command:</p>
+<blockquote>
+<p><code>ssh -v user@pi.local</code></p>
+</blockquote>
+<p>I can see that OpenSSH is trying all of the default public and private keys in the default locations, but eventually says &quot;No more authentication methods to try&quot;.</p>
+<p><img src="./images/terminal3.webp" alt="terminal 3"></p>
+<p>I looked into it a bit and it seems that because i chose a custom key name earlier: <code>id_lab_ed25519</code>, OpenSSH doesn&#39;t look for that to authenticate by default. I troubleshot this by trying to connect by explicitly defining the private key i wanted to use to connect. The command to do this is:</p>
+<blockquote>
+<p><code>ssh -i ~/.ssh/id_lab_ed25519 user@pi.local</code></p>
+</blockquote>
+<p>After running the command and entering the passphrase, i successfully connected to the pi via ssh.</p>
+<p><img src="./images/terminal4.webp" alt="terminal 4"></p>
+<p>To optimize this a bit, i found a way to ssh into the pi without having to be explicit each time. I added/edited the config file at <code>~/.ssh/config</code> to include a shortcut command:</p>
+<blockquote>
+<pre><code>Host pi
+   HostName pi.local
+   User user
+   IdentityFile ~/.ssh/id_lab_ed25519
+   IdentitiesOnly yes
+</code></pre>
+</blockquote>
+<p>With this now, to connect to the pi, all a have to do is type: <code>ssh pi</code>, and the <code>pi</code> command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍</p>
+
+        </div>
+
+        <span class="back">back to top &#8617</span>
+        
+    </div>
+    
+</body>
+</html>
