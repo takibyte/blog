@@ -7,9 +7,10 @@ const rootDir = '.';
 const postsDir = './posts';
 const outDir = './dist';
 const template = fs.readFileSync('./templates/post.html', 'utf-8');
+const postsIndexTemplate = fs.readFileSync(path.join(postsDir, 'index.html'), 'utf-8');
 
 // Top-level files/folders that should be copied into dist as-is (no processing)
-const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'projects', 'manifest.json'];
+const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'projects'];
 
 // --- helpers ---
 
@@ -41,23 +42,21 @@ for (const entry of staticEntries) {
   }
 }
 
-// copy the posts index/table-of-contents page
-copyRecursive(path.join(postsDir, 'index.html'), path.join(outDir, 'posts', 'index.html'));
+// --- 3. build posts, collecting metadata for the index page as we go ---
 
-// --- 3. build posts ---
+const postsList = [];
 
 for (const folder of fs.readdirSync(postsDir)) {
   if (folder === '.DS_Store') continue;
 
   const postFolder = path.join(postsDir, folder);
   const postPath = path.join(postFolder, 'index.md');
-  if (!fs.existsSync(postPath)) continue; // skip anything without an index.md
+  if (!fs.existsSync(postPath)) continue; // skip index.html and anything without an index.md
 
   const raw = fs.readFileSync(postPath, 'utf-8');
   const { data, content } = matter(raw);
   const html = marked.parse(content);
 
-  // Reading time estimate: assuming 200 words per minute
   const words = content.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / 200);
 
@@ -72,11 +71,24 @@ for (const folder of fs.readdirSync(postsDir)) {
   fs.mkdirSync(postOutDir, { recursive: true });
   fs.writeFileSync(path.join(postOutDir, 'index.html'), page);
 
-  // copy everything else in the post folder (images/, etc.) alongside the generated page
   for (const entry of fs.readdirSync(postFolder)) {
     if (entry === 'index.md' || entry === '.DS_Store') continue;
     copyRecursive(path.join(postFolder, entry), path.join(postOutDir, entry));
   }
+
+  postsList.push({ title: data.title ?? slug, date: data.date ?? '', slug });
 }
+
+// --- 4. build posts/index.html with the generated list, newest first ---
+
+postsList.sort((a, b) => b.date.localeCompare(a.date));
+
+const postListHtml = postsList
+  .map(p => `<li><a href="/posts/${p.slug}/">${p.title}</a> <span class="post-date">${p.date}</span></li>`)
+  .join('\n');
+
+const postsIndexPage = postsIndexTemplate.replace('{{postList}}', postListHtml);
+fs.mkdirSync(path.join(outDir, 'posts'), { recursive: true });
+fs.writeFileSync(path.join(outDir, 'posts', 'index.html'), postsIndexPage);
 
 console.log('Build complete → ./dist');
