@@ -1,9 +1,9 @@
 ---
-title: Building a Port Scanner with Python
+title: Building a port scanner with Python
 date: 2026-05
 ---
 
-# Building a port scanner with python
+# Building a port scanner with Python
 
 ## What is a port scanner?
 

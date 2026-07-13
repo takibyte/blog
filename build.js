@@ -63,6 +63,7 @@ for (const folder of fs.readdirSync(postsDir)) {
   const page = template
     .replace('{{title}}', data.title ?? '')
     .replace('{{date}}', data.date ?? '')
+    .replace('{{description}}', data.description ?? '')
     .replace('{{minutes}}', minutes)
     .replace('{{content}}', html);
 
@@ -84,7 +85,7 @@ for (const folder of fs.readdirSync(postsDir)) {
 postsList.sort((a, b) => b.date.localeCompare(a.date));
 
 const postListHtml = postsList
-  .map(p => `<li><a href="/posts/${p.slug}/">${p.title}</a> <span class="post-date">${p.date}</span></li>`)
+  .map(p => `<li><a href="/posts/${p.slug}/">${p.title}</a> · <span class="post-date">${p.date}</span></li>`)
   .join('\n');
 
 const postsIndexPage = postsIndexTemplate.replace('{{postList}}', postListHtml);

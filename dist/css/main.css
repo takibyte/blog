@@ -168,9 +168,9 @@ ul {
 }
 
 .profile{
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
+  width: 400px;
+  height: 200px;
+  border-radius: 10px;
   object-fit: cover;
   object-position: center;
 
@@ -386,7 +386,7 @@ ul {
 #meta {
   grid-area: meta;
   box-sizing: border-box;
-  padding: 60px 20px 0px 20px;
+  padding: 20px 20px 0px 20px;
   color: var(--accent3);
   font-style: italic;
   box-sizing: border-box;
@@ -397,7 +397,7 @@ ul {
   line-height: 30px;
   min-width: 0;
   box-sizing: border-box;
-  padding: 0px 20px;
+  padding: 0px 20px 80px 20px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -459,14 +459,14 @@ a:hover {
   }
 
   #md-container {
-    padding: 10px 0px 50px 0px;
+    padding: 10px 0px 200px 0px;
     max-width: 750px;
     min-width: 600px;
     margin: 0 auto;  
   }
 
   #meta {
-    padding: 60px 0px 0px 0px;
+    padding: 50px 0px 0px 0px;
   }
 
 

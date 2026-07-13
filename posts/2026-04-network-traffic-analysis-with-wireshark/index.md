@@ -1,9 +1,9 @@
 ---
-title: Network Traffic Analysis with Wireshark
+title: Network traffic analysis with Wireshark
 date: 2026-04
 ---
 
-# Network Traffic Analysis with Wireshark
+# Network traffic analysis with Wireshark
 
 ## Introduction
 
