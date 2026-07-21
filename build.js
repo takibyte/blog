@@ -67,7 +67,14 @@ for (const folder of fs.readdirSync(postsDir)) {
     .replace('{{minutes}}', minutes)
     .replace('{{content}}', html);
 
-  const slug = data.slug || folder;
+
+  // --- Generate slug from title if not provided ---
+  function slugify(str) {
+    return str.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+  }
+
+  const slug = data.slug || slugify(data.title ?? folder);
+
   const postOutDir = path.join(outDir, 'posts', slug);
   fs.mkdirSync(postOutDir, { recursive: true });
   fs.writeFileSync(path.join(postOutDir, 'index.html'), page);
@@ -85,7 +92,7 @@ for (const folder of fs.readdirSync(postsDir)) {
 postsList.sort((a, b) => b.date.localeCompare(a.date));
 
 const postListHtml = postsList
-  .map(p => `<li><a href="/posts/${p.slug}/">${p.title}</a> · <span class="post-date">${p.date}</span></li>`)
+  .map(p => `<li><a href="/posts/${p.slug}/">${p.title}</a></li>`)
   .join('\n');
 
 const postsIndexPage = postsIndexTemplate.replace('{{postList}}', postListHtml);

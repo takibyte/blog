@@ -1,5 +1,6 @@
 ---
 title: My path to cybersecurity
+slug: my-path-to-cybersecurity
 date: 2026-03
 ---
 
