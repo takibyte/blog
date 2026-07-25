@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>port-scanner — takibyte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a class="active" href="/projects/">Projects</a>
+    <a href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a class="active" href="/projects/">Projects</a>
+  <a href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="breadcrumb top-spaced">
+    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span>port-scanner
+  </div>
+
+  <section class="project-hero">
+    <div class="project-icon lg icon-cyan">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/></svg>
+    </div>
+    <div>
+      <div class="badge-group">
+        <span class="badge type-series">Series</span>
+        <span class="badge status-active">Active</span>
+      </div>
+      <h1>Network Traffic Analysis with Wireshark</h1>
+      <p class="desc">Description</p>
+
+      <div class="project-tags">
+        <span class="project-tag">Wireshark</span>
+<span class="project-tag">pcap</span>
+<span class="project-tag">Homelab</span>
+      </div>
+
+      
+    <div class="progress-track in-hero"><div class="progress-fill" style="width:50%;"></div></div>
+    <div class="section-note no-margin">1 of an estimated 2 posts</div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">// why this series</div>
+    <article class="bio tight">
+      <p>Body</p>
+
+    </article>
+
+    <!-- <div class="code-block">
+      <div class="code-block-head">
+        <span>usage</span>
+        <div class="code-block-dots"><span></span><span></span><span></span></div>
+      </div>
+      <pre><span class="c"># scan the 1000 most common ports</span>
+python pyportscan.py <span class="s">192.168.1.10</span> --top-ports 1000
+
+<span class="c"># scan a specific range with 100 concurrent workers</span>
+python pyportscan.py <span class="s">192.168.1.10</span> --ports <span class="s">1-1024</span> --threads 100</pre>
+    </div> -->
+  </section>
+
+  
+
+  
+    <section class="section" id="read-the-devlog">
+      <div class="eyebrow mono">// posts in this series</div>
+      
+      <div class="series-list">
+    <a class="series-item" href="/posts/network-traffic-analysis-with-wireshark/">
+      <span class="series-num mono">01</span>
+      <div>
+        <div class="series-title">Network traffic analysis with Wireshark</div>
+        <div class="series-excerpt">Some practical hands on experimentation — capturing network traffic data, and analysing it with Wireshark.</div>
+      </div>
+      <div class="series-meta">20 July<br>2026</div>
+    </a></div>
+    </section>
+
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

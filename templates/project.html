@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Projects — takibyte</title>
+<title>port-scanner — takibyte</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,25 +30,56 @@
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
-<main>
-  <div class="page-intro">
-    <div class="kicker">// ongoing series &amp; tools</div>
-    <h1>Projects</h1>
-    <p>Some of these are tools I've built and open-sourced. Others are related posts grouped by topic — some finished, and some still being added as i progress.</p>
+<div class="wrap">
+  <div class="breadcrumb top-spaced">
+    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span>port-scanner
   </div>
 
-  <div class="status-filter">
-    <span class="tag-filter active">All</span>
-    <span class="tag-filter">Active</span>
-    <span class="tag-filter">Complete</span>
-  </div>
+  <section class="project-hero">
+    <div class="project-icon lg icon-{{iconColor}}">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{{iconSvg}}</svg>
+    </div>
+    <div>
+      <div class="badge-group">
+        <span class="badge {{typeBadgeClass}}">{{typeBadge}}</span>
+        <span class="badge {{statusClass}}">{{statusLabel}}</span>
+      </div>
+      <h1>{{title}}</h1>
+      <p class="desc">{{description}}</p>
 
-  <div class="project-grid">
+      <div class="project-tags">
+        {{tags}}
+      </div>
 
-    {{projectList}}
+      {{heroExtra}}
 
-  </div>
-</main>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">{{whatItDoesHeading}}</div>
+    <article class="bio tight">
+      {{body}}
+    </article>
+
+    <!-- <div class="code-block">
+      <div class="code-block-head">
+        <span>usage</span>
+        <div class="code-block-dots"><span></span><span></span><span></span></div>
+      </div>
+      <pre><span class="c"># scan the 1000 most common ports</span>
+python pyportscan.py <span class="s">192.168.1.10</span> --top-ports 1000
+
+<span class="c"># scan a specific range with 100 concurrent workers</span>
+python pyportscan.py <span class="s">192.168.1.10</span> --ports <span class="s">1-1024</span> --threads 100</pre>
+    </div> -->
+  </section>
+
+  {{roadmapSection}}
+
+  {{linkedPostsSection}}
+
+</div>
 
 <footer>
   <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>

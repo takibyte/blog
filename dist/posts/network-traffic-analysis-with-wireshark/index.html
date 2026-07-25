@@ -1,75 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <title>Network traffic analysis with Wireshark</title>
-    <meta name="description" content="">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>Network traffic analysis with Wireshark</title>
+<meta name="description" content="Some practical hands on experimentation — capturing network traffic data, and analysing it with Wireshark.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
-
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link active">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
-            </div>
-
-        </div>
-
+<div class="wrap">
+  <div class="post-header">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/posts/">Posts</a><span class="sep">/</span>Network traffic analysis with Wireshark
     </div>
+    <div class="post-cat cat-homelab mono">// HOMELAB</div>
+    <h1 class="headline">Network traffic analysis with Wireshark</h1>
+    <p class="dek">Some practical hands on experimentation — capturing network traffic data, and analysing it with Wireshark.</p>
 
-    <div class="blog-content">
-        
-        <span id="meta">
-            2026-04 · ⏱ 1 min read
-        </span>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">20 July 2026 · TB-2026-0006</div>
+      </div>
+      <div class="stats">
+        <span>1 min read</span>
+      </div>
+    </div>
+  </div>
 
-        <div id="md-container">
-            <h1>Network traffic analysis with Wireshark</h1>
-<h2>Introduction</h2>
+  <img class="post-media" src="./images/cover.png" alt="">
+
+  <article class="body">
+    <h2>Introduction</h2>
 <h2>Wireshark overview</h2>
 <h2>Packet capture</h2>
 <h2>Analyzing the captured packets</h2>
 <h2>Conclusion</h2>
 
-        </div>
+  </article>
 
-        <span class="back">back to top &#8617</span>
-        
-    </div>
+
+  <div class="tags">
     
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what i learn.</p>
+      </div>
+    </div>
+  </a>
+
+  <div class="post-nav">
+    <a href="/posts/building-a-port-scanner-with-python/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Building a port scanner with Python</div>
+    </a>
+    <div></div>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
 </body>
 </html>

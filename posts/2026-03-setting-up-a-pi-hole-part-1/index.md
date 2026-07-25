@@ -1,13 +1,16 @@
 ---
 title: Setting up a Pi-hole Part 1
-date: 2026-03
+dek: A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.
+author: takibyte
+date: 2026-03-26
+category: homelab
+tags: [Homelab, Raspberry Pi, OS]
+cover: cover.png
 ---
 
-# Setting up a Pi-hole part 1
+In this post i will walk-through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.
 
-In this article i will walk through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.
-
-Why do this? It's just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.
+First of all, why do this? It's just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.
 
 So the basic steps so far are:
 
@@ -76,19 +79,23 @@ The private key by default will look like this `id_ed25519` and the public key w
 
 The command is as follows:
 
-> `ssh-keygen -t ed25519 -C "lab-›pi+server" -f ~/.ssh/id_lab_ed25519`
+```shell
+ssh-keygen -t ed25519 -C "lab-›pi+server" -f ~/.ssh/id_lab_ed25519
+```
 
 - The option -t specifies the keygen type, ed25519 is considered the standard. 
 - -C sets a comment for the key files, allowing for identification of which key is which later.
 - -f specifies the output file name and location.
 
-All of these settings are optional and you can simply use:
-
-> `ssh-keygen`
+All of these settings are optional and you can simply use: `ssh-keygen`
 
 which will set the default for everything. In my case, i wanted to create a ssh key pair with a non-default name to differentiate it from a key pair i had already created for a different server. 
 
-You can also set a passphase for authenticating with the key pair for an added layer of security. My output can be seen below.
+::: note
+You can also set a passphase for authenticating with the key pair for an added layer of security. 
+:::
+
+My output can be seen below.
 
 ![terminal 1](./images/terminal1.webp)
 
@@ -114,7 +121,9 @@ And we're finished setting up the Pi. Now just eject the microSD and slot it int
 
 Now that the Pi is powered on, I want to connect via ssh.
 
-> `ssh user@pi.local`
+```shell
+ssh user@pi.local
+```
 
 This should ordinarily work, but i ran into an issue unfortunately (permission denied):
 
@@ -122,7 +131,9 @@ This should ordinarily work, but i ran into an issue unfortunately (permission d
 
 After some investigating, and by running the command:
 
-> `ssh -v user@pi.local`
+```shell
+ssh -v user@pi.local
+```
 
 I can see that OpenSSH is trying all of the default public and private keys in the default locations, but eventually says "No more authentication methods to try".
 
@@ -130,7 +141,9 @@ I can see that OpenSSH is trying all of the default public and private keys in t
 
 I looked into it a bit and it seems that because i chose a custom key name earlier: `id_lab_ed25519`, OpenSSH doesn't look for that to authenticate by default. I troubleshot this by trying to connect by explicitly defining the private key i wanted to use to connect. The command to do this is:
 
-> `ssh -i ~/.ssh/id_lab_ed25519 user@pi.local`
+```shell
+ssh -i ~/.ssh/id_lab_ed25519 user@pi.local
+```
 
 After running the command and entering the passphrase, i successfully connected to the Pi via ssh.
 
@@ -138,12 +151,12 @@ After running the command and entering the passphrase, i successfully connected 
 
 To optimize this a bit, i found a way to ssh into the pi without having to be explicit each time. I added / edited the config file at `~/.ssh/config` to include a shortcut command:
 
->```
->Host pi
->    HostName pi.local
->    User user
->    IdentityFile ~/.ssh/id_lab_ed25519
->    IdentitiesOnly yes
->```
+```txt title=config
+Host pi
+    HostName pi.local
+    User user
+    IdentityFile ~/.ssh/id_lab_ed25519
+    IdentitiesOnly yes
+```
 
 With this now, to connect to the Pi, all a have to do is type: `ssh pi`, and the `pi` command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍

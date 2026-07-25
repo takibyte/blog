@@ -1,65 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <title>Posts | takibyte blog</title>
-    <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>Posts — takibyte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
+<main>
+  <div class="page-intro">
+    <div class="kicker">// all posts</div>
+    <h1>Posts</h1>
+    <p>Every write-up, in order. Filter by topic or search directly if you know what you're after.</p>
+  </div>
 
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link active">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
-            </div>
-
-        </div>
-
+  <div class="controls">
+    <div class="search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="grep posts...">
     </div>
-
-    <div class="blog-content">
-
-        <div id="post-container">
-            <ul id="post-list">
-                {{postList}}
-            </ul>
-        </div>
-        
+    <div class="tags-filter">
+      <span class="tag-filter active" data-filter="all">All</span>
+      <span class="tag-filter" data-filter="HOMELAB">Homelab</span>
+      <span class="tag-filter" data-filter="CTF WRITEUPS">CTF Writeups</span>
+      <span class="tag-filter" data-filter="TOOLS">Tools</span>
+      <span class="tag-filter" data-filter="NOTES">Notes</span>
     </div>
-    
+  </div>
+
+  <div class="result-count">Showing {{postCount}} of {{postCount}} posts</div>
+
+  <section class="post-list">
+
+  {{postList}}
+
+  </section>
+
+  <!-- <div class="load-more">
+    <button>Load more posts</button>
+  </div> -->
+</main>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Filter and search functionality
+  const searchInput = document.querySelector('.search input');
+  const tagFilters = document.querySelectorAll('.tag-filter');
+  const posts = document.querySelectorAll('.post-row');
+  const resultCount = document.querySelector('.result-count');
+
+  let activeTag = 'all';
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    posts.forEach(post => {
+      const title = post.dataset.title || '';
+      const dek = post.dataset.dek || '';
+      const tags = post.dataset.tags || '';
+      const category = post.dataset.category || '';
+
+      const matchesSearch = !query || title.includes(query) || dek.includes(query) || tags.includes(query);
+      const matchesTag = activeTag === 'all' || category === activeTag;
+
+      const visible = matchesSearch && matchesTag;
+      post.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    resultCount.textContent = `Showing ${visibleCount} of ${posts.length} posts`;
+    updateFirstVisibleBorder();
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  tagFilters.forEach(tag => {
+    tag.addEventListener('click', () => {
+      tagFilters.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      activeTag = tag.dataset.filter;
+      applyFilters();
+    });
+  });
+
+
+  function updateFirstVisibleBorder() {
+    posts.forEach(p => p.classList.remove('first-visible'));
+    const firstVisible = Array.from(posts).find(p => p.style.display !== 'none');
+    if (firstVisible) firstVisible.classList.add('first-visible');
+  }
+
+  applyFilters(); // sets accurate count, and also enforces default filter state on load
+
+</script>
+
 </body>
 </html>

@@ -1,9 +1,12 @@
 ---
-title: Setting up a Pi-hole part 2
-date: 2026-04
+title: Setting up a Pi-hole Part 2
+dek: A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.
+author: takibyte
+date: 2026-04-02
+category: homelab
+tags: [Homelab, Raspberry Pi, OS]
+cover: cover.png
 ---
-
-# Setting up a Pi-hole part 2
 
 Now that i've set up my Raspberry Pi with its new OS, it's time to go ahead and actually set up the Pi-hole.
 
@@ -13,7 +16,9 @@ Going to <https://pi-hole.net/>, presents us with a very straight forward set of
 
 Navigating to their GitHub repo installation guide presents us with several options, the simplest of which is using their automated command line installer using a curl command, naturally i'll choose this option and use the following command:
 
-`curl -sSL https://install.pi-hole.net | bash`
+```shell
+curl -sSL https://install.pi-hole.net | bash
+```
 
 ### The Setup
 
@@ -67,13 +72,13 @@ Back to the installer now, it asks us to select a network interface. I selected 
 
 ![pi installer](./images/installer5.webp)
 
-Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn't know much about them at the time, more info can be found in pi-holes documentation [here](https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream). I decided to go with Cloudflare's 1.1.1.1 DNS as my upstream DNS provider, because it is said to be fast and good for privacy. 
+Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn't know much about them at the time, more info can be found in pi-holes documentation [here](https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream). I decided to go with Cloudflare's `1.1.1.1` DNS as my upstream DNS provider, because it is said to be fast and good for privacy. 
 
 Briefly, this is my understanding as to what upstream DNS providers are for. Ordinarily as a *client* computer, when connecting to a website hosted on a web *server* on the internet - we as humans who recognise words much better than numbers - would use a web address consisting of a domain name, and other aspects of the address (***example***.com). However, my client computer needs the actual IP address of the host to be able to connect, not the domain name. 
 
 A DNS is used to resolve a domain name with its corresponding public IP address, eg. example.com becomes `x.x.x.x`. An upstream DNS is required, because they are large providers which have access to all of the records linking the domain names to their respective IP addresses. My router by default has its DNS server set to automatic, which is just deferring to whichever upstream DNS provider is set by the upstream network: the ISP (internet service provider) in most cases, or a VPN if one is enabled.
 
-The Pi-hole acts as an *intermediary DNS*. When a client connecting through it makes a request to a website (web server host), the Pi-hole DNS first filters the domain name request against a block list, whatever is blocked returns null. The filtered request then passes on to the upstream DNS that has been configured, (cloudflare 1.1.1.1, or google 8.8.8.8 for example). The upstream DNS resolves the domain name with its corresponding IP address, sending the response back to the Pi-hole. The Pi-hole then finally provides the response back to the original client. The original client computer now has the web server's actual IP address (or not if it was blocked). The client can now initiate the TCP/IP connection with the web server.
+The Pi-hole acts as an *intermediary DNS*. When a client connecting through it makes a request to a website (web server host), the Pi-hole DNS first filters the domain name request against a block list, whatever is blocked returns null. The filtered request then passes on to the upstream DNS that has been configured, (cloudflare `1.1.1.1`, or google `8.8.8.8` for example). The upstream DNS resolves the domain name with its corresponding IP address, sending the response back to the Pi-hole. The Pi-hole then finally provides the response back to the original client. The original client computer now has the web server's actual IP address (or not if it was blocked). The client can now initiate the TCP/IP connection with the web server.
 
 
 ### Blocklists

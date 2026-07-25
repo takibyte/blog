@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <title>Setting up a Pi-hole part 2</title>
-    <meta name="description" content="">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>Setting up a Pi-hole Part 2</title>
+<meta name="description" content="A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
-
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link active">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
-            </div>
-
-        </div>
-
+<div class="wrap">
+  <div class="post-header">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/posts/">Posts</a><span class="sep">/</span>Setting up a Pi-hole Part 2
     </div>
+    <div class="post-cat cat-homelab mono">// HOMELAB</div>
+    <h1 class="headline">Setting up a Pi-hole Part 2</h1>
+    <p class="dek">A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
 
-    <div class="blog-content">
-        
-        <span id="meta">
-            2026-04 · ⏱ 14 min read
-        </span>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">2 April 2026 · TB-2026-0004</div>
+      </div>
+      <div class="stats">
+        <span>14 min read</span>
+      </div>
+    </div>
+  </div>
 
-        <div id="md-container">
-            <h1>Setting up a Pi-hole part 2</h1>
-<p>Now that i&#39;ve set up my Raspberry Pi with its new OS, it&#39;s time to go ahead and actually set up the Pi-hole.</p>
+  <img class="post-media" src="./images/cover.png" alt="">
+
+  <article class="body">
+    <p>Now that i&#39;ve set up my Raspberry Pi with its new OS, it&#39;s time to go ahead and actually set up the Pi-hole.</p>
 <h2>Installing Pi-hole on the Pi</h2>
 <p>Going to <a href="https://pi-hole.net/">https://pi-hole.net/</a>, presents us with a very straight forward set of steps to install Pi-hole. Since we&#39;ve already installed a compatible OS we can head to step 2, install the actual software, found <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install">here</a>.</p>
 <p>Navigating to their GitHub repo installation guide presents us with several options, the simplest of which is using their automated command line installer using a curl command, naturally i&#39;ll choose this option and use the following command:</p>
-<p><code>curl -sSL https://install.pi-hole.net | bash</code></p>
-<h3>The Setup</h3>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>shell</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>curl -sSL https://install.pi-hole.net | bash</pre>
+</div><h3>The Setup</h3>
 <p><img src="./images/installer1.webp" alt="pi installer"></p>
 <p>The installer begins to run..</p>
 <p><img src="./images/installer2.webp" alt="pi installer"></p>
@@ -87,10 +89,10 @@
 <p>Back to the installer now, it asks us to select a network interface. I selected eth0 (the ethernet connection), as it&#39;s already connected and will be reliably available, and fast.</p>
 <h3>Upstream DNS provider</h3>
 <p><img src="./images/installer5.webp" alt="pi installer"></p>
-<p>Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn&#39;t know much about them at the time, more info can be found in pi-holes documentation <a href="https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream">here</a>. I decided to go with Cloudflare&#39;s 1.1.1.1 DNS as my upstream DNS provider, because it is said to be fast and good for privacy. </p>
+<p>Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn&#39;t know much about them at the time, more info can be found in pi-holes documentation <a href="https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream">here</a>. I decided to go with Cloudflare&#39;s <code>1.1.1.1</code> DNS as my upstream DNS provider, because it is said to be fast and good for privacy. </p>
 <p>Briefly, this is my understanding as to what upstream DNS providers are for. Ordinarily as a <em>client</em> computer, when connecting to a website hosted on a web <em>server</em> on the internet - we as humans who recognise words much better than numbers - would use a web address consisting of a domain name, and other aspects of the address (<em><strong>example</strong></em>.com). However, my client computer needs the actual IP address of the host to be able to connect, not the domain name. </p>
 <p>A DNS is used to resolve a domain name with its corresponding public IP address, eg. example.com becomes <code>x.x.x.x</code>. An upstream DNS is required, because they are large providers which have access to all of the records linking the domain names to their respective IP addresses. My router by default has its DNS server set to automatic, which is just deferring to whichever upstream DNS provider is set by the upstream network: the ISP (internet service provider) in most cases, or a VPN if one is enabled.</p>
-<p>The Pi-hole acts as an <em>intermediary DNS</em>. When a client connecting through it makes a request to a website (web server host), the Pi-hole DNS first filters the domain name request against a block list, whatever is blocked returns null. The filtered request then passes on to the upstream DNS that has been configured, (cloudflare 1.1.1.1, or google 8.8.8.8 for example). The upstream DNS resolves the domain name with its corresponding IP address, sending the response back to the Pi-hole. The Pi-hole then finally provides the response back to the original client. The original client computer now has the web server&#39;s actual IP address (or not if it was blocked). The client can now initiate the TCP/IP connection with the web server.</p>
+<p>The Pi-hole acts as an <em>intermediary DNS</em>. When a client connecting through it makes a request to a website (web server host), the Pi-hole DNS first filters the domain name request against a block list, whatever is blocked returns null. The filtered request then passes on to the upstream DNS that has been configured, (cloudflare <code>1.1.1.1</code>, or google <code>8.8.8.8</code> for example). The upstream DNS resolves the domain name with its corresponding IP address, sending the response back to the Pi-hole. The Pi-hole then finally provides the response back to the original client. The original client computer now has the web server&#39;s actual IP address (or not if it was blocked). The client can now initiate the TCP/IP connection with the web server.</p>
 <h3>Blocklists</h3>
 <p><img src="./images/installer6.webp" alt="pi installer"></p>
 <p>The set up now asks if we want to include the default blocklist, i just went with yes, as the default list is apparently good and well maintained, there are plenty of other blocklists that appear to be good and recommended online too. As the set up says, you can add and remove lists easily later. </p>
@@ -162,11 +164,51 @@ Additionally, we can see that all of the client IP addresses are listed as <code
 <p>To get to this setting is as follows: Settings -&gt; Wi-Fi (or other connected network interface) -&gt; Details -&gt; DNS. Then it&#39;s just a matter of changing the DNS IP address to that of the Pi <code>192.168.8.100</code>. And done, this will now make it so this device directly sends its DNS requests to the Pi instead of the router.</p>
 <p>And there we have it. There are many other options and cool features/settings for the Pi-hole to play around with, but for now i&#39;ll leave it there. This was definitely useful to me for getting some hands on experience with configuring DNS and DHCP settings, and for learning about upstream DNS providers and so on. Thanks for reading!</p>
 
-        </div>
+  </article>
 
-        <span class="back">back to top &#8617</span>
-        
+
+  <div class="tags">
+    <span class="tag">Homelab</span>
+    <span class="tag">Raspberry Pi</span>
+    <span class="tag">OS</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what i learn.</p>
+      </div>
     </div>
-    
+  </a>
+
+  <div class="post-nav">
+    <a href="/posts/setting-up-a-pi-hole-part-1/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Setting up a Pi-hole Part 1</div>
+    </a>
+    <a class="next" href="/posts/building-a-port-scanner-with-python/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Building a port scanner with Python</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
 </body>
 </html>

@@ -1,84 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <title>About | takibyte blog</title>
-    <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
-
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
-
-    <!-- Scripts -->
-    <script src='/js/theme.js'></script>
+<meta charset="UTF-8">
+<title>About — takibyte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/posts/">Posts</a>
+    <a class="active" href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a href="/posts/">Posts</a>
+  <a class="active" href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
-            
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link active">About</a>
-                </div>
-
-            </div>
-        </div>
-
+<div class="wrap">
+  <section class="about-hero">
+    <div class="avatar"></div>
+    <div>
+      <div class="kicker">// whoami</div>
+      <h1>takibyte</h1>
+      <p>Learning cybersecurity in public — homelab experiments, CTF writeups, and the tools I built while learning.</p>
     </div>
+  </section>
 
-    <div class="about-content">
-
-        <img src="/assets/images/profile.webp" alt="profile" class="profile">
-        <br>
-        <div class="theme">
-            <span>Theme:</span>
-            <select id="theme-select">
-                <option value="nord">Nord</option>
-                <option value="nordlight">Nord Light</option>
-                <option value="tokyonight">Tokyo Night</option>
-                <option value="tokyonightlight">Tokyo Night Light</option>
-                <option value="mocha">Mocha</option>
-            </select>  
-        </div>
-
-        <div id="md-container">
-            <h1>About this blog</h1>
-
-            <p>Hello, i'm takibyte. This website is a simple blog website, which i created with the intention of documenting my progress while learning cybersecurity, networking, and related subjects.</p>
-            <p>I've included a projects page, which will hopefully continue to grow as i make progress and take on more projects.</p>
-            <p>You can read more about my path and plan in the post: <a class="post-link" href="../posts/my-path-to-cybersecurity">My path to cybersecurity</a></p>
-        </div>
-        
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="num">{{postCount}}</div>
+      <div class="label mono">POSTS</div>
     </div>
-     
+    <div class="stat">
+      <div class="num">{{projectCount}}</div>
+      <div class="label mono">PROJECTS</div>
+    </div>
+    <div class="stat">
+      <div class="num">2026</div>
+      <div class="label mono">SINCE</div>
+    </div>
+    <div class="stat">
+      <div class="num">100+</div>
+      <div class="label mono">THM ROOMS</div>
+    </div>
+  </div>
+
+  <article class="bio">
+    <p>I started takibyte as a place to document my path into cybersecurity, most of this is for my own learning and reference. If it's useful to someone else going through similar certs, CTF rooms, and homelab experiments, that's a bonus, and would make me happy.</p>
+
+    <p>Most of the posts and projects that end up here start as a TryHackMe room, a homelab experiment, or a concept from studying that i thought might be useful to write about.</p>
+
+    <p>If you want to see more or get in touch, you can find me at my links below.</p>
+  </article>
+
+  <section class="section">
+    <div class="eyebrow mono">// certifications</div>
+    <div class="tags-filter">
+      <span class="chip"><span class="dot"></span>CompTIA Security+</span>
+      <span class="chip"><span class="dot"></span>CompTIA Network+</span>
+      <span class="chip"><span class="dot"></span>THM Cyber Security 101 Path</span>
+      <span class="chip"><span class="dot"></span>THM Pre Security Path</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">// studying</div>
+    <div class="tags-filter">
+      <span class="chip"><span class="dot" style="background:var(--amber);"></span>THM SOC Level 1 Path</span>
+      <span class="chip"><span class="dot" style="background:var(--amber);"></span>THM Jr Penetration Tester Path</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">// current stack</div>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="cat">Editor</div>
+        <div class="val">VS Code, Learning Vim</div>
+      </div>
+      <div class="stack-item">
+        <div class="cat">Capture</div>
+        <div class="val">Wireshark / tshark, tcpdump</div>
+      </div>
+      <div class="stack-item">
+        <div class="cat">CTF</div>
+        <div class="val">TryHackMe</div>
+      </div>
+      <div class="stack-item">
+        <div class="cat">Scripting</div>
+        <div class="val">Python, JS, Bash</div>
+      </div>
+      <div class="stack-item">
+        <div class="cat">Homelab</div>
+        <div class="val">MacOS, Linux & Win VMs, Router, Managed Switch</div>
+      </div>
+      <div class="stack-item">
+        <div class="cat">This site</div>
+        <div class="val">Static, build script, md, html, css, js</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">// find me elsewhere</div>
+    <div class="connect-list">
+      <a class="connect-row" href="https://takibyte.com">
+        <div class="platform"><span class="dot-icon" style="background:var(--ink);"></span>Website</div>
+        <div class="handle">takibyte.com</div>
+      </a>
+      <a class="connect-row" href="https://github.com/takibyte">
+        <div class="platform"><span class="dot-icon" style="background:var(--violet);"></span>GitHub</div>
+        <div class="handle">takibyte</div>
+      </a>
+      <a class="connect-row" href="https://tryhackme.com/p/takibyte">
+        <div class="platform"><span class="dot-icon" style="background:var(--cyan);"></span>TryHackMe</div>
+        <div class="handle">takibyte</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="colophon">
+    &gt; This site is statically built from markdown with a custom script, no frameworks.<br>
+    &gt; Source is available on <a href="https://github.com/takibyte/blog">GitHub</a>.
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
 
 </body>
 </html>

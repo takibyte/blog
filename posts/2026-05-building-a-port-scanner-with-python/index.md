@@ -1,9 +1,12 @@
 ---
 title: Building a port scanner with Python
-date: 2026-05
+dek: How i went about building a simple network port scanner from scratch with Python.
+author: takibyte
+date: 2026-05-10
+category: tools
+tags: [Tools, Python, TCP/IP, Networking]
+cover: cover.png
 ---
-
-# Building a port scanner with Python
 
 ## What is a port scanner?
 

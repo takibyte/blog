@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <title>Setting up a Pi-hole Part 1</title>
-    <meta name="description" content="">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>Setting up a Pi-hole Part 1</title>
+<meta name="description" content="A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
-
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
-
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link active">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
-            </div>
-
-        </div>
-
+<div class="wrap">
+  <div class="post-header">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/posts/">Posts</a><span class="sep">/</span>Setting up a Pi-hole Part 1
     </div>
+    <div class="post-cat cat-homelab mono">// HOMELAB</div>
+    <h1 class="headline">Setting up a Pi-hole Part 1</h1>
+    <p class="dek">A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
 
-    <div class="blog-content">
-        
-        <span id="meta">
-            2026-03 · ⏱ 7 min read
-        </span>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">26 March 2026 · TB-2026-0003</div>
+      </div>
+      <div class="stats">
+        <span>7 min read</span>
+      </div>
+    </div>
+  </div>
 
-        <div id="md-container">
-            <h1>Setting up a Pi-hole part 1</h1>
-<p>In this article i will walk through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>
-<p>Why do this? It&#39;s just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.</p>
+  <img class="post-media" src="./images/cover.png" alt="">
+
+  <article class="body">
+    <p>In this post i will walk-through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>
+<p>First of all, why do this? It&#39;s just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.</p>
 <p>So the basic steps so far are:</p>
 <ol>
 <li><p>Setup the Raspberry Pi with a basic clean install of Linux, I&#39;ll go with Raspberry Pi OS Lite.</p>
@@ -100,20 +96,26 @@
 <p>To use this method you first need to generate a public and private key pair using the ssh-keygen command in the terminal. The resulting generated key pair will be saved by default in <code>~/.ssh</code> or the equivalent <code>/Users/user/.ssh</code>. There, two keys will be generated: a private key and a public key. The private key is to be stored on the client computer (my laptop, the machine i will be connecting to the pi/host from), the private key is the equivalent of the password or &#39;secret&#39; which will prove our authorization with the public key and authenticate. The public key is to be stored on the host machine (the pi or server to be accessed remotely). This public key (as the names denotes) isn&#39;t a secret or the password key, so it doesn&#39;t need to be kept safe like the private key does.
 The private key by default will look like this <code>id_ed25519</code> and the public key will look like this <code>id_ed25519.pub</code>.</p>
 <p>The command is as follows:</p>
-<blockquote>
-<p><code>ssh-keygen -t ed25519 -C &quot;lab-›pi+server&quot; -f ~/.ssh/id_lab_ed25519</code></p>
-</blockquote>
-<ul>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>shell</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>ssh-keygen -t ed25519 -C &quot;lab-›pi+server&quot; -f ~/.ssh/id_lab_ed25519</pre>
+</div><ul>
 <li>The option -t specifies the keygen type, ed25519 is considered the standard. </li>
 <li>-C sets a comment for the key files, allowing for identification of which key is which later.</li>
 <li>-f specifies the output file name and location.</li>
 </ul>
-<p>All of these settings are optional and you can simply use:</p>
-<blockquote>
-<p><code>ssh-keygen</code></p>
-</blockquote>
+<p>All of these settings are optional and you can simply use: <code>ssh-keygen</code></p>
 <p>which will set the default for everything. In my case, i wanted to create a ssh key pair with a non-default name to differentiate it from a key pair i had already created for a different server. </p>
-<p>You can also set a passphase for authenticating with the key pair for an added layer of security. My output can be seen below.</p>
+
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>You can also set a passphase for authenticating with the key pair for an added layer of security.</p>
+</div>
+<p>My output can be seen below.</p>
 <p><img src="./images/terminal1.webp" alt="terminal 1"></p>
 <h3>Raspberry Pi connect</h3>
 <p>This is an entirely optional but useful way to connect to your pi remotely in your browser with screen sharing or with just a remote shell. Pi connect uses WebRTC to setup a secure connection peer to peer.</p>
@@ -126,39 +128,94 @@ The private key by default will look like this <code>id_ed25519</code> and the p
 <p><img src="./images/pi-imager10.webp" alt="pi imager"></p>
 <h3>Connecting to the Pi</h3>
 <p>Now that the Pi is powered on, I want to connect via ssh.</p>
-<blockquote>
-<p><code>ssh user@pi.local</code></p>
-</blockquote>
-<p>This should ordinarily work, but i ran into an issue unfortunately (permission denied):</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>shell</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>ssh user@pi.local</pre>
+</div><p>This should ordinarily work, but i ran into an issue unfortunately (permission denied):</p>
 <p><img src="./images/terminal2.webp" alt="terminal 2"></p>
 <p>After some investigating, and by running the command:</p>
-<blockquote>
-<p><code>ssh -v user@pi.local</code></p>
-</blockquote>
-<p>I can see that OpenSSH is trying all of the default public and private keys in the default locations, but eventually says &quot;No more authentication methods to try&quot;.</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>shell</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>ssh -v user@pi.local</pre>
+</div><p>I can see that OpenSSH is trying all of the default public and private keys in the default locations, but eventually says &quot;No more authentication methods to try&quot;.</p>
 <p><img src="./images/terminal3.webp" alt="terminal 3"></p>
 <p>I looked into it a bit and it seems that because i chose a custom key name earlier: <code>id_lab_ed25519</code>, OpenSSH doesn&#39;t look for that to authenticate by default. I troubleshot this by trying to connect by explicitly defining the private key i wanted to use to connect. The command to do this is:</p>
-<blockquote>
-<p><code>ssh -i ~/.ssh/id_lab_ed25519 user@pi.local</code></p>
-</blockquote>
-<p>After running the command and entering the passphrase, i successfully connected to the Pi via ssh.</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>shell</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>ssh -i ~/.ssh/id_lab_ed25519 user@pi.local</pre>
+</div><p>After running the command and entering the passphrase, i successfully connected to the Pi via ssh.</p>
 <p><img src="./images/terminal4.webp" alt="terminal 4"></p>
 <p>To optimize this a bit, i found a way to ssh into the pi without having to be explicit each time. I added / edited the config file at <code>~/.ssh/config</code> to include a shortcut command:</p>
-<blockquote>
-<pre><code>Host pi
-   HostName pi.local
-   User user
-   IdentityFile ~/.ssh/id_lab_ed25519
-   IdentitiesOnly yes
-</code></pre>
-</blockquote>
-<p>With this now, to connect to the Pi, all a have to do is type: <code>ssh pi</code>, and the <code>pi</code> command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍</p>
 
-        </div>
+<div class="code-block">
+  <div class="code-block-head">
+    <span>config</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>Host pi
+    HostName pi.local
+    User user
+    IdentityFile ~/.ssh/id_lab_ed25519
+    IdentitiesOnly yes</pre>
+</div><p>With this now, to connect to the Pi, all a have to do is type: <code>ssh pi</code>, and the <code>pi</code> command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍</p>
 
-        <span class="back">back to top &#8617</span>
-        
+  </article>
+
+
+  <div class="tags">
+    <span class="tag">Homelab</span>
+    <span class="tag">Raspberry Pi</span>
+    <span class="tag">OS</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what i learn.</p>
+      </div>
     </div>
-    
+  </a>
+
+  <div class="post-nav">
+    <a href="/posts/setting-up-a-basic-home-lab/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Setting up a basic home lab</div>
+    </a>
+    <a class="next" href="/posts/setting-up-a-pi-hole-part-2/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Setting up a Pi-hole Part 2</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
 </body>
 </html>

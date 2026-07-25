@@ -1,199 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
-    <title>Projects | takibyte blog</title>
-    <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-    
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>Projects — takibyte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    
-    <div class="template">
 
-        <div class="nav-container">
-            
-            <div class="title">takibyte blog</div>
-            
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link">Home</a>
-                </div>
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a class="active" href="/projects/">Projects</a>
+    <a href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link active">Projects</a>
-                </div>
+<div class="mobile-nav" id="mobileNav">
+  <a class="active" href="/projects/">Projects</a>
+  <a href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
+<main>
+  <div class="page-intro">
+    <div class="kicker">// ongoing series &amp; tools</div>
+    <h1>Projects</h1>
+    <p>Some of these are tools I've built and open-sourced. Others are related posts grouped by topic — some finished, and some still being added as i progress.</p>
+  </div>
 
-            </div>
+  <div class="status-filter">
+    <span class="tag-filter active">All</span>
+    <span class="tag-filter">Active</span>
+    <span class="tag-filter">Complete</span>
+  </div>
 
-        </div>
-
-    </div>
-
-    <div class="project-content">
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/pi-closeup2.webp);"></div>
-            <div class="project-info">
-                <h3>Setting up a DNS sinkhole with Pi-hole 🕳️</h3>
-                <ul>
-                    <li><a class="post-link" href="/posts/setting-up-a-pi-hole-part-1">Setting up a Pi-hole part 1</a></li>
-                    <li><a class="post-link" href="/posts/setting-up-a-pi-hole-part-2">Setting up a Pi-hole part 2</a></li>
-                </ul>
-            </div>
-        </div>  
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/homelab1.webp);"></div>
-            <div class="project-info">
-                <h3>Build a cybersecurity homelab 🔬</h3>
-                <ul>
-                    <li><a class="post-link" href="/posts/setting-up-a-basic-home-lab">Setting up a basic home lab</a></li>
-                </ul>
-            </div>
-        </div>
-
-         <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/portscanner2.webp);"></div>
-            <div class="project-info">
-                <h3>Build a port scanner with Python 🐍</h3>
-                <ul>
-                    <li><a class="post-link" href="/posts/building-a-port-scanner-with-python">Building a port scanner with Python</a></li>
-                </ul>
-            </div>
-        </div>     
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/wireshark.webp);"></div>
-            <div class="project-info">
-                <h3>Network traffic analysis with Wireshark 🦈</h3>
-                <ul>
-                    <li><a class="post-link" href="/posts/network-traffic-analysis-with-wireshark">Network traffic analysis with Wireshark</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/portscanner4.webp);"></div>
-            <div class="project-info">
-                <h3>Recon and port scanning with Nmap</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Firewall configuration & testing 🔥</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Vulnerability scanning & basic assessment</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Basic cryptography implementation 🔐</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Simple intrusion detection / SIEM Setup</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Windows exploitation with Metasploit</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Build a basic password-cracker</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>TryHackMe capture the flag rooms 🏴‍☠️</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Operating system hardening</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Malware analysis</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Enumeration tools</h3>
-
-            </div>
-        </div>
-
-        <div class="project-div">
-            <div class="project-image" style="background-image: url(/assets/images/laptop-closeup.webp);"></div>
-            <div class="project-info">
-                <h3>Packet capture with tcpdump</h3>
-
-            </div>
-        </div>
-
-
-    </div>
+  <div class="project-grid">
 
     
+    <a class="project-card" href="/projects/port-scanner-multi-threaded-port-scanner/" data-status="active" data-type="tool">
+      <div class="top-row">
+        <div class="project-icon icon-amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="badge-group">
+          <span class="badge type-tool">tool</span>
+          <span class="badge status-active">active</span>
+        </div>
+      </div>
+      <h3>port-scanner — Multi-threaded port-scanner</h3>
+      <p>Description</p>
+      
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Sockets</span>
+        <span class="project-tag">CLI</span>
+      </div>
+      <div class="project-footer"><span class="repo-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+        github.com/takibyte/port-scanner</span><span class="view-link">View project →</span></div>
+    </a>
+
+    <a class="project-card" href="/projects/network-traffic-analysis-with-wireshark/" data-status="active" data-type="series">
+      <div class="top-row">
+        <div class="project-icon icon-cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/></svg>
+        </div>
+        <div class="badge-group">
+          <span class="badge type-series">series</span>
+          <span class="badge status-active">active</span>
+        </div>
+      </div>
+      <h3>Network Traffic Analysis with Wireshark</h3>
+      <p>Description</p>
+      <div class="progress-track"><div class="progress-fill" style="width:50%;"></div></div>
+      <div class="project-tags">
+        <span class="project-tag">Wireshark</span>
+        <span class="project-tag">pcap</span>
+        <span class="project-tag">Homelab</span>
+      </div>
+      <div class="project-footer"><span class="count">1 posts</span><span class="view-link">View series →</span></div>
+    </a>
+
+    <a class="project-card" href="/projects/setting-up-a-dns-sinkhole-with-pi-hole/" data-status="complete" data-type="series">
+      <div class="top-row">
+        <div class="project-icon icon-cyan">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/></svg>
+        </div>
+        <div class="badge-group">
+          <span class="badge type-series">series</span>
+          <span class="badge status-complete">complete</span>
+        </div>
+      </div>
+      <h3>Setting up a DNS sinkhole with Pi-hole</h3>
+      <p>Description</p>
+      <div class="progress-track"><div class="progress-fill" style="width:100%;"></div></div>
+      <div class="project-tags">
+        <span class="project-tag">Raspberry Pi</span>
+        <span class="project-tag">DNS</span>
+        <span class="project-tag">Networking</span>
+        <span class="project-tag">Homelab</span>
+      </div>
+      <div class="project-footer"><span class="count">2 posts</span><span class="view-link">View series →</span></div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
 </body>
 </html>

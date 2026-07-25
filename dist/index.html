@@ -1,75 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
-    <title>takibyte blog</title>
-    <meta name="description" content="takibyte blog is a personal blog about creating a cybersecurity and networking home-lab. It features projects and posts, focussed on hands-on learning and experimentation.">
-    
-    <script>
-        const t = localStorage.getItem('theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-    </script>
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-
-    <!-- Styles -->
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/css/template.css'>
+<meta charset="UTF-8">
+<title>takibyte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-    <div class="template">
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  <a class="subscribe" href="#">subscribe →</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
 
-        <div class="nav-container">
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
 
-            <div class="title">takibyte blog</div>
+<main>
+  <div class="page-intro">
+    <div class="kicker">// homelab notes &amp; writeups</div>
+    <h1>Notes from the homelab — building, breaking, and writing it down along the way.</h1>
+  </div>
 
-            <div class="nav">
-                <div class="nav-option">
-                    <a href="/" class="nav-link active">Home</a>
-                </div>
+  <div class="toolbar">
+    <h2>Latest posts</h2>
+    <a class="view-all" href="/posts/">View all posts →</a>
+  </div>
 
-                <div class="nav-option">
-                    <a href="/projects/" class="nav-link">Projects</a>
-                </div>
+  <div class="grid">
 
-                <div class="nav-option">
-                    <a href="/posts/" class="nav-link">Posts</a>
-                </div>
-                
-                <div class="nav-option">
-                    <a href="/about/" class="nav-link">About</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="home-content">
-
-            <a class="home-image-link" href="/projects">
-                <div class="home-image projects-card" style="background-image: url(/assets/images/pi-closeup.webp);"><span class="home-span">cd projects/</span></div>
-            </a>
-
-            <a class="home-image-link" href="/posts">
-                <div class="home-image posts-card" style="background-image: url(/assets/images/laptop-closeup.webp);"><span class="home-span">cd posts/</span></div>
-            </a>
-
-            <div class="welcome-card">
-                <span><a href="https://takibyte.com" class="home-link">takibyte.com</a></span>
-                <span><a href="https://github.com/takibyte" class="home-link">🐙GitHub</a></span>
-                <span><a href="https://tryhackme.com/p/takibyte" class="home-link">☁️TryHackMe</a></span>
-            </div>
-
-    </div>
     
+    <a href="/posts/network-traffic-analysis-with-wireshark/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/network-traffic-analysis-with-wireshark/images/cover.png');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Network traffic analysis with Wireshark</h3>
+        <p>Some practical hands on experimentation — capturing network traffic data, and analysing it with Wireshark.</p>
+        <div class="card-meta"><span>1 min</span><span>20 July</span></div>
+      </div>
+    </a>
+
+    <a href="/posts/building-a-port-scanner-with-python/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/building-a-port-scanner-with-python/images/cover.png');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-tools mono">TOOLS</span>
+        <h3>Building a port scanner with Python</h3>
+        <p>How i went about building a simple network port scanner from scratch with Python.</p>
+        <div class="card-meta"><span>1 min</span><span>10 May</span></div>
+      </div>
+    </a>
+
+    <a href="/posts/setting-up-a-pi-hole-part-2/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/setting-up-a-pi-hole-part-2/images/cover.png');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Setting up a Pi-hole Part 2</h3>
+        <p>A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
+        <div class="card-meta"><span>14 min</span><span>2 Apr</span></div>
+      </div>
+    </a>
+
+    <a href="/posts/setting-up-a-pi-hole-part-1/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/setting-up-a-pi-hole-part-1/images/cover.png');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Setting up a Pi-hole Part 1</h3>
+        <p>A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
+        <div class="card-meta"><span>7 min</span><span>26 Mar</span></div>
+      </div>
+    </a>
+
+    <a href="/posts/setting-up-a-basic-home-lab/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/setting-up-a-basic-home-lab/images/cover.webp');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Setting up a basic home lab</h3>
+        <p>Building a home lab for hands-on cybersecurity and networking practice, from hardware choices to initial network setup.</p>
+        <div class="card-meta"><span>1 min</span><span>6 Mar</span></div>
+      </div>
+    </a>
+
+    <a href="/posts/my-path-to-cybersecurity/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/posts/my-path-to-cybersecurity/images/cover.png');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-notes mono">NOTES</span>
+        <h3>My path to cybersecurity</h3>
+        <p>A brief overview of my plans to level up my skills and knowledge in order to gain entry into the cybersecurity profession.</p>
+        <div class="card-meta"><span>1 min</span><span>1 Mar</span></div>
+      </div>
+    </a>
+    
+    <!-- <a href="/posts/setting-up-a-pi-hole-part-1/">
+      <div class="card">
+        <div class="thumb tc1"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Setting up a cheap home lab for traffic analysis</h3>
+        <p>Old hardware, a managed switch, and a mirrored port — the whole setup for under $150.</p>
+        <div class="card-meta"><span>12 min</span><span>Jul 15</span></div>
+      </div>
+    </a>
+    <div class="card">
+      <div class="thumb tc2"></div>
+      <span class="cat cat-ctf mono">CTF WRITEUPS</span>
+      <h3>TryHackMe: breaking down a box that beat me twice</h3>
+      <p>What I missed the first two attempts, and the enumeration habit that would've saved an hour.</p>
+      <div class="card-meta"><span>9 min</span><span>Jul 12</span></div>
+    </div>
+    <div class="card">
+      <div class="thumb tc3"></div>
+      <span class="cat cat-tools mono">TOOLS</span>
+      <h3>Building a TCP port scanner in Python, from scratch</h3>
+      <p>Sockets, threading, and the mistakes that made my first version painfully slow.</p>
+      <div class="card-meta"><span>11 min</span><span>Jul 9</span></div>
+    </div>
+    <div class="card">
+      <div class="thumb tc4"></div>
+      <span class="cat cat-homelab mono">HOMELAB</span>
+      <h3>Reading a pcap without Wireshark's GUI</h3>
+      <p>A tmux-and-tshark workflow for triaging captures fast, without a full desktop in front of you.</p>
+      <div class="card-meta"><span>7 min</span><span>Jul 5</span></div>
+    </div>
+    <div class="card">
+      <div class="thumb tc5"></div>
+      <span class="cat cat-notes mono">NOTES</span>
+      <h3>Security+ topic dump: SPF, DKIM, and DMARC, actually explained</h3>
+      <p>The three acronyms I kept mixing up during studying, broken down with a real phishing example.</p>
+      <div class="card-meta"><span>6 min</span><span>Jun 30</span></div>
+    </div>
+    <div class="card">
+      <div class="thumb tc6"></div>
+      <span class="cat cat-ctf mono">CTF WRITEUPS</span>
+      <h3>My first HackTheBox root, and everything I got lucky on</h3>
+      <p>An honest writeup — including the two hours I spent going down the wrong path entirely.</p>
+      <div class="card-meta"><span>10 min</span><span>Jun 24</span></div>
+    </div> -->
+  </div>
+</main>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
 
 </body>
-
 </html>

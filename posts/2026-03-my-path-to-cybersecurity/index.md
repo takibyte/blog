@@ -1,9 +1,12 @@
 ---
 title: My path to cybersecurity
-date: 2026-03
+dek: A brief overview of my plans to level up my skills and knowledge in order to gain entry into the cybersecurity profession.
+author: takibyte
+date: 2026-03-01
+category: notes
+tags:
+cover: cover.png
 ---
-
-# My path to cybersecurity
 
 ## The plan
 
