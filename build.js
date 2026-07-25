@@ -475,7 +475,8 @@ function renderProjectCard(p) {
   const footer = p.type === 'tool'
     ? `<span class="repo-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">${ICONS.git.path}</svg>
-        ${p.github.replace('https://', '')}</span><span class="view-link">View project →</span>`
+        <span class="repo-url">${p.github.replace('https://', '')}</span>
+       </span><span class="view-link">View project →</span>`
     : `<span class="count">${p.linkedPosts.length} posts</span><span class="view-link">View series →</span>`;
 
   const progressBar = p.type === 'series'

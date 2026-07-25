@@ -55,11 +55,11 @@
   <img class="post-media" src="./images/cover.png" alt="">
 
   <article class="body">
-    <p>In this post i will walk-through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>
+    <p>In this post I will walk through how I set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>
 <p>First of all, why do this? It&#39;s just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.</p>
 <p>So the basic steps so far are:</p>
 <ol>
-<li><p>Setup the Raspberry Pi with a basic clean install of Linux, I&#39;ll go with Raspberry Pi OS Lite.</p>
+<li><p>Set up the Raspberry Pi with a basic clean install of Linux, I&#39;ll go with Raspberry Pi OS Lite.</p>
 </li>
 <li><p>Configure the Raspberry Pi with a remote ssh connection.</p>
 </li>
@@ -74,14 +74,14 @@
 <p>This is pretty self explanatory, just choose what Pi model you have.</p>
 <p><img src="./images/pi-imager1.webp" alt="pi imager"></p>
 <h3>Choose the OS</h3>
-<p>Next, i had to choose an operating system. It seems that with the pi you can use many Linux distributions, as long as they are ARM based (because the pi has a CPU with ARM architecture). Apparently, the constraints of the Pi&#39;s compute power should also be taken into consideration when choosing an OS. </p>
-<p>I decided to go with the Raspberry Pi OS Lite (64-bit) version, because it&#39;s recommended, supported, lightweight, headless (i want to get better with the CLI), and it&#39;s debian based (same as Kali and Ubuntu etc), so will feel a bit familiar moving between those distros while learning.</p>
+<p>Next, I had to choose an operating system. It seems that with the pi you can use many Linux distributions, as long as they are ARM based (because the pi has a CPU with ARM architecture). Apparently, the constraints of the Pi&#39;s compute power should also be taken into consideration when choosing an OS. </p>
+<p>I decided to go with the Raspberry Pi OS Lite (64-bit) version, because it&#39;s recommended, supported, lightweight, headless (I want to get better with the CLI), and it&#39;s Debian based (same as Kali and Ubuntu etc.), so will feel a bit familiar moving between those distros while learning.</p>
 <p><img src="./images/pi-imager2.webp" alt="pi imager"></p>
 <h3>Select your microSD card</h3>
-<p>Just select the microSD card you have plugged in, the one you will be slotting into the Pi after installing  the OS.</p>
+<p>Just select the microSD card you have plugged in, the one you will be slotting into the Pi after installing the OS.</p>
 <p><img src="./images/pi-imager3.webp" alt="pi imager"></p>
 <h3>Choose the hostname</h3>
-<p>Choose the hostname of your Raspberry Pi. This i&#39;ll use to be able to connect from my laptop via ssh later. I just named it <em><strong>pi</strong></em> to keep it simple for documenting here, and because it&#39;s going to be the only Pi on my local network. This can easily be changed later.</p>
+<p>Choose the hostname of your Raspberry Pi. This I&#39;ll use to be able to connect from my laptop via ssh later. I just named it <em><strong>pi</strong></em> to keep it simple for documenting here, and because it&#39;s going to be the only Pi on my local network. This can easily be changed later.</p>
 <p><img src="./images/pi-imager4.webp" alt="pi imager"></p>
 <h3>Choose username</h3>
 <p>This will be my main (or first) user account used to login to the Pi. I&#39;ll also be needing this to ssh in later. Choose a username and password that makes sense for your situation.</p>
@@ -185,7 +185,7 @@ The private key by default will look like this <code>id_ed25519</code> and the p
       <div class="author-avatar"></div>
       <div>
         <h4>takibyte</h4>
-        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what i learn.</p>
+        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what I learn.</p>
       </div>
     </div>
   </a>

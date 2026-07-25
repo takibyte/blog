@@ -8,13 +8,13 @@ tags: [Homelab, Raspberry Pi, OS]
 cover: cover.png
 ---
 
-In this post i will walk-through how i set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.
+In this post I will walk through how I set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.
 
 First of all, why do this? It's just an excuse to practice some basic networking on my home network, and to get more familiar with a bit of network administration. Oh, and also an excuse to play around with the Pi and some Linux.
 
 So the basic steps so far are:
 
-1. Setup the Raspberry Pi with a basic clean install of Linux, I'll go with Raspberry Pi OS Lite.
+1. Set up the Raspberry Pi with a basic clean install of Linux, I'll go with Raspberry Pi OS Lite.
 
 2. Configure the Raspberry Pi with a remote ssh connection.
 
@@ -35,22 +35,22 @@ This is pretty self explanatory, just choose what Pi model you have.
 
 ### Choose the OS
 
-Next, i had to choose an operating system. It seems that with the pi you can use many Linux distributions, as long as they are ARM based (because the pi has a CPU with ARM architecture). Apparently, the constraints of the Pi's compute power should also be taken into consideration when choosing an OS. 
+Next, I had to choose an operating system. It seems that with the pi you can use many Linux distributions, as long as they are ARM based (because the pi has a CPU with ARM architecture). Apparently, the constraints of the Pi's compute power should also be taken into consideration when choosing an OS. 
 
-I decided to go with the Raspberry Pi OS Lite (64-bit) version, because it's recommended, supported, lightweight, headless (i want to get better with the CLI), and it's debian based (same as Kali and Ubuntu etc), so will feel a bit familiar moving between those distros while learning.
+I decided to go with the Raspberry Pi OS Lite (64-bit) version, because it's recommended, supported, lightweight, headless (I want to get better with the CLI), and it's Debian based (same as Kali and Ubuntu etc.), so will feel a bit familiar moving between those distros while learning.
 
 
 ![pi imager](./images/pi-imager2.webp)
 
 ### Select your microSD card
 
-Just select the microSD card you have plugged in, the one you will be slotting into the Pi after installing  the OS.
+Just select the microSD card you have plugged in, the one you will be slotting into the Pi after installing the OS.
 
 ![pi imager](./images/pi-imager3.webp)
 
 ### Choose the hostname
 
-Choose the hostname of your Raspberry Pi. This i'll use to be able to connect from my laptop via ssh later. I just named it ***pi*** to keep it simple for documenting here, and because it's going to be the only Pi on my local network. This can easily be changed later.
+Choose the hostname of your Raspberry Pi. This I'll use to be able to connect from my laptop via ssh later. I just named it ***pi*** to keep it simple for documenting here, and because it's going to be the only Pi on my local network. This can easily be changed later.
 
 ![pi imager](./images/pi-imager4.webp)
 
