@@ -526,18 +526,27 @@ h1.headline{
 .series-badge{
   display:flex;justify-content:space-between;align-items:center;
   background:var(--surface);border:1px solid var(--line);
-  border-radius:8px;
-  padding:12px 16px;
-  margin:28px 0 0;
+  border-radius:8px;padding:12px 16px;
+  margin:24px 0;
   font-family:var(--font-mono);font-size:13px;
+  gap:8px 12px; /* row-gap column-gap — row-gap only matters once it wraps */
+  flex-wrap:wrap;
 }
-.series-badge a{color:var(--cyan);}
+.series-badge a{
+  color:var(--cyan);
+  flex:1 1 auto;   /* allowed to grow AND shrink, and wrap its own text across lines */
+  min-width:150px; /* stops it shrinking so far that single words start breaking oddly */
+}
 .series-badge a:hover{text-decoration:underline;}
-.series-badge span{color:var(--muted);}
+.series-badge span{
+  color:var(--muted);
+  flex-shrink:0;     /* never shrinks */
+  white-space:nowrap; /* "1 of 2" itself is never allowed to break across lines */
+}
 
 .post-media{
   aspect-ratio:16/9;border-radius:10px;
-  margin:64px 0 44px;
+  margin:48px 0 48px;
   position:relative;overflow:hidden;
   width:100%;
   object-fit:cover;

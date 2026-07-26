@@ -169,7 +169,7 @@ function renderSeriesBadge(seriesInfo) {
   const { project, index, total } = seriesInfo;
   return `
     <div class="series-badge">
-      <a href="/projects/${project.slug}/">Part of: ${project.title} →</a>
+      <a href="/projects/${project.slug}/">Part of ${project.type === 'tool' ? 'project' : 'series'}: ${project.title} →</a>
       <span class="mono">${index + 1} of ${total}</span>
     </div>`;
 }
