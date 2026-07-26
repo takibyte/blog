@@ -4,6 +4,7 @@ description: Description
 type: tool              # tool | series
 status: active           # active | complete | paused
 icon: scanner             # key into a small icon lookup table
+featured: true
 order: 1
 tags: [Python, Sockets, CLI]
 github: https://github.com/takibyte/port-scanner   # tool only

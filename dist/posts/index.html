@@ -40,7 +40,9 @@
   <div class="controls">
     <div class="search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" placeholder="grep posts...">
+      <div class="search-input-wrap">
+        <input type="search" id="postSearch" placeholder="grep posts...">
+      </div>
     </div>
     <div class="tags-filter">
       <span class="tag-filter active" data-filter="all">All</span>
@@ -171,64 +173,69 @@
 </footer>
 
 <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', isOpen);
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  menuToggle.classList.toggle('open', isOpen);
+  menuToggle.setAttribute('aria-expanded', isOpen);
+});
+
+// Filter and search functionality
+const searchInput = document.querySelector('.search input');
+const tagFilters = document.querySelectorAll('.tag-filter');
+const posts = document.querySelectorAll('.post-row');
+const resultCount = document.querySelector('.result-count');
+
+let activeTag = 'all';
+
+function applyFilters() {
+  const query = searchInput.value.trim().toLowerCase();
+  let visibleCount = 0;
+
+  posts.forEach(post => {
+    const title = post.dataset.title || '';
+    const dek = post.dataset.dek || '';
+    const tags = post.dataset.tags || '';
+    const category = post.dataset.category || '';
+
+    const matchesSearch = !query || title.includes(query) || dek.includes(query) || tags.includes(query);
+    const matchesTag = activeTag === 'all' || category === activeTag;
+
+    const visible = matchesSearch && matchesTag;
+    post.style.display = visible ? '' : 'none';
+    if (visible) visibleCount++;
   });
 
-  // Filter and search functionality
-  const searchInput = document.querySelector('.search input');
-  const tagFilters = document.querySelectorAll('.tag-filter');
-  const posts = document.querySelectorAll('.post-row');
-  const resultCount = document.querySelector('.result-count');
+  resultCount.textContent = `Showing ${visibleCount} of ${posts.length} posts`;
+  updateFirstVisibleBorder();
+}
 
-  let activeTag = 'all';
+searchInput.addEventListener('input', applyFilters);
 
-  function applyFilters() {
-    const query = searchInput.value.trim().toLowerCase();
-    let visibleCount = 0;
-
-    posts.forEach(post => {
-      const title = post.dataset.title || '';
-      const dek = post.dataset.dek || '';
-      const tags = post.dataset.tags || '';
-      const category = post.dataset.category || '';
-
-      const matchesSearch = !query || title.includes(query) || dek.includes(query) || tags.includes(query);
-      const matchesTag = activeTag === 'all' || category === activeTag;
-
-      const visible = matchesSearch && matchesTag;
-      post.style.display = visible ? '' : 'none';
-      if (visible) visibleCount++;
-    });
-
-    resultCount.textContent = `Showing ${visibleCount} of ${posts.length} posts`;
-    updateFirstVisibleBorder();
-  }
-
-  searchInput.addEventListener('input', applyFilters);
-
-  tagFilters.forEach(tag => {
-    tag.addEventListener('click', () => {
-      tagFilters.forEach(t => t.classList.remove('active'));
-      tag.classList.add('active');
-      activeTag = tag.dataset.filter;
-      applyFilters();
-    });
+tagFilters.forEach(tag => {
+  tag.addEventListener('click', () => {
+    tagFilters.forEach(t => t.classList.remove('active'));
+    tag.classList.add('active');
+    activeTag = tag.dataset.filter;
+    applyFilters();
   });
+});
 
 
-  function updateFirstVisibleBorder() {
-    posts.forEach(p => p.classList.remove('first-visible'));
-    const firstVisible = Array.from(posts).find(p => p.style.display !== 'none');
-    if (firstVisible) firstVisible.classList.add('first-visible');
-  }
+function updateFirstVisibleBorder() {
+  posts.forEach(p => p.classList.remove('first-visible'));
+  const firstVisible = Array.from(posts).find(p => p.style.display !== 'none');
+  if (firstVisible) firstVisible.classList.add('first-visible');
+}
 
-  applyFilters(); // sets accurate count, and also enforces default filter state on load
+applyFilters(); // sets accurate count, and also enforces default filter state on load
+
+// Remove focus from search input on search event
+document.getElementById('postSearch').addEventListener('search', function() {
+  this.blur();
+});
 
 </script>
 
