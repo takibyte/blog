@@ -6,7 +6,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const selects = document.querySelectorAll('#theme-select, #theme-select-mobile');
-    const saved = localStorage.getItem('theme') || 'default';
+    const saved = localStorage.getItem('theme') || 'dark';
     applyTheme(saved);
 
     selects.forEach(select => {

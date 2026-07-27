@@ -30,10 +30,14 @@
   </nav>
   
     <select id="theme-select" class="theme-select" aria-label="Theme">
-      <option value="root">Dark</option>
+      <option value="dark">Dark</option>
       <option value="light">Light</option>
-      <option value="tokyonight">Tokyo Night</option>
+      <option value="tokyonight">Tokyo night</option>
       <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
     </select>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -47,10 +51,14 @@
   <a href="/about/">About</a>
   
     <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
-      <option value="root">Dark</option>
+      <option value="dark">Dark</option>
       <option value="light">Light</option>
-      <option value="tokyonight">Tokyo Night</option>
+      <option value="tokyonight">Tokyo night</option>
       <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
     </select>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
@@ -67,21 +75,24 @@
       <a href="/about/"><div class="author-avatar"></div></a>
       <div class="meta-text">
         <div class="name"><a href="/about/">takibyte</a></div>
-        <div class="sub mono">26 March 2026 · TB-2026-0003</div>
+        <div class="sub mono">
+          <span>26 March 2026 · 7 min</span>
+          <span>TB-2026-0003</span>
+        </div>
       </div>
-      <div class="stats">
-        <span>7 min read</span>
-      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
     </div>
   </div>
+
+  <img class="post-media" src="./images/cover.png" alt="">
 
   
     <div class="series-badge">
       <a href="/projects/setting-up-a-dns-sinkhole-with-pi-hole/">Part of series: Setting up a DNS sinkhole with Pi-hole →</a>
       <span class="mono">1 of 2</span>
     </div>
-
-  <img class="post-media" src="./images/cover.png" alt="">
 
   <article class="body">
     <p>In this post I will walk through how I set up a Raspberry Pi (specifically a Raspberry Pi 4), configure a secure ssh remote connection, and then in the next part, document my learning experience of installing and setting up the Pi-hole software for DNS filtering and ad-blocking capabilities.</p>

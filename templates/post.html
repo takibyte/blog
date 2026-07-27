@@ -55,17 +55,20 @@
       <a href="/about/"><div class="author-avatar"></div></a>
       <div class="meta-text">
         <div class="name"><a href="/about/">{{author}}</a></div>
-        <div class="sub mono">{{date}} · {{id}}</div>
+        <div class="sub mono">
+          <span>{{date}} · {{minutes}} min</span>
+          <span>{{id}}</span>
+        </div>
       </div>
-      <div class="stats">
-        <span>{{minutes}} min read</span>
-      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
     </div>
   </div>
 
-  {{seriesBadge}}
-
   {{cover}}
+
+  {{seriesBadge}}
 
   <article class="body">
     {{content}}
