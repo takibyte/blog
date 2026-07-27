@@ -7,6 +7,9 @@
    1. TOKENS
    -------------------------------------------------------------------------- */
 :root{
+  --font-sans:'Space Grotesk', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+
   --bg:#0e1116;
   --surface:#161a21;
   --line:#262c36;
@@ -16,10 +19,45 @@
   --violet:#9c8cf0;
   --amber:#f0b860;
   --red:#e0685e;
-
-  --font-sans:'Space Grotesk', sans-serif;
-  --font-mono:'IBM Plex Mono', monospace;
 }
+
+[data-theme="light"]{
+  --bg:#f7f8fa;
+  --surface:#ffffff;
+  --line:#e2e5ea;
+  --ink:#1a1d23;
+  --muted:#6b7280;
+  --cyan:#0d9488;
+  --violet:#7c3aed;
+  --amber:#b45309;
+  --red:#dc2626;
+}
+
+[data-theme="tokyonight"]{
+  --bg:#1a1b26;
+  --surface:#24283b;
+  --line:#3b4261;
+  --ink:#c0caf5;
+  --muted:#565f89;
+  --cyan:#7dcfff;
+  --violet:#bb9af7;
+  --amber:#ff9e64;
+  --red:#f7768e;
+}
+
+[data-theme="nord"]{
+  --bg:#2e3440;
+  --surface:#3b4252;
+  --line:#4c566a;
+  --ink:#eceff4;
+  --muted:#8b95a7;
+  --cyan:#88c0d0;
+  --violet:#b48ead;
+  --amber:#ebcb8b;
+  --red:#bf616a;
+}
+
+
 
 /* --------------------------------------------------------------------------
    2. RESET + BASE
@@ -62,6 +100,23 @@ header{
 nav{display:flex;gap:30px;font-size:14px;color:var(--muted);}
 nav a:hover{color:var(--ink);}
 nav a.active{color:var(--cyan);}
+
+.theme-select{
+  font-family:var(--font-mono);
+  font-size:12px;
+  background:var(--surface);
+  color:var(--ink);
+  border:1px solid var(--line);
+  padding:7px 9px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.theme-select:hover{border-color:var(--cyan);}
+
+.theme-select.mobile{
+  width:100%;
+  margin:16px 0 20px;
+}
 
 .subscribe{
   font-size:13px;font-family:var(--font-mono);
@@ -826,6 +881,8 @@ article.body img{
   .subscribe{display:none;}
   .menu-toggle{display:flex;}
   .mobile-nav{display:block;}
+  #theme-select{display:none;}
+  .theme-select.mobile{display:block;}
 }
 @media (max-width:560px){
   .grid{grid-template-columns:1fr;}
@@ -842,6 +899,7 @@ article.body img{
   .subscribe{display:none;}
   .menu-toggle{display:flex;}
   .mobile-nav{display:block;}
+  #theme-select{display:none;}
 }
 
 /* ---- Posts (archive) ---- */

@@ -1,20 +1,22 @@
-window.addEventListener('DOMContentLoaded', () => {
-
-  // Theme handling
-  const select = document.getElementById('theme-select');
-  
-  function applyTheme(name) {
+(function(){
+  function applyTheme(name){
     document.documentElement.setAttribute('data-theme', name);
     localStorage.setItem('theme', name);
   }
 
-  // Restore saved theme
-  const saved = localStorage.getItem('theme') || 'tokyonight';
-  applyTheme(saved);
+  document.addEventListener('DOMContentLoaded', () => {
+    const selects = document.querySelectorAll('#theme-select, #theme-select-mobile');
+    const saved = localStorage.getItem('theme') || 'default';
+    applyTheme(saved);
 
-  // Set the select value and attach listener
-  if (select) {
-    select.value = saved;
-    select.addEventListener('change', e => applyTheme(e.target.value));
-  }
-});
+    selects.forEach(select => {
+      select.value = saved;
+      select.addEventListener('change', e => {
+        applyTheme(e.target.value);
+        e.target.blur();
+
+        selects.forEach(s => { if (s !== e.target) s.value = e.target.value; });
+      });
+    });
+  });
+})();

@@ -5,9 +5,19 @@
 <title>Setting up a Pi-hole Part 1</title>
 <meta name="description" content="A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js'></script>
 </head>
 <body>
 
@@ -18,7 +28,14 @@
     <a class="active" href="/posts/">Posts</a>
     <a href="/about/">About</a>
   </nav>
-  <a class="subscribe" href="#">subscribe →</a>
+  
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="root">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo Night</option>
+      <option value="nord">Nord</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
   </button>
@@ -28,6 +45,13 @@
   <a href="/projects/">Projects</a>
   <a class="active" href="/posts/">Posts</a>
   <a href="/about/">About</a>
+  
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="root">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo Night</option>
+      <option value="nord">Nord</option>
+    </select>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 

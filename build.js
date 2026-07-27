@@ -81,6 +81,26 @@ function statusBadgeClass(status) {
   return { active: 'status-active', complete: 'status-complete', paused: 'status-paused' }[status] ?? '';
 }
 
+function renderThemeSelect() {
+  return `
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="root">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo Night</option>
+      <option value="nord">Nord</option>
+    </select>`
+}
+
+function renderThemeSelectMobile() {
+  return `
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="root">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo Night</option>
+      <option value="nord">Nord</option>
+    </select>`
+}
+
 /* ============================================================================
    3. MARKED CONFIG (code blocks + callouts)
    ============================================================================ */
@@ -462,7 +482,9 @@ rawPosts.forEach((post) => {
     .replace('{{minutes}}', minutes)
     .replace('{{content}}', html)
     .replace('{{seriesBadge}}', renderSeriesBadge(seriesInfo))
-    .replace('{{postNav}}', renderPostNav(prevPost, nextPost));
+    .replace('{{postNav}}', renderPostNav(prevPost, nextPost))
+    .replace('{{themeSelect}}', renderThemeSelect())
+    .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 
   const postOutDir = path.join(outDir, 'posts', slug);
   fs.mkdirSync(postOutDir, { recursive: true });
@@ -493,7 +515,9 @@ for (const p of projects) {
     .replace('{{whatItDoesHeading}}', p.type === 'tool' ? '// what it does' : '// why this series')
     .replace('{{body}}', p.bodyHtml)
     .replace('{{roadmapSection}}', renderRoadmap(p))
-    .replace('{{linkedPostsSection}}', renderLinkedPosts(p));
+    .replace('{{linkedPostsSection}}', renderLinkedPosts(p))
+    .replace('{{themeSelect}}', renderThemeSelect())
+    .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 
   const outPath = path.join(outDir, 'projects', p.slug);
   fs.mkdirSync(outPath, { recursive: true });
@@ -513,7 +537,9 @@ for (const p of projects) {
 const postListHtml = postsList.map(renderPostEntry).join('\n');
 const postsIndexPage = postsIndexTemplate
   .replace('{{postList}}', postListHtml)
-  .replaceAll('{{postCount}}', postsList.length);
+  .replaceAll('{{postCount}}', postsList.length)
+  .replace('{{themeSelect}}', renderThemeSelect())
+  .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 fs.mkdirSync(path.join(outDir, 'posts'), { recursive: true });
 fs.writeFileSync(path.join(outDir, 'posts', 'index.html'), postsIndexPage);
 
@@ -522,7 +548,10 @@ const projectListHtml = [...projects]
   .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
   .map(renderProjectCard)
   .join('\n');
-const projectsIndexPage = projectsIndexTemplate.replace('{{projectList}}', projectListHtml);
+const projectsIndexPage = projectsIndexTemplate
+  .replace('{{projectList}}', projectListHtml)
+  .replace('{{themeSelect}}', renderThemeSelect())
+  .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 fs.mkdirSync(path.join(outDir, 'projects'), { recursive: true });
 fs.writeFileSync(path.join(outDir, 'projects', 'index.html'), projectsIndexPage);
 
@@ -538,13 +567,17 @@ const featuredProjectsHtml = projects
 
 const rootIndexPage = rootIndexTemplate
   .replace('{{latestPosts}}', rootPostsHtml)
-  .replace('{{featuredProjects}}', featuredProjectsHtml);
+  .replace('{{featuredProjects}}', featuredProjectsHtml)
+  .replace('{{themeSelect}}', renderThemeSelect())
+  .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 fs.writeFileSync(path.join(outDir, 'index.html'), rootIndexPage);
 
 // -- about/index.html --
 const aboutIndexPage = aboutIndexTemplate
   .replace('{{postCount}}', postsList.length)
-  .replace('{{projectCount}}', projects.length);
+  .replace('{{projectCount}}', projects.length)
+  .replace('{{themeSelect}}', renderThemeSelect())
+  .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 fs.writeFileSync(path.join(outDir, 'about', 'index.html'), aboutIndexPage);
 
 /* ============================================================================

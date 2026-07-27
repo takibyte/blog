@@ -1,6 +1,6 @@
 ---
 title: Setting up a DNS sinkhole with Pi-hole
-description: Description
+description: A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.
 type: series
 status: complete
 icon: server

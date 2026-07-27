@@ -3,10 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>takibyte</title>
+<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js'></script>
 </head>
 <body>
 
@@ -17,7 +28,8 @@
     <a href="/posts/">Posts</a>
     <a href="/about/">About</a>
   </nav>
-  <a class="subscribe" href="#">subscribe →</a>
+  {{themeSelect}}
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
   </button>
@@ -27,6 +39,7 @@
   <a href="/projects/">Projects</a>
   <a href="/posts/">Posts</a>
   <a href="/about/">About</a>
+  {{themeSelectMobile}}
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
