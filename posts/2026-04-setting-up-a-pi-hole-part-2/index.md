@@ -16,7 +16,7 @@ Going to <https://pi-hole.net/>, presents us with a very straight forward set of
 
 Navigating to their GitHub repo installation guide presents us with several options, the simplest of which is using their automated command line installer using a curl command, naturally i'll choose this option and use the following command:
 
-```shell
+```
 curl -sSL https://install.pi-hole.net | bash
 ```
 

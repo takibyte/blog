@@ -79,7 +79,7 @@ The private key by default will look like this `id_ed25519` and the public key w
 
 The command is as follows:
 
-```shell
+```
 ssh-keygen -t ed25519 -C "lab-›pi+server" -f ~/.ssh/id_lab_ed25519
 ```
 
@@ -121,7 +121,7 @@ And we're finished setting up the Pi. Now just eject the microSD and slot it int
 
 Now that the Pi is powered on, I want to connect via ssh.
 
-```shell
+```
 ssh user@pi.local
 ```
 
@@ -131,7 +131,7 @@ This should ordinarily work, but i ran into an issue unfortunately (permission d
 
 After some investigating, and by running the command:
 
-```shell
+```
 ssh -v user@pi.local
 ```
 
@@ -141,7 +141,7 @@ I can see that OpenSSH is trying all of the default public and private keys in t
 
 I looked into it a bit and it seems that because i chose a custom key name earlier: `id_lab_ed25519`, OpenSSH doesn't look for that to authenticate by default. I troubleshot this by trying to connect by explicitly defining the private key i wanted to use to connect. The command to do this is:
 
-```shell
+```
 ssh -i ~/.ssh/id_lab_ed25519 user@pi.local
 ```
 

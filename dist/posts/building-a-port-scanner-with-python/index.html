@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Building a port scanner with Python</title>
-<meta name="description" content="How i went about building a simple network port scanner from scratch with Python.">
+<meta name="description" content="How I went about building a simple network port scanner from scratch with Python.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -70,13 +70,13 @@
     </div>
     <div class="post-cat cat-homelab mono">// TOOLS</div>
     <h1 class="headline">Building a port scanner with Python</h1>
-    <p class="dek">How i went about building a simple network port scanner from scratch with Python.</p>
+    <p class="dek">How I went about building a simple network port scanner from scratch with Python.</p>
     <div class="meta-row">
       <a href="/about/"><div class="author-avatar"></div></a>
       <div class="meta-text">
         <div class="name"><a href="/about/">takibyte</a></div>
         <div class="sub mono">
-          <span>10 May 2026 · 1 min</span>
+          <span>10 May 2026 · 2 min</span>
           <span>TB-2026-0005</span>
         </div>
       </div>
@@ -90,20 +90,51 @@
 
   
     <div class="series-badge">
-      <a href="/projects/port-scanner-multi-threaded-port-scanner/">Part of project: port-scanner — Multi-threaded port-scanner →</a>
-      <span class="mono">1 of 1</span>
+      <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
+      <span class="mono">1 of 2</span>
     </div>
 
   <article class="body">
     <h2>What is a port scanner?</h2>
+<p>A port scanner or network scanner, is a network tool that can be used to scan a host on a network, and determine what port numbers are open or closed on that host. Determining what port numbers are open can give important information about what kinds of services might be running on that host. This is useful to know for both attackers and defenders of a network.</p>
+<p>Network defenders will want to know what ports are open, because they can use this information to determine whether <em>unnecessary</em> ports / services are open, allowing them to close those unneeded ports / services in an effort to harden the security posture of the network.</p>
+<p>Attackers on the other hand, might use a port scanner to do active reconnaissance on a target host, surveying the host and greater network, looking for potentially vulnerable open ports and services as a way inside, and to otherwise exploit those vulnerabilities.</p>
 <h2>Why build a port scanner?</h2>
+<p>The main reason for me to build this is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I&#39;ve built here, Nmap comes to mind.</p>
+<p>Nmap is much more powerful tool that is more than just a port scanner, it can do network host discovery using ICMP, ARP, or TCP SYN; detection evasion techniques; more advanced port scanning techniques like TCP SYN (stealth) scans; and many other features like OS detection and others that I haven&#39;t explored yet.</p>
+<p>My scanner here is a humble TCP connect port scanner, where you can scan the ports of a host whose address you already have, completing a full TCP three-way handshake with each connection (rather than a SYN scan, which doesn&#39;t complete the handshake).</p>
 <h2>The core of my port scanner</h2>
-<h2>Making the first socket connection</h2>
-<h2>Scanning multiple ports</h2>
-<h2>From loops to threads</h2>
-<h2>Error handling</h2>
-<h2>Adding argparse</h2>
-<h2>Final thoughts</h2>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-keyword">import</span> socket
+
+s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+</pre>
+</div><h2>Making the first socket connection</h2>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+    s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+    result = s.connect_ex((host, port))
+    
+    <span class="hljs-built_in">print</span>(result)
+
+    <span class="hljs-keyword">return</span>
+
+scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">22</span>)</pre>
+</div><h2>Scanning multiple ports</h2>
 
   </article>
 
@@ -130,9 +161,9 @@
       <div class="dir">← Previous</div>
       <div class="ptitle">Setting up a Pi-hole Part 2</div>
     </a>
-    <a class="next" href="/posts/network-traffic-analysis-with-wireshark/">
+    <a class="next" href="/posts/upgrading-the-port-scanner-with-multi-threading/">
       <div class="dir">Next →</div>
-      <div class="ptitle">Network traffic analysis with Wireshark</div>
+      <div class="ptitle">Upgrading the port scanner with multi-threading</div>
     </a>
   </div>
 </div>

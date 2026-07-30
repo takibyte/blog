@@ -94,9 +94,9 @@
   --accent-3:#ff9e64;
   --accent-4:#f7768e;
   --accent-5:#7aa2f7;
-  --accent-6:#ff007c;
+  --accent-6:#73daca;
 
-  --success:#7dcfff;
+  --success:#73daca;
   --caution:#ff9e64;
   --danger:#f7768e;
 }
@@ -836,10 +836,6 @@ article.body img{
   line-height:1.7;
   color:var(--ink-soft);
 }
-.code-block .k{color:var(--accent-2);}
-.code-block .s{color:var(--accent-3);}
-.code-block .c{color:var(--muted);}
-.code-block .f{color:var(--accent-1);}
 
 /* callout / note box — the "pull quote" role for a dev blog */
 .callout{
@@ -886,10 +882,43 @@ article.body img{
 
 .code-block .hljs-keyword,
 .code-block .hljs-built_in { color: var(--accent-2); }
-.code-block .hljs-string   { color: var(--accent-3); }
-.code-block .hljs-comment  { color: var(--muted); }
+
+.code-block .hljs-string,
+.code-block .hljs-regexp   { color: var(--accent-3); }
+
+.code-block .hljs-comment,
+.code-block .hljs-doctag   { color: var(--muted); font-style: italic; }
+
 .code-block .hljs-title.function_,
 .code-block .hljs-function { color: var(--accent-1); }
+
+.code-block .hljs-title.class_,
+.code-block .hljs-title.class_ .hljs-title { color: var(--accent-5); }
+
+.code-block .hljs-number,
+.code-block .hljs-literal  { color: var(--accent-3); }
+
+.code-block .hljs-variable,
+.code-block .hljs-params,
+.code-block .hljs-attr,
+.code-block .hljs-property { color: var(--accent-6); }
+
+.code-block .hljs-tag,
+.code-block .hljs-name     { color: var(--accent-2); }
+
+.code-block .hljs-attribute,
+.code-block .hljs-selector-class,
+.code-block .hljs-selector-id { color: var(--accent-4); }
+
+.code-block .hljs-meta      { color: var(--muted); }
+
+.code-block .hljs-symbol    { color: var(--accent-5); }
+
+.code-block .hljs-addition  { color: var(--success); }
+.code-block .hljs-deletion  { color: var(--danger); }
+
+.code-block .hljs-emphasis  { font-style: italic; }
+.code-block .hljs-strong    { font-weight: bold; }
 
 /* ---------- Project detail (individual project page) ----------------------- */
 .project-hero{

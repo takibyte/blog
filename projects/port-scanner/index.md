@@ -1,6 +1,6 @@
 ---
-title: port-scanner — Multi-threaded port-scanner
-description: Description
+title: pscan — Multi-threaded port-scanner
+description: Building a network port-scanner from scratch with Python. From implementing the core socket module, to learning about locking threads.
 type: tool              # tool | series
 status: active           # active | complete | paused
 icon: scanner             # key into a small icon lookup table
@@ -22,8 +22,26 @@ roadmap:                                          # tool only, omit for series
   - text: Adding argparse
     done: true
 posts:                    # ordered slugs — curated order, not auto-sorted
-    - building-a-port-scanner-with-python
+    - Building a port scanner with Python
+    - Upgrading the port scanner with multi-threading
 
 ---
 
-Body
+This is a simple port scanner written in Python. It allows you to scan a range of ports on a specified host to check which ports are open.
+
+```
+usage: portscanner [-h] [--start START] [--end END] [host]
+
+positional arguments: host hostname or IPv4 address
+
+options:
+
+-h, --help show help message and exit
+
+--start START start of the port range to be scanned
+
+--end END end of the port range to be scanned
+
+example usage: python3 portscanner.py --start 0 --end 1000 example.com
+```
+

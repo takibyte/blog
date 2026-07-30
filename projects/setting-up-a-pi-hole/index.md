@@ -6,7 +6,7 @@ status: complete
 icon: server
 featured: true
 order: 2
-tags: [Raspberry Pi, DNS, Networking, Homelab]
+tags: [Raspberry Pi, DNS, DHCP]
 estimatedTotal: 2        # series only — drives the progress bar %
 posts:
     - Setting up a Pi-hole Part 1

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Upgrading the port scanner with multi-threading</title>
+<meta name="description" content="Switching out the loop logic for multi-threading, handling errors, and adding argparse.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js'></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/posts/">Posts</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/posts/">Posts</a>
+  <a href="/about/">About</a>
+  
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="post-header page-header-spacing">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/posts/">Posts</a><span class="sep">/</span>Upgrading the port scanner with multi-threading
+    </div>
+    <div class="post-cat cat-homelab mono">// TOOLS</div>
+    <h1 class="headline">Upgrading the port scanner with multi-threading</h1>
+    <p class="dek">Switching out the loop logic for multi-threading, handling errors, and adding argparse.</p>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">
+          <span>12 May 2026 · 2 min</span>
+          <span>TB-2026-0006</span>
+        </div>
+      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
+    </div>
+  </div>
+
+  <img class="post-media" src="./images/cover.png" alt="">
+
+  
+    <div class="series-badge">
+      <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
+      <span class="mono">2 of 2</span>
+    </div>
+
+  <article class="body">
+    <h2>From loops to threads</h2>
+<h2>Error handling</h2>
+<h2>Adding argparse</h2>
+<h2>Final thoughts</h2>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>pscan.py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>
+<span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-string">&quot;&quot;&quot;
+A simple port scanner utilising the python socket module.
+
+&quot;&quot;&quot;</span>
+
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> threading
+<span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor
+<span class="hljs-keyword">import</span> time
+
+parser = argparse.ArgumentParser(
+    prog=<span class="hljs-string">&quot;portscanner&quot;</span>,
+    description=<span class="hljs-string">&quot;A simple port scanner&quot;</span>)
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">valid_port</span>(<span class="hljs-params">value</span>):
+    port = <span class="hljs-built_in">int</span>(value)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (<span class="hljs-number">0</span> &lt;= port &lt;= <span class="hljs-number">65535</span>):
+        <span class="hljs-keyword">raise</span> argparse.ArgumentTypeError(<span class="hljs-string">f&quot;<span class="hljs-subst">{value}</span> is not a valid port, valid range is: 0-65535&quot;</span>)
+    <span class="hljs-keyword">return</span> port
+
+
+parser.add_argument(<span class="hljs-string">&#x27;host&#x27;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>, nargs=<span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;hostname or IPv4 address&#x27;</span>)
+parser.add_argument(<span class="hljs-string">&#x27;--start&#x27;</span>, <span class="hljs-built_in">type</span>=valid_port, default=<span class="hljs-number">0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;start of the port range to be scanned&#x27;</span>)
+parser.add_argument(<span class="hljs-string">&#x27;--end&#x27;</span>, <span class="hljs-built_in">type</span>=valid_port, default=<span class="hljs-number">1024</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;end of the port range to be scanned&#x27;</span>)
+args = parser.parse_args()
+
+
+hostname = args.host
+ports = <span class="hljs-built_in">range</span>(args.start, args.end + <span class="hljs-number">1</span>)
+
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> hostname:
+    parser.error(<span class="hljs-string">&quot;a host argument is required&quot;</span>)
+ 
+<span class="hljs-keyword">try</span>:
+    resolved_hostname = socket.gethostbyname(hostname)
+<span class="hljs-keyword">except</span> socket.gaierror:
+    parser.error(<span class="hljs-string">f&quot;could not resolve host: <span class="hljs-subst">{hostname}</span>&quot;</span>)
+
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Scanning <span class="hljs-subst">{hostname}</span> (<span class="hljs-subst">{resolved_hostname}</span>) at ports <span class="hljs-subst">{args.start}</span>-<span class="hljs-subst">{args.end}</span>&quot;</span>)
+
+ports_open = <span class="hljs-number">0</span>
+total_scanned = <span class="hljs-built_in">len</span>(ports)
+
+print_lock = threading.Lock()
+
+<span class="hljs-comment"># Setup socket connection with port connection check</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+    <span class="hljs-keyword">global</span> ports_open
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM) <span class="hljs-keyword">as</span> s:
+            s.settimeout(<span class="hljs-number">1</span>)
+
+            result = s.connect_ex((host, port))
+
+            <span class="hljs-keyword">with</span> print_lock:
+                <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>, end=<span class="hljs-string">&quot; - &quot;</span>)
+                    ports_open += <span class="hljs-number">1</span>
+                    <span class="hljs-keyword">try</span>:
+                        <span class="hljs-built_in">print</span>(socket.getservbyport(port))
+                    <span class="hljs-keyword">except</span> OSError:
+                        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error: Service not known.&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    
+    <span class="hljs-keyword">except</span> socket.timeout:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error: The scan has timed out.&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    
+    <span class="hljs-keyword">except</span> socket.gaierror:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error: The host couldn&#x27;t resolve.&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+    
+start_time = time.time()
+
+<span class="hljs-comment"># Initiate multi-threaded scan</span>
+<span class="hljs-keyword">try</span>:
+    <span class="hljs-keyword">with</span> ThreadPoolExecutor(max_workers=<span class="hljs-number">100</span>) <span class="hljs-keyword">as</span> executor:
+        executor.<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> port : scan_port(hostname, port), ports)
+
+<span class="hljs-keyword">except</span> KeyboardInterrupt:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nScan cancelled by the user.&quot;</span>)
+
+<span class="hljs-keyword">finally</span>:
+    end_time = time.time()
+
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-&quot;</span> * <span class="hljs-number">46</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Scan complete.&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{ports_open}</span> <span class="hljs-subst">{<span class="hljs-string">&#x27;ports are&#x27;</span> <span class="hljs-keyword">if</span> ports_open &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;port is&#x27;</span>}</span> open. Scanned <span class="hljs-subst">{total_scanned}</span> ports in total.&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Finished scan in: <span class="hljs-subst">{<span class="hljs-built_in">round</span>(end_time-start_time, <span class="hljs-number">2</span>)}</span> seconds.&quot;</span>)
+</pre>
+</div>
+  </article>
+
+
+  <div class="tags">
+    <span class="tag">Tools</span>
+    <span class="tag">Python</span>
+    <span class="tag">TCP/IP</span>
+    <span class="tag">Networking</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>CompTIA Security+ and Network+. Building a homelab, working through TryHackMe, and writing down notes of what I learn.</p>
+      </div>
+    </div>
+  </a>
+
+  <div class="post-nav">
+    <a href="/posts/building-a-port-scanner-with-python/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Building a port scanner with Python</div>
+    </a>
+    <a class="next" href="/posts/network-traffic-analysis-with-wireshark/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Network traffic analysis with Wireshark</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

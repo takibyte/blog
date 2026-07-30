@@ -65,7 +65,7 @@
 
 <div class="wrap">
   <div class="breadcrumb page-header-spacing">
-    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span>port-scanner — Multi-threaded port-scanner
+    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span>pscan — Multi-threaded port-scanner
   </div>
 
   <section class="project-hero">
@@ -77,8 +77,8 @@
         <span class="badge type-tool">Tool</span>
         <span class="badge status-active">Active</span>
       </div>
-      <h1>port-scanner — Multi-threaded port-scanner</h1>
-      <p class="desc">Description</p>
+      <h1>pscan — Multi-threaded port-scanner</h1>
+      <p class="desc">Building a network port-scanner from scratch with Python. From implementing the core socket module, to learning about locking threads.</p>
 
       <div class="project-tags">
         <span class="project-tag">Python</span>
@@ -100,8 +100,27 @@
   <section class="section">
     <div class="eyebrow mono">// what it does</div>
     <article class="bio tight">
-      <p>Body</p>
+      <p>This is a simple port scanner written in Python. It allows you to scan a range of ports on a specified host to check which ports are open.</p>
 
+<div class="code-block">
+  <div class="code-block-head">
+    <span>terminal</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>usage: portscanner [-h] [--start START] [--end END] [host]
+
+positional arguments: host <span class="hljs-built_in">hostname</span> <span class="hljs-built_in">or</span> IPv4 address
+
+<span class="hljs-keyword">options</span>:
+
+-h, --<span class="hljs-keyword">help</span> show <span class="hljs-keyword">help</span> message <span class="hljs-built_in">and</span> <span class="hljs-keyword">exit</span>
+
+--start START start of the port <span class="hljs-built_in">range</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> scanned
+
+--end END end of the port <span class="hljs-built_in">range</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> scanned
+
+example usage: <span class="hljs-keyword">python3</span> portscanner.<span class="hljs-keyword">py</span> --start <span class="hljs-number">0</span> --end <span class="hljs-number">1000</span> example.<span class="hljs-keyword">com</span></pre>
+</div>
     </article>
 
     <!-- <div class="code-block">
@@ -149,9 +168,17 @@
       <span class="series-num mono">01</span>
       <div>
         <div class="series-title">Building a port scanner with Python</div>
-        <div class="series-excerpt">How i went about building a simple network port scanner from scratch with Python.</div>
+        <div class="series-excerpt">How I went about building a simple network port scanner from scratch with Python.</div>
       </div>
       <div class="series-meta">10 May<br>2026</div>
+    </a>
+    <a class="series-item" href="/posts/upgrading-the-port-scanner-with-multi-threading/">
+      <span class="series-num mono">02</span>
+      <div>
+        <div class="series-title">Upgrading the port scanner with multi-threading</div>
+        <div class="series-excerpt">Switching out the loop logic for multi-threading, handling errors, and adding argparse.</div>
+      </div>
+      <div class="series-meta">12 May<br>2026</div>
     </a></div>
     </section>
 

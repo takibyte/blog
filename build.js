@@ -117,10 +117,10 @@ marked.use({
   renderer: {
     code(token) {
       const { text, lang } = token;
-      // support an optional filename via fence info string: ```python title=pyportscan.py
+      // support an optional filename via fence info string: ```python title=port-scanner.py
       const [language, ...rest] = (lang || '').split(' ');
       const titleMatch = rest.join(' ').match(/title=(\S+)/);
-      const filename = titleMatch ? titleMatch[1] : language || 'code';
+      const filename = titleMatch ? titleMatch[1] : language || 'terminal';
 
       const highlighted = language && hljs.getLanguage(language)
         ? hljs.highlight(text, { language }).value
