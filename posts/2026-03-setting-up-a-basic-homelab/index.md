@@ -1,6 +1,6 @@
 ---
-title: Setting up a basic home lab
-dek: Building a home lab for hands-on cybersecurity and networking practice, from hardware choices to initial network setup.
+title: Setting up a basic homelab
+dek: Building a homelab for hands-on cybersecurity and networking practice, from hardware choices to initial network setup.
 author: takibyte
 date: 2026-03-06
 category: homelab
