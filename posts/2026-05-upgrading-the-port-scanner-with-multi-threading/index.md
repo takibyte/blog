@@ -5,12 +5,12 @@ author: takibyte
 date: 2026-05-12
 category: tools
 tags: [Tools, Python, TCP/IP, Networking]
-cover: cover.png
+cover: cover.webp
 ---
 
-## From loops to threads
-
 ## Error handling
+
+## From loops to threads
 
 ## Adding argparse
 

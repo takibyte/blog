@@ -5,7 +5,7 @@ author: takibyte
 date: 2026-03-01
 category: notes
 tags: [Study, Certs, Homelab, CTF]
-cover: cover.png
+cover: cover.webp
 ---
 
 ## The plan
