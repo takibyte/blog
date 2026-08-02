@@ -16,6 +16,9 @@
     <loc>https://blog.takibyte.com/posts/network-traffic-analysis-with-wireshark/</loc>
   </url>
   <url>
+    <loc>https://blog.takibyte.com/posts/improving-the-port-scanner-with-argparse/</loc>
+  </url>
+  <url>
     <loc>https://blog.takibyte.com/posts/upgrading-the-port-scanner-with-multi-threading/</loc>
   </url>
   <url>

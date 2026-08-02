@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Building a port scanner with Python</title>
-<meta name="description" content="How I went about building a simple network port scanner from scratch with Python.">
+<meta name="description" content="How I built a simple network port scanner from scratch with Python.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -70,7 +70,7 @@
     </div>
     <div class="post-cat cat-homelab mono">// TOOLS</div>
     <h1 class="headline">Building a port scanner with Python</h1>
-    <p class="dek">How I went about building a simple network port scanner from scratch with Python.</p>
+    <p class="dek">How I built a simple network port scanner from scratch with Python.</p>
     <div class="meta-row">
       <a href="/about/"><div class="author-avatar"></div></a>
       <div class="meta-text">
@@ -91,7 +91,7 @@
   
     <div class="series-badge">
       <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
-      <span class="mono">1 of 2</span>
+      <span class="mono">1 of 3</span>
     </div>
 
   <article class="body">
@@ -140,6 +140,8 @@ s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>
     
     <span class="hljs-built_in">print</span>(result)
 
+    s.close()
+
     <span class="hljs-keyword">return</span>
 
 scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">22</span>)</pre>
@@ -152,8 +154,13 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
   <p>I just decided to call the referenced value in my scanner <code>host</code>, as you can scan hostnames or host IP addresses, they will both resolve to the same valid IP.</p>
 </div>
 <p><code>connect_ex()</code> is used here, as it returns a number value even on exception: it will return <code>0</code> if the connection is successful, and another error number if there is an error. <code>connect()</code>, will raise a text exception on failure, which won&#39;t be as usable for the port scanner.</p>
-<p><code>result</code> is printed, the function then ends with <code>return</code>. The function is called at the bottom with <code>scan_port(&quot;localhost&quot;, 22)</code>, this has the socket object attempt to create a connection to <code>localhost</code> (the loopback address / 127.0.0.1), with port <code>22</code>, the ssh port (which I know is open on my computer).</p>
-<p>Running this program now with:</p>
+<p><code>result</code> is printed, the created socket is closed with <code>s.close()</code>, and the function then ends with <code>return</code>. The function is called at the bottom with <code>scan_port(&quot;localhost&quot;, 22)</code>, this has the socket object attempt to create a connection to <code>localhost</code> (the loopback address / 127.0.0.1), with port <code>22</code>, the ssh port (which I know is open on my computer).</p>
+
+<div class="callout warn">
+  <span class="icon mono">WARN</span>
+  <p>It is recommended to close the socket connection with <code>socket.close()</code> (<code>s.close()</code> in my case), as this will free up resources and prevent memory leaks.</p>
+</div>
+<p>Now let&#39;s run the program so far like this:</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -184,6 +191,9 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
               <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
         <span class="hljs-keyword">else</span>:
               <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;closed port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+        s.close()
+
         <span class="hljs-keyword">return</span>
     
 
@@ -215,11 +225,46 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
         <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
 <span class="hljs-keyword">else</span>:
         <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;closed port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+s.close()
+
 <span class="hljs-keyword">return</span></pre>
 </div><p>The logic here is simple, if the <code>connect_ex((host, port))</code> result (from the result variable), equals <code>0</code>, that means the connection succeeded and the port is open, therefore we will print using: <code>print(f&quot;open port: {port}&quot;)</code>, which would return something like: <code>open port: 22</code>. Otherwise, we will print using <code>print(f&quot;closed port: {port}&quot;)</code>, which would return something like: <code>closed port: 23</code>. The <code>print(f&quot;Text {variable}&quot;)</code> format uses a formatted string literal, which allows the formatting of variables into strings at runtime, replacing the curly brackets with the variable value.</p>
+<p>Going forward however, when scanning many ports (over 1000 for example), it won&#39;t be ideal to print every time a closed port is detected, this will create too much unnecessary noise in the terminal output. So removing the <code>else:</code> block as in the block below will be better:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+
+        s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+        s.settimeout(<span class="hljs-number">1</span>)
+
+        result = s.connect_ex((host, port))
+
+        <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+              <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+        s.close()
+
+        <span class="hljs-keyword">return</span>
+    
+
+<span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>):
+    scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, port)</pre>
+</div>
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>Keep in mind that with the current state of the scanner, when scanning a host other than <code>localhost</code>, the scanner will wait for one second on each failed connection attempt. So for example, if scanning 100 ports, since most ports will be closed, the whole scan will take around 100 seconds. This is obviously not ideal, but will be resolved when we add multi-threading in the next post.</p>
+</div>
 <p>And there we have it, an operational port scanner! Though this is quite basic and lacks a lot still, it works, which is pretty cool.</p>
-<p>In the next post, I&#39;ll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.</p>
-<p>Thanks for reading!</p>
+<p>In the next posts, I&#39;ll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.</p>
 
   </article>
 

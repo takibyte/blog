@@ -1,6 +1,6 @@
 ---
 title: Building a port scanner with Python
-dek: How I went about building a simple network port scanner from scratch with Python.
+dek: How I built a simple network port scanner from scratch with Python.
 author: takibyte
 date: 2026-05-10
 category: tools
@@ -65,6 +65,8 @@ def scan_port(host, port):
     
     print(result)
 
+    s.close()
+
     return
 
 scan_port("localhost", 22)
@@ -82,9 +84,13 @@ I just decided to call the referenced value in my scanner `host`, as you can sca
 
 `connect_ex()` is used here, as it returns a number value even on exception: it will return `0` if the connection is successful, and another error number if there is an error. `connect()`, will raise a text exception on failure, which won't be as usable for the port scanner.
 
-`result` is printed, the function then ends with `return`. The function is called at the bottom with `scan_port("localhost", 22)`, this has the socket object attempt to create a connection to `localhost` (the loopback address / 127.0.0.1), with port `22`, the ssh port (which I know is open on my computer).
+`result` is printed, the created socket is closed with `s.close()`, and the function then ends with `return`. The function is called at the bottom with `scan_port("localhost", 22)`, this has the socket object attempt to create a connection to `localhost` (the loopback address / 127.0.0.1), with port `22`, the ssh port (which I know is open on my computer).
 
-Running this program now with:
+:::warn
+It is recommended to close the socket connection with `socket.close()` (`s.close()` in my case), as this will free up resources and prevent memory leaks.
+:::
+
+Now let's run the program so far like this:
 
 ```
 python3 pscan.py
@@ -111,6 +117,9 @@ def scan_port(host, port):
               print(f"open port: {port}")
         else:
               print(f"closed port: {port}")
+
+        s.close()
+
         return
     
 
@@ -138,13 +147,45 @@ if result == 0:
         print(f"open port: {port}")
 else:
         print(f"closed port: {port}")
+
+s.close()
+
 return
 ```
 
 The logic here is simple, if the `connect_ex((host, port))` result (from the result variable), equals `0`, that means the connection succeeded and the port is open, therefore we will print using: `print(f"open port: {port}")`, which would return something like: `open port: 22`. Otherwise, we will print using `print(f"closed port: {port}")`, which would return something like: `closed port: 23`. The `print(f"Text {variable}")` format uses a formatted string literal, which allows the formatting of variables into strings at runtime, replacing the curly brackets with the variable value.
 
+Going forward however, when scanning many ports (over 1000 for example), it won't be ideal to print every time a closed port is detected, this will create too much unnecessary noise in the terminal output. So removing the `else:` block as in the block below will be better:
+
+```py
+#!/usr/bin/env python3
+
+import socket
+
+def scan_port(host, port):
+
+        s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
+        s.settimeout(1)
+
+        result = s.connect_ex((host, port))
+
+        if result == 0:
+              print(f"open port: {port}")
+
+        s.close()
+
+        return
+    
+
+for port in range(1, 30):
+    scan_port("localhost", port)
+```
+
+:::note
+Keep in mind that with the current state of the scanner, when scanning a host other than `localhost`, the scanner will wait for one second on each failed connection attempt. So for example, if scanning 100 ports, since most ports will be closed, the whole scan will take around 100 seconds. This is obviously not ideal, but will be resolved when we add multi-threading in the next post.
+:::
+
 And there we have it, an operational port scanner! Though this is quite basic and lacks a lot still, it works, which is pretty cool.
 
-In the next post, I'll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.
+In the next posts, I'll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.
 
-Thanks for reading!
