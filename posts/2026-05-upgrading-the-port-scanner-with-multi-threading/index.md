@@ -87,7 +87,7 @@ s.close()
 return
 ```
 
-Here I have added another print function, it gets and prints the service name with the port number that was just scanned, (for example, `ssh` for port 22). Using `try:`, we can attempt to get the service, but if there isn't one, it will throw the `except OSError:`, which will handle the error and print a message. The `OSError` is a generic Python error related to system errors, more information can be found here: <https://docs.python.org/3/library/exceptions.html#OSError>. 
+Here I have added another print function, it gets and prints the service name with the port number that was just scanned, (for example, `ssh` for port 22). Using `try:`, we can attempt to get the service, but if there isn't one, it will throw the `except OSError:`, which will handle the error and print a message. The `OSError` is a generic Python error related to system errors, more information can be found [here](https://docs.python.org/3/library/exceptions.html#OSError). 
 
 Additionally, in this block, I have added `, end=" - "` within the original print function. Normally, the print function automatically includes a newline with `\n`, including `end=" - "` overrides the new line and appends a dash, this simply allows for the service name to be formatted onto the same line as the printed port number.
 
@@ -108,7 +108,7 @@ except socket.gaierror:
 
 Both of these are socket module related errors, and are a subclass of the `OSError` mentioned above.
 `socket.timeout:`, as the print message indicates, is thrown when a scan times out.
-`socket.gaierror:`, is related to errors getting address info with the `getaddrinfo()` or `getnameinfo()` socket functions (hence gai). More information on both of these error types and more can be found in the documentation: <https://docs.python.org/3/library/socket.html#exceptions>.
+`socket.gaierror:`, is related to errors getting address info with the `getaddrinfo()` or `getnameinfo()` socket functions (hence gai). More information on both of these error types and more can be found in the [documentation](https://docs.python.org/3/library/socket.html#exceptions).
 
 Finally, the last try / except set in shown here:
 

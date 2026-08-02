@@ -175,7 +175,7 @@
 s.close()
 
 <span class="hljs-keyword">return</span></pre>
-</div><p>Here I have added another print function, it gets and prints the service name with the port number that was just scanned, (for example, <code>ssh</code> for port 22). Using <code>try:</code>, we can attempt to get the service, but if there isn&#39;t one, it will throw the <code>except OSError:</code>, which will handle the error and print a message. The <code>OSError</code> is a generic Python error related to system errors, more information can be found here: <a href="https://docs.python.org/3/library/exceptions.html#OSError">https://docs.python.org/3/library/exceptions.html#OSError</a>. </p>
+</div><p>Here I have added another print function, it gets and prints the service name with the port number that was just scanned, (for example, <code>ssh</code> for port 22). Using <code>try:</code>, we can attempt to get the service, but if there isn&#39;t one, it will throw the <code>except OSError:</code>, which will handle the error and print a message. The <code>OSError</code> is a generic Python error related to system errors, more information can be found <a href="https://docs.python.org/3/library/exceptions.html#OSError">here</a>. </p>
 <p>Additionally, in this block, I have added <code>, end=&quot; - &quot;</code> within the original print function. Normally, the print function automatically includes a newline with <code>\n</code>, including <code>end=&quot; - &quot;</code> overrides the new line and appends a dash, this simply allows for the service name to be formatted onto the same line as the printed port number.</p>
 <p>Next, lets look at the main <code>try:</code> before the socket object creation. This <code>try:</code> block has the corresponding exception clauses here:</p>
 
@@ -196,7 +196,7 @@ s.close()
     <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span></pre>
 </div><p>Both of these are socket module related errors, and are a subclass of the <code>OSError</code> mentioned above.
 <code>socket.timeout:</code>, as the print message indicates, is thrown when a scan times out.
-<code>socket.gaierror:</code>, is related to errors getting address info with the <code>getaddrinfo()</code> or <code>getnameinfo()</code> socket functions (hence gai). More information on both of these error types and more can be found in the documentation: <a href="https://docs.python.org/3/library/socket.html#exceptions">https://docs.python.org/3/library/socket.html#exceptions</a>.</p>
+<code>socket.gaierror:</code>, is related to errors getting address info with the <code>getaddrinfo()</code> or <code>getnameinfo()</code> socket functions (hence gai). More information on both of these error types and more can be found in the <a href="https://docs.python.org/3/library/socket.html#exceptions">documentation</a>.</p>
 <p>Finally, the last try / except set in shown here:</p>
 
 <div class="code-block">

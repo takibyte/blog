@@ -13,4 +13,4 @@ posts:
     - Setting up a Pi-hole Part 2
 ---
 
-Body
+In this series I will walk through how I set up a DNS sinkhole using the Pi-hole software. From Raspberry Pi OS installation and ssh public key configuration, to Pi-Hole configuration and DNS & DHCP configuration.

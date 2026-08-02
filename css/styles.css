@@ -784,14 +784,14 @@ h1.headline{
   /* background:radial-gradient(circle at 70% 30%, rgba(94,224,192,0.28), transparent 55%); */
 }
 
-article.body{font-size:17px;line-height:1.75;color:var(--ink-soft);}
+article.body{font-size:17px;line-height:1.75;color:var(--ink-soft);overflow-wrap:break-word;word-break:break-word;}
 article.body p{margin-bottom:24px;}
 article.body h2{
   font-size:24px;font-weight:600;color:var(--ink);
   margin:48px 0 18px;letter-spacing:-0.01em;
 }
 article.body h3{font-size:19px;font-weight:600;color:var(--ink);margin:36px 0 14px;}
-article.body a{color:var(--accent-1);border-bottom:1px solid color-mix(in srgb, var(--accent-) 35%, transparent);}
+article.body a{color:var(--accent-1);border-bottom:1px solid color-mix(in srgb, var(--accent-1) 35%, transparent);overflow-wrap:break-word;word-break:break-word;}
 article.body a:hover{border-color:var(--accent-1);}
 article.body ul, article.body ol{margin:0 0 24px 22px;}
 article.body li{margin-bottom:8px;}
