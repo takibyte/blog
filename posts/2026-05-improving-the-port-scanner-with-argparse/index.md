@@ -106,7 +106,7 @@ parser = argparse.ArgumentParser(
 
 Here, I created a new parser object in my variable `parser`, we define the program name with: `prog="the program name"`, and description with: `description="your description"`.
 
-Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and store those values in the parser. We can then use those user provided values in the program.
+Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and have those values processed by the parser at runtime. We can then use those user provided values in the program.
 
 ```py
 def valid_port(value):

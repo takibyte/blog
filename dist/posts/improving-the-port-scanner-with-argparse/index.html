@@ -194,7 +194,7 @@ print_lock = threading.Lock()
     prog=<span class="hljs-string">&quot;pscan&quot;</span>,
     description=<span class="hljs-string">&quot;A simple port scanner&quot;</span>)</pre>
 </div><p>Here, I created a new parser object in my variable <code>parser</code>, we define the program name with: <code>prog=&quot;the program name&quot;</code>, and description with: <code>description=&quot;your description&quot;</code>.</p>
-<p>Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and store those values in the parser. We can then use those user provided values in the program.</p>
+<p>Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and have those values processed by the parser at runtime. We can then use those user provided values in the program.</p>
 
 <div class="code-block">
   <div class="code-block-head">

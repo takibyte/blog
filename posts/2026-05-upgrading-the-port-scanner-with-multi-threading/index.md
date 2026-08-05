@@ -110,7 +110,7 @@ Both of these are socket module related errors, and are a subclass of the `OSErr
 `socket.timeout:`, as the print message indicates, is thrown when a scan times out.
 `socket.gaierror:`, is related to errors getting address info with the `getaddrinfo()` or `getnameinfo()` socket functions (hence gai). More information on both of these error types and more can be found in the [documentation](https://docs.python.org/3/library/socket.html#exceptions).
 
-Finally, the last try / except set in shown here:
+Finally, the last try / except set is shown here:
 
 ```py
 try:
@@ -195,7 +195,7 @@ The result of this is: up to 100 threads are being used to scan all the sockets,
 Please note that the hostname and ports list is now moved into their own variable at the beginning of the program.
 :::
 
-Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren't the localhost loopback IP.
+Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren't the localhost loopback IP address.
 
 ```
 python3 pscan.py

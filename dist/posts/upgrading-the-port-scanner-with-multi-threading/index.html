@@ -197,7 +197,7 @@ s.close()
 </div><p>Both of these are socket module related errors, and are a subclass of the <code>OSError</code> mentioned above.
 <code>socket.timeout:</code>, as the print message indicates, is thrown when a scan times out.
 <code>socket.gaierror:</code>, is related to errors getting address info with the <code>getaddrinfo()</code> or <code>getnameinfo()</code> socket functions (hence gai). More information on both of these error types and more can be found in the <a href="https://docs.python.org/3/library/socket.html#exceptions">documentation</a>.</p>
-<p>Finally, the last try / except set in shown here:</p>
+<p>Finally, the last try / except set is shown here:</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -281,7 +281,7 @@ print_lock = threading.Lock()
   <span class="icon mono">NOTE</span>
   <p>Please note that the hostname and ports list is now moved into their own variable at the beginning of the program.</p>
 </div>
-<p>Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren&#39;t the localhost loopback IP.</p>
+<p>Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren&#39;t the localhost loopback IP address.</p>
 
 <div class="code-block">
   <div class="code-block-head">

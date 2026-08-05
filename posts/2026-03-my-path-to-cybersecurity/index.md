@@ -20,7 +20,7 @@ The cybersecurity profession is not just about theory however, I need to get han
 - The TryHackMe learning paths are a structured way to introduce me to the relevant topics, concepts, and tools in a progression that makes sense.
 - CTF rooms are fun, and allow me to get more hands on with pentesting tools, to help me better understand practically how an attacker will think about breaking into a system or network.
 
-And tieing this all together will be this blog website, where I can do writeups for these homelab projects, THM rooms, and any other notes I feel like writing along the way.
+And tying this all together will be this blog website, where I can do writeups for these homelab projects, THM rooms, and any other notes I feel like writing along the way.
 
 So here, the plan can be split into two parts: the certifications and path completions (a checklist of goals), and the ever ongoing homelab project ideas and CTF writeups.
 
@@ -32,10 +32,10 @@ So here, the plan can be split into two parts: the certifications and path compl
         <span class="check">✓</span> TryHackMe Pre Security Path
     </div>        
     <div class="roadmap-item done">
-        <span class="check">✓</span> Network+ certification
+        <span class="check">✓</span> Network+ Certification
     </div>
     <div class="roadmap-item done">
-        <span class="check">✓</span> Security+ certification
+        <span class="check">✓</span> Security+ Certification
     </div>
     <div class="roadmap-item done">
         <span class="check">✓</span> TryHackMe Security 101 Path

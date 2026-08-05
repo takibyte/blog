@@ -18,7 +18,7 @@ The homelab is limitless, and I hope that as my knowledge, skill, and familiarit
 
 The foundation of any homelab is the gear itself. Though more advanced gear will allow for more advanced projects, I believe that you really don't need much to do much. With the small, humble homelab that I have at the moment, there is more opportunity to learn and practice than I could ever exhaust. 
 
-With virtual machines nowadays, having only a 2 or 3 computers, a router, and a managed switch, enables many opportunities to practice network segmentation, hardening, detection engineering and analysis, penetration testing, firewall rules and ACLs, IDS/IPS implementations, various OS configurations, enumeration and exploitation techniques, and network traffic capture and analysis — just to name a few ideas off the top of my head. This list is endless, and this is all doable in a basic little homelab, I just find that so cool!
+With virtual machines nowadays, having only 2 or 3 computers, a router, and a managed switch, enables many opportunities to practice network segmentation, hardening, detection engineering and analysis, penetration testing, firewall rules and ACLs, IDS/IPS implementations, various OS configurations, enumeration and exploitation techniques, and network traffic capture and analysis — just to name a few ideas off the top of my head. This list is endless, and this is all doable in a basic little homelab, I just find that so cool!
 
 So here is the current state of my homelab:
 

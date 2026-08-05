@@ -20,7 +20,7 @@ So the basic steps so far are:
 
 3. Install Pi-hole, and any other necessary software with a remote ssh bash terminal.
 
-4. Configure the Pi-hole and learn how to use it to suite my situation.
+4. Configure the Pi-hole and learn how to use it to suit my situation.
 
 
 ## Setting up the Pi
