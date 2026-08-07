@@ -12,7 +12,7 @@ In the last post on bulding a port scanner, I added error handling, and upgraded
 
 Currently, the port scanner can scan ports relatively quickly and effectively, however there is no way for a user to determine which host to scan and on which ports, without editing the source code itself.
 
-For this, we will use the Python 'argparse' module to the scanner.
+For this, we will use the Python 'argparse' module in the scanner.
 
 ## Adding argparse
 
@@ -354,7 +354,7 @@ print(f"{ports_open} {'ports are' if ports_open > 1 else 'port is'} open. Scanne
 print(f"Finished scan in: {round(end_time-start_time, 2)} seconds.")
 ```
 
-This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints 'Scan complete.'. The 3rd line prints how many ports total are open, and this segment: `{'ports are' if ports_open > 1 else 'port is'}`, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it do 2 decimal places.
+This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints 'Scan complete.'. The 3rd line prints how many ports total are open, and this segment: `{'ports are' if ports_open > 1 else 'port is'}`, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it to 2 decimal places.
 
 That covers all the additions. Great, the scanner is now complete!
 

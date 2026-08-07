@@ -10,6 +10,8 @@ cover: cover.png
 
 ## Introduction
 
+![Network topology](./images/topology.webp)
+
 ## Wireshark overview
 
 ## Packet capture

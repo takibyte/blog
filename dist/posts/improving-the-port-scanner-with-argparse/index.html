@@ -97,7 +97,7 @@
   <article class="body">
     <p>In the last post on bulding a port scanner, I added error handling, and upgraded the old loop-based scanning implementation to a superior mutli-threaded version.</p>
 <p>Currently, the port scanner can scan ports relatively quickly and effectively, however there is no way for a user to determine which host to scan and on which ports, without editing the source code itself.</p>
-<p>For this, we will use the Python &#39;argparse&#39; module to the scanner.</p>
+<p>For this, we will use the Python &#39;argparse&#39; module in the scanner.</p>
 <h2>Adding argparse</h2>
 
 <div class="code-block">
@@ -454,7 +454,7 @@ start_time = time.time()
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Scan complete.&quot;</span>)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{ports_open}</span> <span class="hljs-subst">{<span class="hljs-string">&#x27;ports are&#x27;</span> <span class="hljs-keyword">if</span> ports_open &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;port is&#x27;</span>}</span> open. Scanned <span class="hljs-subst">{total_scanned}</span> ports in total.&quot;</span>)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Finished scan in: <span class="hljs-subst">{<span class="hljs-built_in">round</span>(end_time-start_time, <span class="hljs-number">2</span>)}</span> seconds.&quot;</span>)</pre>
-</div><p>This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints &#39;Scan complete.&#39;. The 3rd line prints how many ports total are open, and this segment: <code>{&#39;ports are&#39; if ports_open &gt; 1 else &#39;port is&#39;}</code>, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it do 2 decimal places.</p>
+</div><p>This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints &#39;Scan complete.&#39;. The 3rd line prints how many ports total are open, and this segment: <code>{&#39;ports are&#39; if ports_open &gt; 1 else &#39;port is&#39;}</code>, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it to 2 decimal places.</p>
 <p>That covers all the additions. Great, the scanner is now complete!</p>
 <p>This is an example terminal output you might see if you used the scanner at this point:</p>
 
