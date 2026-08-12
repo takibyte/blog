@@ -1,8 +1,8 @@
 {
-  "name": "blog",
+  "name": "lab",
   "version": "1.0.0",
   "type": "module",
-  "description": "This website is a simple blog-style website, which i created with the intention of documenting my progress while learning Cybersecurity, Networking, and related subjects.",
+  "description": "takibyte homelab",
   "main": "build.js",
   "scripts": {
     "build": "node build.js",

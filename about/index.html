@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>About | takibyte</title>
-<meta name="description" content="Learning cybersecurity in public — homelab experiments, CTF writeups, and the tools I built while learning.">
+<meta name="description" content="Learning cybersecurity in public — homelab experiments, CTF writeups, and the tools I build while learning.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -25,7 +25,7 @@
   <a class="logo" href="/">takibyte</a>
   <nav>
     <a href="/projects/">Projects</a>
-    <a href="/posts/">Posts</a>
+    <a href="/logs/">Logs</a>
     <a class="active" href="/about/">About</a>
   </nav>
   {{themeSelect}}
@@ -37,7 +37,7 @@
 
 <div class="mobile-nav" id="mobileNav">
   <a href="/projects/">Projects</a>
-  <a href="/posts/">Posts</a>
+  <a href="/logs/">Logs</a>
   <a class="active" href="/about/">About</a>
   {{themeSelectMobile}}
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
@@ -55,29 +55,29 @@
 
   <div class="stats-strip">
     <div class="stat">
-      <div class="num">{{postCount}}</div>
-      <div class="label mono">POSTS</div>
-    </div>
-    <div class="stat">
       <div class="num">{{projectCount}}</div>
       <div class="label mono">PROJECTS</div>
     </div>
     <div class="stat">
-      <div class="num">2026</div>
-      <div class="label mono">SINCE</div>
+      <div class="num">{{logCount}}</div>
+      <div class="label mono">LOGS</div>
     </div>
     <div class="stat">
       <div class="num">110+</div>
       <div class="label mono">THM ROOMS</div>
     </div>
+    <div class="stat">
+      <div class="num">2026</div>
+      <div class="label mono">SINCE</div>
+    </div>
   </div>
 
   <article class="bio">
-    <p>I started takibyte as a place to document my path into cybersecurity, most of this is for my own learning and reference. If it's useful to someone else going through similar certs, CTF rooms, and homelab experiments, that's a bonus, and would make me happy.</p>
+    <p>I started takibyte as a place to document my path into cybersecurity, most of this is for my own learning and reference. If it's useful to someone else going through similar certs, CTF rooms, and homelab experiments, that's a bonus, and would make me happy!</p>
 
-    <p>Most of the posts and projects that end up here start as a TryHackMe room, a homelab experiment, or a concept from studying that I thought might be useful to write about.</p>
+    <p>Most of the projects and logs that end up here start as a TryHackMe room, a homelab experiment, or a concept from studying that I thought might be useful to write about.</p>
 
-    <p>If you want to see more or get in touch, you can find me at my links below.</p>
+    <p>If you want to see more, you can find my links below.</p>
   </article>
 
   <section class="section">
@@ -148,7 +148,7 @@
 
   <div class="colophon">
     &gt; This site is statically built from markdown with a custom script, no frameworks.<br>
-    &gt; Source is available on <a href="https://github.com/takibyte/blog">GitHub</a>.
+    &gt; Source is available on <a href="https://github.com/takibyte/lab">GitHub</a>.
   </div>
 </div>
 

@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.takibyte.com/</loc>
+    <loc>https://lab.takibyte.com/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/projects/</loc>
+    <loc>https://lab.takibyte.com/projects/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/</loc>
+    <loc>https://lab.takibyte.com/logs/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/about/</loc>
+    <loc>https://lab.takibyte.com/about/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/network-traffic-analysis-with-wireshark/</loc>
+    <loc>https://lab.takibyte.com/projects/pscan-multi-threaded-port-scanner/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/improving-the-port-scanner-with-argparse/</loc>
+    <loc>https://lab.takibyte.com/projects/setting-up-a-dns-sinkhole-with-pi-hole/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/upgrading-the-port-scanner-with-multi-threading/</loc>
+    <loc>https://lab.takibyte.com/projects/network-traffic-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/building-a-port-scanner-with-python/</loc>
+    <loc>https://lab.takibyte.com/logs/network-traffic-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/setting-up-a-pi-hole-part-2/</loc>
+    <loc>https://lab.takibyte.com/logs/improving-the-port-scanner-with-argparse/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/setting-up-a-pi-hole-part-1/</loc>
+    <loc>https://lab.takibyte.com/logs/upgrading-the-port-scanner-with-multi-threading/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/setting-up-a-basic-homelab/</loc>
+    <loc>https://lab.takibyte.com/logs/building-a-port-scanner-with-python/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/posts/my-path-to-cybersecurity/</loc>
+    <loc>https://lab.takibyte.com/logs/setting-up-a-pi-hole-part-2/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/projects/pscan-multi-threaded-port-scanner/</loc>
+    <loc>https://lab.takibyte.com/logs/setting-up-a-pi-hole-part-1/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/projects/setting-up-a-dns-sinkhole-with-pi-hole/</loc>
+    <loc>https://lab.takibyte.com/logs/setting-up-a-basic-homelab/</loc>
   </url>
   <url>
-    <loc>https://blog.takibyte.com/projects/network-traffic-analysis-with-wireshark/</loc>
+    <loc>https://lab.takibyte.com/logs/my-path-to-cybersecurity/</loc>
   </url>
 </urlset>

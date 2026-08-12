@@ -1,6 +1,6 @@
 /* ==========================================================================
    takibyte — shared stylesheet
-   Used by: home, projects, posts (archive), post, about
+   Used by: home, projects, logs (archive), log, about
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -294,7 +294,7 @@ nav a.active{color:var(--accent-1);}
 /* ---- content containers ---- */
 main{max-width:1200px;margin:0 auto;padding:48px 32px 90px;}
 
-/* Narrower single-column wrapper, used by Post and About */
+/* Narrower single-column wrapper, used by Log and About */
 .wrap{max-width:760px;margin:0 auto;padding:0 32px;}
 
 /* ---- footer ---- */
@@ -368,12 +368,12 @@ footer{
   display:block;
 }
 
-/* Page intro block — kicker + h1 + optional dek. Used by Home, Projects, Posts. */
+/* Page intro block — kicker + h1 + optional dek. Used by Home, Projects, Logs. */
 .page-intro{max-width:640px;margin-bottom:48px;}
 .page-intro h1{font-size:34px;font-weight:600;line-height:1.25;letter-spacing:-0.01em;}
 .page-intro p{font-size:15px;color:var(--muted);margin-top:12px;line-height:1.6;}
 
-/* Filter chip row — used for content filtering on Home and Posts */
+/* Filter chip row — used for content filtering on Home and Logs */
 .tags-filter{display:flex;gap:8px;flex-wrap:wrap;}
 .tag-filter{
   font-family:var(--font-mono);
@@ -384,10 +384,10 @@ footer{
 .tag-filter.active{border-color:var(--accent-1);color:var(--accent-1);background:color-mix(in srgb, var(--accent-1) 8%, transparent);}
 .tag-filter:hover{color:var(--ink);}
 
-/* Small "showing N of M" caption — used on Home and Posts */
+/* Small "showing N of M" caption — used on Home and Logs */
 .result-count{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);padding-bottom:36px;display:block;}
 
-/* Static pill tag — used at the bottom of an individual post */
+/* Static pill tag — used at the bottom of an individual log */
 .tag{
   font-family:var(--font-mono);
   font-size:12px;padding:6px 12px;border-radius:20px;
@@ -395,27 +395,27 @@ footer{
 }
 .tag:hover{border-color:var(--accent-1);color:var(--accent-1);}
 
-/* Status/category badge — small colored pill, used on Projects and Posts */
+/* Status/category badge — small colored pill, used on Projects and Logs */
 .badge{
   font-family:var(--font-mono);
   font-size:10.5px;letter-spacing:0.05em;text-transform:uppercase;
   padding:4px 10px;border-radius:20px;
 }
 
-/* Content category color system — reused on Home cards, Posts rows,
-   and the individual Post page's category label. One naming scheme
+/* Content category color system — reused on Home cards, Logs rows,
+   and the individual Log page's category label. One naming scheme
    everywhere: cat-homelab / cat-ctf / cat-tools / cat-notes */
 .cat-homelab{color:var(--accent-1);}
 .cat-ctf{color:var(--accent-2);}
 .cat-tools{color:var(--accent-3);}
 .cat-notes{color:var(--muted);}
 
-/* Project type badge — distinguishes a "series" (post collection) from
+/* Project type badge — distinguishes a "series" (log collection) from
    a "tool" (a shipped script/utility) on the Projects grid */
 .badge.type-series{background:color-mix(in srgb, var(--accent-2) 12%, transparent);color:var(--accent-2);}
 .badge.type-tool{background:color-mix(in srgb, var(--accent-3) 12%, transparent);color:var(--accent-3);}
 
-/* "View all" link, e.g. Home → Posts */
+/* "View all" link, e.g. Home → Logs */
 .view-all{font-size:13px;color:var(--muted);}
 .view-all:hover{color:var(--accent-1);}
 
@@ -433,8 +433,8 @@ footer{
 }
 .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-1);flex-shrink:0;}
 
-/* Small reference-style ID, e.g. SIG-2026-0031, shown next to a post's date */
-.post-id{font-family:var(--font-mono);font-size:12px;color:var(--muted);}
+/* Small reference-style ID, e.g. SIG-2026-0031, shown next to a log's date */
+.log-id{font-family:var(--font-mono);font-size:12px;color:var(--muted);}
 
 
 /* ==========================================================================
@@ -602,7 +602,7 @@ footer{
 /* Note directly under a progress bar needs less top space */
 .section-note.no-margin{margin-bottom:0;margin-top:10px;}
 
-/* ---------- Posts (archive index) ------------------------------------------ */
+/* ---------- Logs (archive index) ------------------------------------------ */
 .controls{
   display:flex;gap:16px;align-items:center;flex-wrap:wrap;
   margin-bottom:32px;
@@ -652,8 +652,8 @@ footer{
 .search input::placeholder{color:var(--muted);}
 
 
-.post-list{display:flex;flex-direction:column;}
-.post-row{
+.log-list{display:flex;flex-direction:column;}
+.log-row{
   display:grid;
   grid-template-columns:90px 1fr auto;
   gap:24px;
@@ -661,34 +661,34 @@ footer{
   padding:26px 0;
   border-top:1px solid var(--line);
 }
-.post-row.first-visible{border-top:none;padding-top:0;}
-.post-row:hover .post-title{color:var(--accent-1);}
+.log-row.first-visible{border-top:none;padding-top:0;}
+.log-row:hover .log-title{color:var(--accent-1);}
 
-.post-date{
+.log-date{
   font-family:var(--font-mono);
   font-size:12px;color:var(--muted);
   padding-top:4px;
 }
-.post-date .year{display:block;color:var(--faint);margin-top:2px;}
+.log-date .year{display:block;color:var(--faint);margin-top:2px;}
 
-.post-main .post-cat{
+.log-main .log-cat{
   font-family:var(--font-mono);
   font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
   margin-bottom:8px;
 }
 
 
-.post-title{font-size:19px;font-weight:600;line-height:1.35;margin-bottom:8px;}
-.post-excerpt{font-size:14px;color:var(--muted);line-height:1.6;max-width:58ch;}
+.log-title{font-size:19px;font-weight:600;line-height:1.35;margin-bottom:8px;}
+.log-excerpt{font-size:14px;color:var(--muted);line-height:1.6;max-width:58ch;}
 
-.post-meta{
+.log-meta{
   text-align:right;
   font-family:var(--font-mono);
   font-size:12px;color:var(--muted);
   white-space:nowrap;
   padding-top:4px;
 }
-.post-meta .read-time{display:block;margin-bottom:4px;}
+.log-meta .read-time{display:block;margin-bottom:4px;}
 
 .load-more{text-align:center;padding:44px 0 0;}
 .load-more button{
@@ -698,8 +698,8 @@ footer{
 }
 .load-more button:hover{border-color:var(--accent-1);color:var(--accent-1);}
 
-/* ---------- Post (individual) ---------------------------------------------- */
-.post-header{padding:48px 0 0;}
+/* ---------- Log (individual) ---------------------------------------------- */
+.log-header{padding:48px 0 0;}
 .breadcrumb{
   font-family:var(--font-mono);
   font-size:12.5px;color:var(--muted);
@@ -710,7 +710,7 @@ footer{
 
 .page-header-spacing{padding-top:48px;}
 
-.post-cat{
+.log-cat{
   font-family:var(--font-mono);
   font-size:12.5px;letter-spacing:0.05em;
   margin-bottom:16px;
@@ -770,7 +770,7 @@ h1.headline{
   white-space:nowrap; /* "1 of 2" itself is never allowed to break across lines */
 }
 
-.post-media{
+.log-media{
   aspect-ratio:16/9;border-radius:10px;
   margin:48px 0 24px;
   position:relative;overflow:hidden;
@@ -779,7 +779,7 @@ h1.headline{
   display:block;
   /* background:linear-gradient(135deg,#1c2b33,#0e1116); */
 }
-.post-media::after{
+.log-media::after{
   content:"";position:absolute;inset:0;
   /* background:radial-gradient(circle at 70% 30%, rgba(94,224,192,0.28), transparent 55%); */
 }
@@ -837,7 +837,7 @@ article.body img{
   color:var(--ink-soft);
 }
 
-/* callout / note box — the "pull quote" role for a dev blog */
+/* callout / note box — the "pull quote" role for a dev homelab */
 .callout{
   display:flex;gap:14px;
   background:var(--surface);
@@ -869,16 +869,16 @@ article.body img{
 .author-card h4{font-size:15px;margin-bottom:4px;}
 .author-card p{font-size:13.5px;color:var(--muted);line-height:1.55;}
 
-.post-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:44px 0 90px;}
-.post-nav a{padding:20px;border:1px solid var(--line);border-radius:8px;background:var(--surface);}
-.post-nav a:hover{border-color:var(--accent-1);}
-.post-nav .dir{
+.log-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:44px 0 90px;}
+.log-nav a{padding:20px;border:1px solid var(--line);border-radius:8px;background:var(--surface);}
+.log-nav a:hover{border-color:var(--accent-1);}
+.log-nav .dir{
   font-family:var(--font-mono);
   font-size:11.5px;letter-spacing:0.05em;text-transform:uppercase;
   color:var(--muted);margin-bottom:8px;
 }
-.post-nav .ptitle{font-size:15px;font-weight:600;line-height:1.4;}
-.post-nav .next{text-align:right;}
+.log-nav .ptitle{font-size:15px;font-weight:600;line-height:1.4;}
+.log-nav .next{text-align:right;}
 
 .code-block .hljs-keyword,
 .code-block .hljs-built_in { color: var(--accent-2); }
@@ -968,10 +968,10 @@ article.body img{
 .roadmap-item.done{color:var(--ink);}
 .roadmap-item.done .check{background:color-mix(in srgb, var(--accent-1) 15%, transparent);border-color:var(--accent-1);color:var(--accent-1);}
 
-/* Small muted note under a section eyebrow, e.g. "Posts written while..." */
+/* Small muted note under a section eyebrow, e.g. "Logs written while..." */
 .section-note{font-size:14px;color:var(--muted);margin-bottom:20px;}
 
-/* Numbered post list — used on series-type projects, ordered rather than
+/* Numbered log list — used on series-type projects, ordered rather than
    reverse-chronological, since a series often has a deliberate sequence */
 .series-list{display:flex;flex-direction:column;}
 .series-item{
@@ -1094,7 +1094,7 @@ article.body img{
   .project-grid{grid-template-columns:1fr;}
 }
 
-/* ---- Shared: Projects / Posts / Post / About all collapse nav at 700-800px ---- */
+/* ---- Shared: Projects / Logs / Log / About all collapse nav at 700-800px ---- */
 @media (max-width:800px){
   nav{display:none;}
   .subscribe{display:none;}
@@ -1103,17 +1103,17 @@ article.body img{
   #theme-select{display:none;}
 }
 
-/* ---- Posts (archive) ---- */
+/* ---- Logs (archive) ---- */
 @media (max-width:700px){
-  .post-row{grid-template-columns:1fr;gap:8px;}
-  .post-meta{text-align:left;}
+  .log-row{grid-template-columns:1fr;gap:8px;}
+  .log-meta{text-align:left;}
 }
 
-/* ---- Post (individual) ---- */
+/* ---- Log (individual) ---- */
 @media (max-width:700px){
   h1.headline{font-size:28px;}
   article.body{font-size:16px;}
-  .post-nav{grid-template-columns:1fr;}
+  .log-nav{grid-template-columns:1fr;}
   
   .meta-row .stats{display:none;}
 }

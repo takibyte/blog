@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Building a port scanner with Python</title>
+<meta name="description" content="How I built a simple network port scanner from scratch with Python.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js'></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="log-header page-header-spacing">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>Building a port scanner with Python
+    </div>
+    <div class="log-cat cat-homelab mono">// TOOLS</div>
+    <h1 class="headline">Building a port scanner with Python</h1>
+    <p class="dek">How I built a simple network port scanner from scratch with Python.</p>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">
+          <span>10 May 2026 · 9 min</span>
+          <span>TB-2026-0005</span>
+        </div>
+      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
+    </div>
+  </div>
+
+  <img class="log-media" src="./images/cover.webp" alt="">
+
+  
+    <div class="series-badge">
+      <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
+      <span class="mono">1 of 3</span>
+    </div>
+
+  <article class="body">
+    <h2>What is a port scanner?</h2>
+<p>A port scanner, is a network tool that can be used to scan a host on a network, and determine what port numbers are open or closed on that host. Determining what port numbers are open can give important information about what kinds of services might be running on that host. This is useful to know for both attackers and defenders of a network.</p>
+<p>Network defenders will want to know what ports are open, because they can use this information to determine whether <em>unnecessary</em> ports / services are open, allowing them to close those unneeded ports / services in an effort to harden the security posture of the network.</p>
+<p>Attackers on the other hand, might use a port scanner to do active reconnaissance on a target host, surveying the host and greater network, looking for potentially vulnerable open ports and services as a way inside, and to otherwise exploit those vulnerabilities.</p>
+<h2>Why build a port scanner?</h2>
+<p>The main reason for me to build this is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I&#39;ve built here, Nmap comes to mind.</p>
+<p>Nmap is a much more powerful tool that is more than just a port scanner, it can do network host discovery using ICMP, ARP, or TCP SYN; detection evasion techniques; more advanced port scanning techniques like TCP SYN (stealth) scans; and many other features like OS detection and others that I haven&#39;t explored yet.</p>
+<p>My scanner here is a humble TCP connect port scanner, where you can scan the ports of a host whose address you already have, completing a full TCP three-way handshake with each connection (rather than a SYN scan, which doesn&#39;t complete the handshake).</p>
+<h2>The core of the port scanner</h2>
+<p>A port scanner doesn&#39;t actually scan ports by themselves, they scan what is known as a socket. A socket is essentially an IP address, a transport layer protocol (TCP or UDP), and the port number — the socket is the union of these three things, and is used to form connections.</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+</pre>
+</div><p>Python&#39;s <strong>socket</strong> module (based on the historic Berkeley socket API standard) can interface with the low-level networking components of the system, this module is what will allow the port scanner to function at all, and it is therefore the core of this tool and is vital.</p>
+<p>In the code snippet shown here, I have imported the socket module with <code>import socket</code> so we can access it, I have then created a new socket object with <code>socket.socket()</code>. For easy reference later, this socket object is stored in the new variable <code>s</code>.</p>
+<p>The socket object is made from the underlying class: <code>class socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)</code>. The family and type are the only two properties needed, the proto and fileno are only for certain specific cases not required here.</p>
+<p>The <code>family</code> property has several value options (two main ones), this specifies the &#39;Address Family&#39;, hence the &#39;AF&#39; in <code>socket.AF_INET</code> — referring to the type of IP address in the socket. The two main values here could be either <code>AF_INET</code>, representing the IPv4 address family; and <code>AF_INET6</code>, representing the IPv6 address family.</p>
+<p>The <code>type</code> property has again, a number of options, but there are two main options: <code>SOCK_STREAM</code>, the default value, this represents the connection-orientated Transmission Control Protocol (TCP); and <code>SOCK_DGRAM</code>, representing the &#39;connectionless&#39; User Datagram Protocol (UDP).</p>
+<p>In this port scanner, we will be using the <code>AF_INET</code> and <code>SOCK_STREAM</code> for our values in the newly created socket object — as IPv4 is still the standard, and a TCP based verifiable connection will be more useful here, (the other options could be added to the scanner later as an additional option).</p>
+<h2>Making the first socket connection</h2>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+    s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+    result = s.connect_ex((host, port))
+    
+    <span class="hljs-built_in">print</span>(result)
+
+    s.close()
+
+    <span class="hljs-keyword">return</span>
+
+scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">22</span>)</pre>
+</div><p>So here we have the crux of the whole program, making an actual socket connection, and testing if a known-open scanned port is detected as being open.</p>
+<p>In this code snippet, I have enclosed the socket object within a newly defined function: <code>def scan_port(host, port):</code>, this function accepts a <strong>host</strong> IP address / hostname, and a <strong>port</strong> number.</p>
+<p>The <code>result</code> variable is storing an executed function within the created socket object called <code>connect_ex()</code>. <code>connect_ex()</code> is related to another function in the socket object called <code>connect()</code>, both of these functions attempt a connection to the socket, accepting an IP address and a port number in the form of a tuple: (ip, port).</p>
+
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>I just decided to call the referenced value in my scanner <code>host</code>, as you can scan hostnames or host IP addresses, they will both resolve to the same valid IP.</p>
+</div>
+<p><code>connect_ex()</code> is used here, as it returns a number value even on exception: it will return <code>0</code> if the connection is successful, and another error number if there is an error. <code>connect()</code>, will raise a text exception on failure, which won&#39;t be as usable for the port scanner.</p>
+<p><code>result</code> is printed, the created socket is closed with <code>s.close()</code>, and the function then ends with <code>return</code>. The function is called at the bottom with <code>scan_port(&quot;localhost&quot;, 22)</code>, this has the socket object attempt to create a connection to <code>localhost</code> (the loopback address / 127.0.0.1), with port <code>22</code>, the ssh port (which I know is open on my computer).</p>
+
+<div class="callout warn">
+  <span class="icon mono">WARN</span>
+  <p>It is recommended to close the socket connection with <code>socket.close()</code> (<code>s.close()</code> in my case), as this will free up resources and prevent memory leaks.</p>
+</div>
+<p>Now let&#39;s run the program so far like this:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>terminal</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-keyword">python3</span> pscan.<span class="hljs-keyword">py</span></pre>
+</div><p>This will return <code>0</code>, indicating the socket object successfully connected and that the port is open, nice it worked!</p>
+<h2>Scanning multiple ports</h2>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+
+        s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+        s.settimeout(<span class="hljs-number">1</span>)
+
+        result = s.connect_ex((host, port))
+
+        <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+              <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
+        <span class="hljs-keyword">else</span>:
+              <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;closed port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+        s.close()
+
+        <span class="hljs-keyword">return</span>
+    
+
+<span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>):
+    scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, port)</pre>
+</div><p>To make the scanner a bit more useful now, we&#39;ll add a loop, so the function can automatically scan several ports in succession. To do this we can so a simple &#39;for loop&#39; — as seen in this snippet:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>):
+    scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, port)`</pre>
+</div><p>This will use a variable <code>port</code> and substitute it into its placeholder in the function call below, iterating through the range 1 to 30. This means the <code>scan_port(&quot;localhost&quot;, port)</code> function will be called 29 times with the port number increasing by 1 each time. With this example, when running the program again, I see an output with a series of error codes <code>61</code> (indicating a closed port), and one number <code>0</code> (indicating a successful connection and open port), at the 22nd position in the output. So we can see this works as intended.</p>
+
+<div class="callout warn">
+  <span class="icon mono">WARN</span>
+  <p>We need to add a <code>s.settimeout(1)</code> to the function after the creation of the socket object, this makes it so the program doesn&#39;t keep hanging if a socket connection can&#39;t be resolved properly in a timely way. The <code>1</code> sets the timeout to 1 second, so if the socket can&#39;t be connected, it will move on to the next loop iteration.</p>
+</div>
+<p>To make this a bit nicer, we should print a message saying the port is open (when it is open), and closed (when it is closed), along with the corresponding port. As seen in the code block above, we can do this easily with a conditional <code>if</code> statement like this:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
+<span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;closed port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+s.close()
+
+<span class="hljs-keyword">return</span></pre>
+</div><p>The logic here is simple, if the <code>connect_ex((host, port))</code> result (from the result variable), equals <code>0</code>, that means the connection succeeded and the port is open, therefore we will print using: <code>print(f&quot;open port: {port}&quot;)</code>, which would return something like: <code>open port: 22</code>. Otherwise, we will print using <code>print(f&quot;closed port: {port}&quot;)</code>, which would return something like: <code>closed port: 23</code>. The <code>print(f&quot;Text {variable}&quot;)</code> format uses a formatted string literal, which allows the formatting of variables into strings at runtime, replacing the curly brackets with the variable value.</p>
+<p>Going forward however, when scanning many ports (over 1000 for example), it won&#39;t be ideal to print every time a closed port is detected, this will create too much unnecessary noise in the terminal output. So removing the <code>else:</code> block as in the block below will be better:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>py</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">import</span> socket
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_port</span>(<span class="hljs-params">host, port</span>):
+
+        s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
+        s.settimeout(<span class="hljs-number">1</span>)
+
+        result = s.connect_ex((host, port))
+
+        <span class="hljs-keyword">if</span> result == <span class="hljs-number">0</span>:
+              <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;open port: <span class="hljs-subst">{port}</span>&quot;</span>)
+
+        s.close()
+
+        <span class="hljs-keyword">return</span>
+    
+
+<span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>):
+    scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, port)</pre>
+</div>
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>Keep in mind that with the current state of the scanner, when scanning a host other than <code>localhost</code>, the scanner will wait for one second on each failed connection attempt. So for example, if scanning 100 ports, since most ports will be closed, the whole scan will take around 100 seconds. This is obviously not ideal, but will be resolved when we add multi-threading in the next log entry.</p>
+</div>
+<p>And there we have it, an operational port scanner! Though this is quite basic and lacks a lot still, it works, which is pretty cool.</p>
+<p>In the next logs, I&#39;ll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.</p>
+
+  </article>
+
+
+  <div class="tags">
+    <span class="tag">Tools</span>
+    <span class="tag">Python</span>
+    <span class="tag">TCP/IP</span>
+    <span class="tag">Networking</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
+      </div>
+    </div>
+  </a>
+
+  <div class="log-nav">
+    <a href="/logs/setting-up-a-pi-hole-part-2/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Setting up a Pi-hole Part 2</div>
+    </a>
+    <a class="next" href="/logs/upgrading-the-port-scanner-with-multi-threading/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Upgrading the port scanner with multi-threading</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

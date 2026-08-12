@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>{{title}}</title>
-<meta name="description" content="{{description}}">
+<meta name="description" content="{{dek}}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -24,8 +24,8 @@
 <header>
   <a class="logo" href="/">takibyte</a>
   <nav>
-    <a class="active" href="/projects/">Projects</a>
-    <a href="/logs/">Logs</a>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/logs/">Logs</a>
     <a href="/about/">About</a>
   </nav>
   {{themeSelect}}
@@ -36,55 +36,62 @@
 </header>
 
 <div class="mobile-nav" id="mobileNav">
-  <a class="active" href="/projects/">Projects</a>
-  <a href="/logs/">Logs</a>
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/logs/">Logs</a>
   <a href="/about/">About</a>
   {{themeSelectMobile}}
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
 <div class="wrap">
-  <div class="breadcrumb page-header-spacing">
-    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span>{{title}}
+  <div class="log-header page-header-spacing">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>{{title}}
+    </div>
+    <div class="log-cat cat-homelab mono">// {{category}}</div>
+    <h1 class="headline">{{title}}</h1>
+    <p class="dek">{{dek}}</p>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">{{author}}</a></div>
+        <div class="sub mono">
+          <span>{{date}} · {{minutes}} min</span>
+          <span>{{id}}</span>
+        </div>
+      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
+    </div>
   </div>
 
-  <section class="project-hero">
-    <div class="project-icon lg icon-{{iconColor}}">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{{iconSvg}}</svg>
-    </div>
-    <div>
-      <div class="badge-group">
-        <span class="badge {{typeBadgeClass}}">{{typeBadge}}</span>
-        <span class="badge {{statusClass}}">{{statusLabel}}</span>
+  {{cover}}
+
+  {{seriesBadge}}
+
+  <article class="body">
+    {{content}}
+  </article>
+
+
+  <div class="tags">
+    {{tags}}
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>{{author}}</h4>
+        <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
       </div>
-      <h1>{{title}}</h1>
-      <p class="desc">{{description}}</p>
-
-      <div class="project-tags">
-        {{tags}}
-      </div>
-
-      {{heroExtra}}
-
     </div>
-  </section>
+  </a>
 
-  <section class="section">
-    <div class="eyebrow mono">{{whatItDoesHeading}}</div>
-    <article class="bio tight">
-      {{body}}
-    </article>
-
-    <!-- <div class="code-block">
-
-    </div> -->
-    
-  </section>
-
-  {{roadmapSection}}
-
-  {{linkedLogsSection}}
-
+  <div class="log-nav">
+    {{logNav}}
+  </div>
 </div>
 
 <footer>

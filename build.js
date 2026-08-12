@@ -10,19 +10,19 @@ import hljs from 'highlight.js';
 
 const rootDir = '.';
 const projectsDir = './projects';
-const postsDir = './posts';
+const logsDir = './logs';
 const aboutDir = './about';
 const outDir = './dist';
 
-const postTemplate = fs.readFileSync('./templates/post.html', 'utf-8');
+const logTemplate = fs.readFileSync('./templates/log.html', 'utf-8');
 const projectTemplate = fs.readFileSync('./templates/project.html', 'utf-8');
 const rootIndexTemplate = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
-const postsIndexTemplate = fs.readFileSync(path.join(postsDir, 'index.html'), 'utf-8');
+const logsIndexTemplate = fs.readFileSync(path.join(logsDir, 'index.html'), 'utf-8');
 const projectsIndexTemplate = fs.readFileSync(path.join(projectsDir, 'index.html'), 'utf-8');
 const aboutIndexTemplate = fs.readFileSync(path.join(aboutDir, 'index.html'), 'utf-8');
 
 // Top-level files/folders copied into dist as-is (no processing).
-// NOTE: 'posts' and 'projects' are deliberately excluded — both are built manually below.
+// NOTE: 'logs' and 'projects' are deliberately excluded — both are built manually below.
 const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'favicon.ico'];
 
 const seenSlugs = new Set();
@@ -166,72 +166,72 @@ const calloutExtension = {
 marked.use({ extensions: [calloutExtension] });
 
 /* ============================================================================
-   4. RENDER FUNCTIONS — POSTS
+   4. RENDER FUNCTIONS — LOGS
    ============================================================================ */
 
 function renderTags(tags) {
   return tags.map(t => `<span class="tag">${t}</span>`).join('\n    ');
 }
 
-// Previous/next post navigation (chronological, all posts — independent of any project/series)
-function renderPostNav(prevPost, nextPost) {
-  const prevHtml = prevPost
-    ? `<a href="/posts/${prevPost.slug}/">
+// Previous/next log navigation (chronological, all logs — independent of any project/series)
+function renderLogNav(prevLog, nextLog) {
+  const prevHtml = prevLog
+    ? `<a href="/logs/${prevLog.slug}/">
       <div class="dir">← Previous</div>
-      <div class="ptitle">${prevPost.data.title ?? prevPost.slug}</div>
+      <div class="ptitle">${prevLog.data.title ?? prevLog.slug}</div>
     </a>`
-    : `<div></div>`; // keeps the 2-col grid intact when there's no previous post
+    : `<div></div>`; // keeps the 2-col grid intact when there's no previous log
 
-  const nextHtml = nextPost
-    ? `<a class="next" href="/posts/${nextPost.slug}/">
+  const nextHtml = nextLog
+    ? `<a class="next" href="/logs/${nextLog.slug}/">
       <div class="dir">Next →</div>
-      <div class="ptitle">${nextPost.data.title ?? nextPost.slug}</div>
+      <div class="ptitle">${nextLog.data.title ?? nextLog.slug}</div>
     </a>`
     : `<div></div>`;
 
   return `${prevHtml}\n    ${nextHtml}`;
 }
 
-// "Part of: {project} →" badge shown on posts that belong to a project. Empty string if standalone.
+// "Part of: {project} →" badge shown on logs that belong to a project. Empty string if standalone.
 function renderSeriesBadge(seriesInfo) {
   if (!seriesInfo) return '';
   const { project, index, total } = seriesInfo;
   return `
     <div class="series-badge">
-      <a href="/projects/${project.slug}/">Part of ${project.type === 'tool' ? 'project' : 'series'}: ${project.title} →</a>
+      <a href="/projects/${project.slug}/">Part of project: ${project.title} →</a>
       <span class="mono">${index + 1} of ${total}</span>
     </div>`;
 }
 
-function renderLatestPosts(p) {
+function renderLatestLogs(p) {
   return `
-    <a href="/posts/${p.slug}/" class="card-link">
+    <a href="/logs/${p.slug}/" class="card-link">
       <div class="card">
-        <div class="thumb" style="background-image: url('/posts/${p.slug}/images/${p.cover}');background-size: cover; background-position: center;"></div>
+        <div class="thumb" style="background-image: url('/logs/${p.slug}/images/${p.cover}');background-size: cover; background-position: center;"></div>
         <span class="cat ${p.categoryClass} mono">${p.category}</span>
         <h3>${p.title}</h3>
         <p>${p.dek}</p>
-        <div class="card-meta"><span>${p.minutes} min</span><span>${p.shortDate}</span></div>
+        <div class="card-meta"><span>${p.shortDate}</span><span>${p.minutes} min</span></div>
       </div>
     </a>`;
 }
 
-function renderPostEntry(p) {
+function renderLogEntry(p) {
   return `
-    <a class="post-row" href="/posts/${p.slug}/"
+    <a class="log-row" href="/logs/${p.slug}/"
     data-title="${p.title.toLowerCase()}"
     data-dek="${p.dek.toLowerCase()}"
     data-tags="${p.tags.join(',').toLowerCase()}"
     data-category="${p.category}">
-      <div class="post-date">${p.shortDate}<span class="year">${p.year}</span></div>
-      <div class="post-main">
-        <div class="post-cat ${p.categoryClass}">${p.category}</div>
-        <div class="post-title">${p.title}</div>
-        <div class="post-excerpt">${p.dek}</div>
+      <div class="log-date">${p.shortDate}<span class="year">${p.year}</span></div>
+      <div class="log-main">
+        <div class="log-cat ${p.categoryClass}">${p.category}</div>
+        <div class="log-title">${p.title}</div>
+        <div class="log-excerpt">${p.dek}</div>
       </div>
-      <div class="post-meta">
+      <div class="log-meta">
         <span class="read-time">${p.minutes} min</span>
-        <span class="post-id">${p.id}</span>
+        <span class="log-id">${p.id}</span>
       </div>
     </a>`;
 }
@@ -252,13 +252,13 @@ function renderCta(p) {
     </div>`;
 }
 
-// Progress bar + "X of ~Y posts" note — series only
+// Progress bar + "X of ~Y logs" note — series only
 function renderProgress(p) {
   if (p.type !== 'series') return '';
-  const pct = Math.round((p.linkedPosts.length / p.estimatedTotal) * 100);
+  const pct = Math.round((p.linkedLogs.length / p.estimatedTotal) * 100);
   return `
     <div class="progress-track in-hero"><div class="progress-fill" style="width:${pct}%;"></div></div>
-    <div class="section-note no-margin">${p.linkedPosts.length} of an estimated ${p.estimatedTotal} posts</div>`;
+    <div class="section-note no-margin">${p.linkedLogs.length} of an estimated ${p.estimatedTotal} logs</div>`;
 }
 
 // Roadmap checklist — only rendered if frontmatter defines one
@@ -276,19 +276,19 @@ function renderRoadmap(p) {
     </section>`;
 }
 
-// Linked posts list — heading/note text differs for tool (devlog) vs series
-function renderLinkedPosts(p) {
-  if (!p.linkedPosts.length) return '';
-  const heading = p.type === 'tool' ? '// devlog' : '// posts in this series';
-  const note = p.type === 'tool' ? '<p class="section-note">Posts written while building this, in order.</p>' : '';
-  const items = p.linkedPosts.map((post, i) => `
-    <a class="series-item" href="/posts/${post.slug}/">
+// Linked logs list — heading/note text differs for tool (devlog) vs series
+function renderLinkedLogs(p) {
+  if (!p.linkedLogs.length) return '';
+  const heading = p.type === 'tool' ? '// devlog' : '// logs in this series';
+  const note = p.type === 'tool' ? '<p class="section-note">Logs written while building this, in order.</p>' : '';
+  const items = p.linkedLogs.map((log, i) => `
+    <a class="series-item" href="/logs/${log.slug}/">
       <span class="series-num mono">${String(i + 1).padStart(2, '0')}</span>
       <div>
-        <div class="series-title">${post.title}</div>
-        <div class="series-excerpt">${post.dek}</div>
+        <div class="series-title">${log.title}</div>
+        <div class="series-excerpt">${log.dek}</div>
       </div>
-      <div class="series-meta">${post.shortDate}<br>${post.year}</div>
+      <div class="series-meta">${log.shortDate}<br>${log.year}</div>
     </a>`).join('');
   return `
     <section class="section" id="read-the-devlog">
@@ -304,10 +304,10 @@ function renderProjectCard(p) {
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">${ICONS.git.path}</svg>
         <span class="repo-url">${p.github.replace('https://', '')}</span>
        </span><span class="view-link">View project →</span>`
-    : `<span class="count">${p.linkedPosts.length} posts</span><span class="view-link">View series →</span>`;
+    : `<span class="count">${p.linkedLogs.length} ${p.linkedLogs.length === 1 ? 'log' : 'logs'}</span><span class="view-link">View project →</span>`;
 
   const progressBar = p.type === 'series'
-    ? `<div class="progress-track"><div class="progress-fill" style="width:${Math.round((p.linkedPosts.length / p.estimatedTotal) * 100)}%;"></div></div>`
+    ? `<div class="progress-track"><div class="progress-fill" style="width:${Math.round((p.linkedLogs.length / p.estimatedTotal) * 100)}%;"></div></div>`
     : '';
 
   return `
@@ -360,19 +360,19 @@ for (const entry of staticEntries) {
 }
 
 /* ============================================================================
-   7. PARSE — POSTS (frontmatter + markdown only, no writing yet)
+   7. PARSE — LOGS (frontmatter + markdown only, no writing yet)
    ============================================================================ */
 
-const rawPosts = [];
+const rawLogs = [];
 
-for (const folder of fs.readdirSync(postsDir)) {
+for (const folder of fs.readdirSync(logsDir)) {
   if (folder === '.DS_Store') continue;
 
-  const postFolder = path.join(postsDir, folder);
-  const postPath = path.join(postFolder, 'index.md');
-  if (!fs.existsSync(postPath)) continue;
+  const logFolder = path.join(logsDir, folder);
+  const logPath = path.join(logFolder, 'index.md');
+  if (!fs.existsSync(logPath)) continue;
 
-  const raw = fs.readFileSync(postPath, 'utf-8');
+  const raw = fs.readFileSync(logPath, 'utf-8');
   const { data, content } = matter(raw);
   const html = marked.parse(content);
 
@@ -389,32 +389,32 @@ for (const folder of fs.readdirSync(postsDir)) {
   }
   seenSlugs.add(slug);
 
-  rawPosts.push({ folder, postFolder, data, html, minutes, formattedDate, shortDate, tags, slug });
+  rawLogs.push({ folder, logFolder, data, html, minutes, formattedDate, shortDate, tags, slug });
 }
 
 // Chronological order (oldest first) — this order is what prev/next nav is built from
-rawPosts.sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
+rawLogs.sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
 
 /* ============================================================================
-   8. PARSE — POSTS PASS 2: assign IDs, build postsList (still no writing)
+   8. PARSE — LOGS PASS 2: assign IDs, build logsList (still no writing)
    ============================================================================ */
 
-const postsList = [];
+const logsList = [];
 const yearCounters = {};
 
-rawPosts.forEach((post, index) => {
-  const { data, formattedDate, shortDate, tags, slug } = post;
+rawLogs.forEach((log, index) => {
+  const { data, formattedDate, shortDate, tags, slug } = log;
 
   const year = data.date.getFullYear();
   yearCounters[year] = (yearCounters[year] ?? 0) + 1;
   const id = `TB-${year}-${String(yearCounters[year]).padStart(4, '0')}`;
 
-  // stash onto the rawPosts entry itself so pass-3 (write) doesn't need to recompute anything
-  post.id = id;
-  post.prevPost = rawPosts[index - 1]; // older post
-  post.nextPost = rawPosts[index + 1]; // newer post
+  // stash onto the rawLogs entry itself so pass-3 (write) doesn't need to recompute anything
+  log.id = id;
+  log.prevLog = rawLogs[index - 1]; // older log
+  log.nextLog = rawLogs[index + 1]; // newer log
 
-  postsList.push({
+  logsList.push({
     title: data.title ?? slug,
     dek: data.dek ?? '',
     date: data.date ?? '',
@@ -423,17 +423,17 @@ rawPosts.forEach((post, index) => {
     year,
     category: (data.category ?? '').toUpperCase(),
     categoryClass: categoryClass((data.category ?? '').toUpperCase()),
-    id, tags, cover: data.cover, minutes: post.minutes, slug
+    id, tags, cover: data.cover, minutes: log.minutes, slug
   });
 });
 
 // Newest-first for anything display-facing (index pages, homepage)
-postsList.sort((a, b) => new Date(b.date) - new Date(a.date));
+logsList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-const postsBySlug = new Map(postsList.map(p => [p.slug, p]));
+const logsBySlug = new Map(logsList.map(p => [p.slug, p]));
 
 /* ============================================================================
-   9. PARSE — PROJECTS (needs postsBySlug to resolve linked posts)
+   9. PARSE — PROJECTS (needs logsBySlug to resolve linked logs)
    ============================================================================ */
 
 const projects = [];
@@ -452,34 +452,34 @@ for (const folder of fs.readdirSync(projectsDir)) {
   const icon = ICONS[data.icon];
   if (!icon) throw new Error(`Project "${slug}": unknown icon "${data.icon}"`);
 
-  const linkedPosts = (data.posts || []).map(postEntry => {
-    const postSlug = slugify(postEntry);
-    const p = postsBySlug.get(postSlug);
-    if (!p) throw new Error(`Project "${slug}" references unknown post "${postEntry}" (slugified: "${postSlug}")`);
+  const linkedLogs = (data.logs || []).map(logEntry => {
+    const logSlug = slugify(logEntry);
+    const p = logsBySlug.get(logSlug);
+    if (!p) throw new Error(`Project "${slug}" references unknown log "${logEntry}" (slugified: "${logSlug}")`);
     return p;
   });
 
-  projects.push({ ...data, slug, bodyHtml, icon, linkedPosts, projectFolder });
+  projects.push({ ...data, slug, bodyHtml, icon, linkedLogs, projectFolder });
 }
 
-// Reverse map: which project (if any) does a given post slug belong to, and at what position
-const postToProject = new Map();
+// Reverse map: which project (if any) does a given log slug belong to, and at what position
+const logToProject = new Map();
 for (const p of projects) {
-  p.linkedPosts.forEach((post, i) => {
-    postToProject.set(post.slug, { project: p, index: i, total: p.linkedPosts.length });
+  p.linkedLogs.forEach((log, i) => {
+    logToProject.set(log.slug, { project: p, index: i, total: p.linkedLogs.length });
   });
 }
 
 /* ============================================================================
-   10. WRITE — POST PAGES (now that projects/postToProject exist)
+   10. WRITE — LOG PAGES (now that projects/logToProject exist)
    ============================================================================ */
 
-rawPosts.forEach((post) => {
-  const { data, html, minutes, formattedDate, tags, slug, postFolder, id, prevPost, nextPost } = post;
+rawLogs.forEach((log) => {
+  const { data, html, minutes, formattedDate, tags, slug, logFolder, id, prevLog, nextLog } = log;
 
-  const seriesInfo = postToProject.get(slug);
+  const seriesInfo = logToProject.get(slug);
 
-  const page = postTemplate
+  const page = logTemplate
     .replaceAll('{{title}}', data.title ?? '')
     .replaceAll('{{dek}}', data.dek ?? '')
     .replaceAll('{{author}}', data.author ?? '')
@@ -487,21 +487,21 @@ rawPosts.forEach((post) => {
     .replace('{{category}}', (data.category ?? '').toUpperCase())
     .replaceAll('{{tags}}', renderTags(tags))
     .replaceAll('{{id}}', id)
-    .replace('{{cover}}', data.cover ? `<img class="post-media" src="./images/${data.cover}" alt="">` : '')
+    .replace('{{cover}}', data.cover ? `<img class="log-media" src="./images/${data.cover}" alt="">` : '')
     .replace('{{minutes}}', minutes)
     .replace('{{content}}', html)
     .replace('{{seriesBadge}}', renderSeriesBadge(seriesInfo))
-    .replace('{{postNav}}', renderPostNav(prevPost, nextPost))
+    .replace('{{logNav}}', renderLogNav(prevLog, nextLog))
     .replace('{{themeSelect}}', renderThemeSelect())
     .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 
-  const postOutDir = path.join(outDir, 'posts', slug);
-  fs.mkdirSync(postOutDir, { recursive: true });
-  fs.writeFileSync(path.join(postOutDir, 'index.html'), page);
+  const logOutDir = path.join(outDir, 'logs', slug);
+  fs.mkdirSync(logOutDir, { recursive: true });
+  fs.writeFileSync(path.join(logOutDir, 'index.html'), page);
 
-  for (const entry of fs.readdirSync(postFolder)) {
+  for (const entry of fs.readdirSync(logFolder)) {
     if (entry === 'index.md' || entry === '.DS_Store') continue;
-    copyRecursive(path.join(postFolder, entry), path.join(postOutDir, entry));
+    copyRecursive(path.join(logFolder, entry), path.join(logOutDir, entry));
   }
 });
 
@@ -524,7 +524,7 @@ for (const p of projects) {
     .replace('{{whatItDoesHeading}}', p.type === 'tool' ? '// what it does' : '// why this series')
     .replace('{{body}}', p.bodyHtml)
     .replace('{{roadmapSection}}', renderRoadmap(p))
-    .replace('{{linkedPostsSection}}', renderLinkedPosts(p))
+    .replace('{{linkedLogsSection}}', renderLinkedLogs(p))
     .replace('{{themeSelect}}', renderThemeSelect())
     .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 
@@ -542,15 +542,15 @@ for (const p of projects) {
    12. WRITE — INDEX / LISTING PAGES
    ============================================================================ */
 
-// -- posts/index.html --
-const postListHtml = postsList.map(renderPostEntry).join('\n');
-const postsIndexPage = postsIndexTemplate
-  .replace('{{postList}}', postListHtml)
-  .replaceAll('{{postCount}}', postsList.length)
+// -- logs/index.html --
+const logListHtml = logsList.map(renderLogEntry).join('\n');
+const logsIndexPage = logsIndexTemplate
+  .replace('{{logList}}', logListHtml)
+  .replaceAll('{{logCount}}', logsList.length)
   .replace('{{themeSelect}}', renderThemeSelect())
   .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
-fs.mkdirSync(path.join(outDir, 'posts'), { recursive: true });
-fs.writeFileSync(path.join(outDir, 'posts', 'index.html'), postsIndexPage);
+fs.mkdirSync(path.join(outDir, 'logs'), { recursive: true });
+fs.writeFileSync(path.join(outDir, 'logs', 'index.html'), logsIndexPage);
 
 // -- projects/index.html --
 const projectListHtml = [...projects]
@@ -564,8 +564,8 @@ const projectsIndexPage = projectsIndexTemplate
 fs.mkdirSync(path.join(outDir, 'projects'), { recursive: true });
 fs.writeFileSync(path.join(outDir, 'projects', 'index.html'), projectsIndexPage);
 
-// -- root index.html (latest posts + featured projects) --
-const rootPostsHtml = postsList.slice(0, 6).map(renderLatestPosts).join('\n');
+// -- root index.html (latest logs + featured projects) --
+const rootLogsHtml = logsList.slice(0, 6).map(renderLatestLogs).join('\n');
 
 const featuredProjectsHtml = projects
   .filter(p => p.featured)
@@ -575,7 +575,7 @@ const featuredProjectsHtml = projects
   .join('\n');
 
 const rootIndexPage = rootIndexTemplate
-  .replace('{{latestPosts}}', rootPostsHtml)
+  .replace('{{latestLogs}}', rootLogsHtml)
   .replace('{{featuredProjects}}', featuredProjectsHtml)
   .replace('{{themeSelect}}', renderThemeSelect())
   .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
@@ -583,7 +583,7 @@ fs.writeFileSync(path.join(outDir, 'index.html'), rootIndexPage);
 
 // -- about/index.html --
 const aboutIndexPage = aboutIndexTemplate
-  .replace('{{postCount}}', postsList.length)
+  .replace('{{logCount}}', logsList.length)
   .replace('{{projectCount}}', projects.length)
   .replace('{{themeSelect}}', renderThemeSelect())
   .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
@@ -593,12 +593,12 @@ fs.writeFileSync(path.join(outDir, 'about', 'index.html'), aboutIndexPage);
    13. SITEMAP
    ============================================================================ */
 
-const siteUrl = 'https://blog.takibyte.com';
+const siteUrl = 'https://lab.takibyte.com';
 
-const staticUrls = ['/', '/projects/', '/posts/', '/about/'];
-const postUrls = postsList.map(p => `/posts/${p.slug}/`);
+const staticUrls = ['/', '/projects/', '/logs/', '/about/'];
+const logUrls = logsList.map(p => `/logs/${p.slug}/`);
 const projectUrls = projects.map(p => `/projects/${p.slug}/`);
-const allUrls = [...staticUrls, ...postUrls, ...projectUrls];
+const allUrls = [...staticUrls, ...projectUrls, ...logUrls];
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

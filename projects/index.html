@@ -25,7 +25,7 @@
   <a class="logo" href="/">takibyte</a>
   <nav>
     <a class="active" href="/projects/">Projects</a>
-    <a href="/posts/">Posts</a>
+    <a href="/logs/">Logs</a>
     <a href="/about/">About</a>
   </nav>
   {{themeSelect}}
@@ -37,7 +37,7 @@
 
 <div class="mobile-nav" id="mobileNav">
   <a class="active" href="/projects/">Projects</a>
-  <a href="/posts/">Posts</a>
+  <a href="/logs/">Logs</a>
   <a href="/about/">About</a>
   {{themeSelectMobile}}
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
@@ -47,14 +47,16 @@
   <div class="page-intro">
     <div class="kicker">// ongoing series &amp; tools</div>
     <h1>Projects</h1>
-    <p>Cybersecurity homelab projects, custom tools, and CTF writeups.</p>
+    <p>Cybersecurity homelab projects — organised into log series and custom tool projects.</p>
   </div>
 
-  <div class="status-filter">
-    <span class="tag-filter active" data-filter="all">All</span>
-    <span class="tag-filter" data-filter="active">Active</span>
-    <span class="tag-filter" data-filter="complete">Complete</span>
-  </div>
+<div class="status-filter">
+  <span class="tag-filter active" data-filter="all">All</span>
+  <span class="tag-filter" data-group="status" data-filter="active">Active</span>
+  <span class="tag-filter" data-group="status" data-filter="complete">Complete</span>
+  <span class="tag-filter" data-group="type" data-filter="series">Series</span>
+  <span class="tag-filter" data-group="type" data-filter="tool">Tool</span>
+</div>
 
   <div class="project-grid">
 
@@ -69,39 +71,79 @@
 </footer>
 
 <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', isOpen);
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  menuToggle.classList.toggle('open', isOpen);
+  menuToggle.setAttribute('aria-expanded', isOpen);
+});
+
+// Status filter functionality
+const tagFilters = document.querySelectorAll('.tag-filter');
+const allTag = document.querySelector('.tag-filter[data-filter="all"]');
+const projects = document.querySelectorAll('.project-card');
+
+let activeStatus = null; // 'active' | 'complete' | null
+let activeType = null;   // 'series' | 'tool' | null
+
+function applyFilters() {
+  projects.forEach(project => {
+    const status = project.dataset.status || '';
+    const type = project.dataset.type || '';
+
+    const matchesStatus = !activeStatus || status === activeStatus;
+    const matchesType = !activeType || type === activeType;
+
+    project.style.display = (matchesStatus && matchesType) ? '' : 'none';
   });
+}
 
-  // Status filter functionality
-  const tagFilters = document.querySelectorAll('.tag-filter');
-  const projects = document.querySelectorAll('.project-card');
+function updateAllState() {
+  const noneActive = !activeStatus && !activeType;
+  allTag.classList.toggle('active', noneActive);
+}
 
-  let activeTag = 'all';
+allTag.addEventListener('click', () => {
+  activeStatus = null;
+  activeType = null;
+  tagFilters.forEach(t => t.classList.remove('active'));
+  allTag.classList.add('active');
+  applyFilters();
+});
 
-  function applyFilters() {
-    projects.forEach(project => {
-      const status = project.dataset.status || '';
-      const visible = activeTag === 'all' || status === activeTag;
-      project.style.display = visible ? '' : 'none';
+tagFilters.forEach(tag => {
+  if (tag === allTag) return;
+
+  tag.addEventListener('click', () => {
+    const group = tag.dataset.group;
+    const filter = tag.dataset.filter;
+    const isAlreadyActive = tag.classList.contains('active');
+
+    // clear other tags in the same group only
+    tagFilters.forEach(t => {
+      if (t.dataset.group === group) t.classList.remove('active');
     });
-  }
 
-  tagFilters.forEach(tag => {
-    tag.addEventListener('click', () => {
-      tagFilters.forEach(t => t.classList.remove('active'));
+    if (isAlreadyActive) {
+      // clicking an active tag again deselects it (back to "any" for that group)
+      if (group === 'status') activeStatus = null;
+      if (group === 'type') activeType = null;
+    } else {
       tag.classList.add('active');
-      activeTag = tag.dataset.filter;
-      applyFilters();
-    });
-  });
+      if (group === 'status') activeStatus = filter;
+      if (group === 'type') activeType = filter;
+    }
 
-  applyFilters(); // enforces default filter state on load
+    allTag.classList.remove('active');
+    updateAllState();
+    applyFilters();
+  });
+});
+
+applyFilters();
+updateAllState();
 
 </script>
 

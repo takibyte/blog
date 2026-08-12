@@ -8,7 +8,7 @@ featured: true
 order: 3
 tags: [Wireshark, Packet capture, Network protocols]
 estimatedTotal: 2        # series only — drives the progress bar %
-posts:
+logs:
     - Network traffic analysis with Wireshark
 
 ---

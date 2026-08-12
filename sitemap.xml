@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://blog.takibyte.com/</loc>
+    <loc>https://lab.takibyte.com/</loc>
   </url>
 
   <url>
-    <loc>https://blog.takibyte.com/projects/</loc>
+    <loc>https://lab.takibyte.com/projects/</loc>
   </url>
 
   <url>
-    <loc>https://blog.takibyte.com/posts/</loc>
+    <loc>https://lab.takibyte.com/logs/</loc>
   </url>
 
   <url>
-    <loc>https://blog.takibyte.com/about/</loc>
+    <loc>https://lab.takibyte.com/about/</loc>
   </url>
 
 </urlset>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Setting up a basic homelab</title>
+<meta name="description" content="Building a homelab for hands-on cybersecurity and networking practice, from hardware choices to initial network setup.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js'></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="log-header page-header-spacing">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>Setting up a basic homelab
+    </div>
+    <div class="log-cat cat-homelab mono">// HOMELAB</div>
+    <h1 class="headline">Setting up a basic homelab</h1>
+    <p class="dek">Building a homelab for hands-on cybersecurity and networking practice, from hardware choices to initial network setup.</p>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">
+          <span>6 March 2026 · 9 min</span>
+          <span>TB-2026-0002</span>
+        </div>
+      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
+    </div>
+  </div>
+
+  <img class="log-media" src="./images/homelab.webp" alt="">
+
+  
+
+  <article class="body">
+    <h2>Motivation</h2>
+<p>What is a lab anyway? It&#39;s a place where you do experiments of course! And that&#39;s exactly what I plan to do with my homelab — treat it as my own space to experiment with all the cybersecurity and networking concepts I come across.</p>
+<p>The homelab is limitless, and I hope that as my knowledge, skill, and familiarity with the IT world increase, my homelab will get more advanced, deeper, and more interesting at the same time.</p>
+<h2>The hardware</h2>
+<p>The foundation of any homelab is the gear itself. Though more advanced gear will allow for more advanced projects, I believe that you really don&#39;t need much to do much. With the small, humble homelab that I have at the moment, there is more opportunity to learn and practice than I could ever exhaust. </p>
+<p>With virtual machines nowadays, having only 2 or 3 computers, a router, and a managed switch, enables many opportunities to practice network segmentation, hardening, detection engineering and analysis, penetration testing, firewall rules and ACLs, IDS/IPS implementations, various OS configurations, enumeration and exploitation techniques, and network traffic capture and analysis — just to name a few ideas off the top of my head. This list is endless, and this is all doable in a basic little homelab, I just find that so cool!</p>
+<p>So here is the current state of my homelab:</p>
+<h3>Router</h3>
+<p><strong>GL.iNet Beryl 7</strong></p>
+<p><img src="./images/router.webp" alt="GL.iNet Beryl 7 router"></p>
+<p>The router is literally the gateway from the local network to the rest of the world. So it&#39;s pretty important to have if you want access to the internet. I am not the only person living in my home, so I wanted a way to isolate my homelab experiments away from the shared network I&#39;m otherwise in. Since the stock router that came with my ISP does not have certain customisable features such as VLAN segmentation, I decided to get a 2nd router that will allow me to have a separate network, while still having internet access.</p>
+<p>After some research I decided do go with the Beryl 7 router from GL.iNet. I chose this router because, while being a compact &#39;travel router&#39;, it actually had a lot of capabilities and features which I can play around with to help me get better at configuring networks. It does feature all the standard features found in most routers like WAN, LAN subnetting, DHCP, DNS, etc., but this router also uses an open source Linux firmware called OpenWrt, which enables extensive custom network configuration via the command line, or via a separate web interface. Although I might not need to delve into this aspect right away, it does allow more learning opportunities, it also unlocks features like VLANs and ACLs at the router level if I&#39;d want to do that.</p>
+<p>Finally, the router was pretty new when I got it, hence it has Wi-Fi 7 (802.11be), and other updates compared to an older router, which is nice to have.</p>
+<p>In my setup, this router is set in &#39;router mode&#39;, connected via Ethernet from its WAN port directly to a LAN port of the upstream main router (the router connected to the external network infrastructure). This way, my second router still achieves essentially the max speeds of my home, while still having its own NAT (network address translation) boundary, insulating my homelab network from the outer primary router network.</p>
+<h3>Switch</h3>
+<p><strong>TP-Link ES208G</strong></p>
+<p><img src="./images/switch.webp" alt="TP-Link ES208G switch"></p>
+<p>I wanted to have a switch as a part of my homelab, as it allows my servers to all be connected together in a wired connection. It also allows for the implementation of (and experimentation with) physical VLAN segmentation along the 8 ports, which will be easier to play around with and more practical than the VLAN segmentation on the router.
+I had to make sure I chose a managed switch so that it would support 802.1Q VLAN tagging, which was the functionality I wanted. With this, I can practice doing segmentation of devices on the network for security hardening, mitigation, and potentially even experimenting with VLAN hopping attacks later on when I get a bit more advanced.</p>
+<h3>Main lab machine</h3>
+<p><strong>MacBook Air M2</strong></p>
+<p><img src="./images/macbook.webp" alt="Macbook Air"></p>
+<p>The laptop is the heart of my homelab, this device is where I spend most of my time compared to everything else, this device is where I am writing these very words. It is the main node on the network from which I will be accessing the servers and other interfaces of the devices on the network via ssh, remote desktop / VNC, or a web interface. It will also be my attack box when doing CTFs, or homelab reconnaissance and penetration testing experiments of other devices on my network.</p>
+<p>I already had this laptop before going on this cybersecurity journey, but it works quite well as a little attack box. With UTM or VMware, I can spin up a Linux or Windows VM very easily. I&#39;ve been mostly using UTM (a native MacOS hypervisor software) to run a Kali Linux image, allowing me to connect to TryHackMe servers via VPN for the CTFs and learning path rooms. As I continue to progress with these projects, I&#39;ll be using my attack box with Kali to do those penetration testing experiments I mentioned above.</p>
+<h3>Main MacOS server</h3>
+<p><strong>Mac Mini M2 Pro</strong></p>
+<p><img src="./images/servers.webp" alt="Mac Mini and Raspberry Pi servers"></p>
+<p>This is my main server, a headless (no monitor) Mac Mini. Like the Macbook, I already had this computer, but again it will serve me well in this homelab, this time as a primary target machine for penetration testing, and as a defence focused detection machine. This has more ram than my Macbook, so it&#39;ll be better for running heavier operating systems like Windows 10 and 11 in a VM. I&#39;ll also run a Ubuntu server on the Mini as a Linux server target as well.</p>
+<h3>Secondary Linux server</h3>
+<p><strong>Raspberry Pi 4B</strong></p>
+<p><img src="./images/pi.webp" alt="Raspberry Pi"></p>
+<p>This flexible little computer will work as an accessory server where I might be able to set up some multi-node scenarios at a later time. In the meantime it serves as a dedicated Linux machine in the network.
+The Raspberry Pi actually opens up many project opportunities too, I can use it as a DNS sinkhole content filter, or have it act as another log source for an open source SIEM running on the primary server — to name two examples.</p>
+<h2>Operating systems and software</h2>
+<p>As I&#39;ve already discussed somewhat, the operating systems and virtualisation hypervisor software is what really unlocks the hardware functionality, and the overall capability of the homelab network.</p>
+<h3>Operating systems</h3>
+<p><strong>Linux distros (Kali, Ubuntu, Raspberry Pi OS), Windows, MacOS</strong></p>
+<p>My impression when facing up to the cybersecurity world, is that to be competent as a security professional, you need to be familiar and comfortable with all common operating systems. By that I mean at least a Linux distro or two, Windows, and MacOS (on desktop); and IOS and Android (on mobile).</p>
+<p>Fortunately, my homelab features the majority of these: the Macs have their native OS as MacOS, they can also virtualise Linux and Windows in a VM very easily. The Raspberry Pi will be a standalone Raspberry PI OS (Linux) server. I have an iPhone for IOS, and plan to get an Android device later too as a secondary mobile device (though I have had one in the past).</p>
+<p>Having a variety of operating systems in the homelab will help me stay familiar with the different OS environments, and to be able to test each for their advantages and vulnerabilities.</p>
+
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>Linux and MacOS are both Unix based operating systems, so their directory structure and command line interfaces are actually quite similar already, which is fortunate for the sake of familiarity!</p>
+</div>
+<h3>Virtualization software</h3>
+<p><strong>UTM, VMware Fusion</strong></p>
+<p>Without virtualisation I wouldn&#39;t be able to have access to such a diverse range of operating systems in my homelab, so VMs have really made this setup possible. VMs also provide a level of containment which is useful when experimenting on my network generally, if I make a mistake and wreck an OS installation while testing things, VMs make it seamless to spin up another instance either via a saved snapshot, or by a fast re-install from an ISO file. Later on, this containment factor will prove useful for malware analysis, allowing me to create a safe, contained environment for static or dynamic malware analysis.</p>
+<p>As an example, with the hypervisor software (I use either UTM or VMware), I can use Kali Linux as a VM on my Macbook, this could be an attack box. On the Mini server, I can have Windows as a target machine or detection host. I can also use other useful Linux distros for various forensic or malware analysis tasks.</p>
+<h2>Attack and defend lab environment</h2>
+<p>The first real test of the homelab working together will likely be implementing an attack and defence situation at the same time: an attack box VM on the Macbook, and a target machine VM on the Mac Mini.</p>
+<p>The very first trial of this will be to set up a packet capture tool like Wireshark or tcpdump on the target machine, while at the same time actively scanning the target machine from the Kali VM. This I believe, will be a suitable simple first test of this kind of detection scenario, where I can begin to get some more hands-on experience within my own homelab setup, rather than just relying on TryHackMe&#39;s pre-configured VMs for practice.</p>
+<h2>Final thoughts and future possibilities</h2>
+<p>So that is the state of the homelab so far. I&#39;ll definitely adapt and improve it as I learn more, but for now I am excited about the seemingly infinite possibilities and project ideas!</p>
+<p>The next steps will be doing a couple of simple projects like network traffic analysis and active reconnaissance. I look forward to setting up some more tools on these systems and experimenting.</p>
+
+  </article>
+
+
+  <div class="tags">
+    <span class="tag">Homelab</span>
+    <span class="tag">Hardware</span>
+    <span class="tag">Software</span>
+    <span class="tag">Virtualisation</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
+      </div>
+    </div>
+  </a>
+
+  <div class="log-nav">
+    <a href="/logs/my-path-to-cybersecurity/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">My path to cybersecurity</div>
+    </a>
+    <a class="next" href="/logs/setting-up-a-pi-hole-part-1/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Setting up a Pi-hole Part 1</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>
