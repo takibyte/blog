@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Network traffic capture with Wireshark fundamentals</title>
+<meta name="description" content="Capturing network traffic data, and analysing it with Wireshark.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js' defer></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <select id="theme-select" class="theme-select" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="tokyonight">Tokyo night</option>
+      <option value="nord">Nord</option>
+      <option value="redteam">Red team</option>
+      <option value="blueteam">Blue team</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="paper">Paper</option>
+    </select>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="log-header page-header-spacing">
+    <div class="breadcrumb">
+      <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>Network traffic capture with Wireshark fundamentals
+    </div>
+    <div class="log-cat cat-homelab mono">// HOMELAB</div>
+    <h1 class="headline">Network traffic capture with Wireshark fundamentals</h1>
+    <p class="dek">Capturing network traffic data, and analysing it with Wireshark.</p>
+    <div class="meta-row">
+      <a href="/about/"><div class="author-avatar"></div></a>
+      <div class="meta-text">
+        <div class="name"><a href="/about/">takibyte</a></div>
+        <div class="sub mono">
+          <span>10 August 2026 · 11 min</span>
+          <span>TB-2026-0008</span>
+        </div>
+      </div>
+      <!-- <div class="stats">
+        <span></span>
+      </div> -->
+    </div>
+  </div>
+
+  <img class="log-media" src="./images/cover.webp" alt="">
+
+  
+    <div class="series-badge">
+      <a href="/projects/network-traffic-analysis-with-wireshark/">Part of project: Network Traffic Analysis with Wireshark →</a>
+      <span class="mono">1 of 3</span>
+    </div>
+
+  <article class="body">
+    <h2>The plan for this homelab</h2>
+<p>In this homelab project, I want to do a simple experiment with network traffic analysis, testing how I can capture data sent over a network with a tool like Wireshark, and how to can analyse and interpret the captured data packets and frames.
+In the subsequent logs on this topic, I plan to go deeper into the capture and analysis — capturing data from multiple sources including from indirect hosts on my network with port mirroring, and also analysing more types of network traffic. </p>
+<p>For this log entry however, I will go over a more fundamental and basic network traffic capture situation. I will use two machines on the network: a Kali Linux VM on my MacBook, and a Ubuntu VM on my Mac mini server. The Kali VM, will be generating the network traffic to be captured, the traffic will be directed at the Ubuntu VM. </p>
+<p>Initially I will set up the VMs and network to get the capture between the hosts I want, and then to test the setup with a simple ping ICMP (internet control message protocol) capture. In the following log entries in this Wireshark fundamentals series, I will: do a targeted active reconnaissance scan with Nmap, make a http connection with an &#39;in the clear&#39; file transfer, attempt an ssh connection, and finally, I will show a secure copy (scp) transfer, contrasting the unencrypted http traffic with the encrypted ssh / sftp traffic.</p>
+<p>The Ubuntu VM will be the target server, the receiver of the network traffic. It will therefore be the system capturing the network traffic with Wireshark.</p>
+<p><img src="./images/topology.webp" alt="Network topology"></p>
+<p>The setup I outlined can be seen in the network topology diagram above. Since this test will focus on generating directed network traffic (connections directed to and from the Ubuntu VM IP address), the data captured should mostly be coming from the Kali VM, and not other hosts on the network. To pickup traffic from other hosts, that traffic would either need to be some kind of broadcast traffic, or I&#39;d need to set up monitoring on my switch with port mirroring. I will surely do this in one of the following logs, but for now I&#39;ll keep it simple until I cover something more rudimentary.</p>
+<h2>The Kali and Ubuntu VMs</h2>
+<p>Before getting into any kind of Wireshark traffic capture, I need to make sure that both of these host VMs are set up and configured properly. For this homelab experiment, I used UTM as my virtual machine hypervisor software. In future homelabs I&#39;ll use other software like VMware, but for now I&#39;m using UTM, I&#39;ve found UTM simple to set up, and it also has the option to use either the QEMU or Apple virtualisation engine.</p>
+<p>Setting up the VM with UTM could be covered in a separate write-up, but here I&#39;ll just say that I simply downloaded a Kali Linux and Ubuntu ISO image from their respective websites, and followed through with the setup to install a VM instance — Kali on MacBook Air, Ubuntu on the Mac mini.</p>
+<p>Now this is the important part of the VM setup for this lab: setting up and identifying the MAC and IP address situation of both of the VMs. Navigating to the UTM network settings, we can configure the network mode.</p>
+<p><img src="./images/ubuntu-0-utm.webp" alt="Ubuntu UTM"></p>
+<p>As can be seen here, on the Ubuntu VM I decided to set the network mode to bridged mode. Bridged mode passes through the VM to the rest of the network as its own host entity. This means that my router will recognise the Ubuntu VM as a separate host to the Mac mini host it lives within. The generated MAC address by UTM for the Ubuntu VM is also shown here, and this is the MAC address the router will use when assigning the VM host its own IP address on the network with DHCP.</p>
+<p><img src="./images/ubuntu-address.webp" alt="Ubuntu address"></p>
+<p>Here we can see Ubuntu VM host as it appears on my router&#39;s client list (via the web interface). Note that the MAC address is the same as what was generated for the VM and not the MAC address of the Mac mini host itself, this is what I wanted, as it sets up the Ubuntu as a separate host. I&#39;ve also set the IP address of the Ubuntu VM host via DHCP address reservation to: <code>192.168.8.120</code>. This will make it so the IP stays the same and doesn&#39;t periodically change, making it easier and more consistent as a target machine. This IP address is what will be targeted by the Kali VM, and will show up a lot in the rest of this write-up.</p>
+<p><img src="./images/kali-0-utm.webp" alt="Kali UTM"></p>
+<p>This is the same UTM network settings page, but now on the MacBook, and for the Kali VM.
+For the Kali VM I have left it as the default shared network setting, while it would&#39;ve been nice to have the Kali VM as its own separate host entity just like the Ubuntu VM has, the situation here is a little different. While the Mac mini (with Ubuntu VM) is connected to my switch via a wired Ethernet connection, the MacBook (with Kali VM) is connected to my router via a Wi-Fi connection. The wired connection can handle multiple MAC addresses originating from the same network interface, this is common on an Ethernet connection, but apparently multiple MAC addresses moving from the same Wi-Fi interface isn&#39;t supported, at least on my OS, and from what some brief research had shown.</p>
+<p>This is fine however, the result is just that I&#39;ll be using the shared network mode. This essentially has the Kali VM adopt the same MAC address and IP address of the host machine (the MacBook).</p>
+<p><img src="./images/air-address.webp" alt="Air address"></p>
+<p>Here we can see the MacBook Air host as it appears on my router&#39;s client list. This is the same MAC address and IP address the Kali VM will be sharing. All traffic coming from and going to the Kali VM will be using these addresses. I haven&#39;t reserved this IP address, as it is a Wi-Fi connected portable device, and often leaves the network.</p>
+
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>The MAC address shown here is as randomised MAC address, hence why I feel comfortable sharing it. Many modern operating systems have this privacy feature on by default for Wi-Fi connected network devices, as it prevents tracking and fingerprinting of your hardware MAC address across networks. Randomised locally administered addresses (LAA), can be identified by the second hexadecimal digit in the first octet, it will always be 2, 6, A, or E — as seen with mine.</p>
+</div>
+<p>Now we have the addresses for each VM host which is great, this is important as it&#39;ll allow us to identify them in the Wireshark traffic capture.</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>txt</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre>ubuntu vm
+---------
+IP: 192.168.8.120
+MAC: 22:CE:B9:74:45:24
+
+kali vm
+-------
+IP: 192.168.8.209
+MAC: 4E:21:01:F3:C3:47</pre>
+</div><p>Both VMs are now set, we can boot them up and start the capture scenarios.</p>
+<p><img src="./images/ubuntu-1-desktop.webp" alt="Ubuntu desktop"></p>
+<p>Here is what my Ubuntu VM desktop looks like with Wireshark installed and opened.</p>
+<p><img src="./images/kali-1-desktop.webp" alt="Kali desktop"></p>
+<p>And here is what my Kali VM desktop looks like with the terminal opened.</p>
+<h2>Wireshark overview</h2>
+<p><img src="./images/ubuntu-2-wireshark.webp" alt="Wireshark"></p>
+<p>Looking a little closer here at Wireshark on Ubuntu, we can see the home panel with various options. In the centre there is the main capture section, here you can see a capture filter, and a list of available interfaces and presets.</p>
+<p>The interface I&#39;ll be capturing from is: <code>enp0s1</code>. This is what Ubuntu is calling the Ethernet interface which is connecting the Mac mini to the switch. The filter section from the home capture page, can be useful for filtering out traffic from specified protocols, addresses, and more. Filtering before the capture makes it so the filtered traffic won&#39;t even be seen in the capture. The alternative is capturing everything and then filtering the capture once it&#39;s been captured. A combination of both can also be done. </p>
+<p>I experimented with both, but for the following results I decided to capture everything, look at what there is, and then filtering out after the capture. I actually recommend this for learning as you&#39;ll get to see some of the network chatter that is happening on your network (which I found insightful).</p>
+<p>To do a capture you can either: select the interface and press the blue shark-fin button, you can simply double-click on the interface, or you can use the capture settings window by clicking the cog button. This allows for various settings like setting promiscuous mode for each interface, and scanning from multiple interfaces. </p>
+<p>Promiscuous mode tells the network interface card (NIC) of the computer to accept all network packets available to it into the capture, even if those packets aren&#39;t addressed to the host doing the capture.
+From my understanding however, this won&#39;t pick up unicast traffic from one host to another, only multicast or broadcast traffic, and the unicast traffic directed to or from the capture host itself.</p>
+
+<div class="callout">
+  <span class="icon mono">NOTE</span>
+  <p>For capturing other unicast traffic on the network (from one host to another, but not the capture host), another network monitoring solution is first needed to be implemented, such as port mirroring / SPAN on a switch, or a network tap.</p>
+</div>
+<h2>Testing packet capture with ping</h2>
+<p>So now I am ready to start capturing some traffic. One of the simplest ways to test the setup is to ping the Ubuntu VM from the Kali VM. So that&#39;s exactly what I will do.</p>
+<p><img src="./images/ubuntu-3-wireshark-blank.webp" alt="Ubuntu icmp"></p>
+<p>Here on Ubuntu, I have started a capture on the <code>enp0s1</code> interface. While this is capturing live, I&#39;ll switch over to Kali and ping Ubuntu.</p>
+<p><img src="./images/kali-3-ping.webp" alt="Kali ping"></p>
+<p>As seen in this screenshot I have used ping to send ICMP packets to Ubuntu with this command:</p>
+
+<div class="code-block">
+  <div class="code-block-head">
+    <span>terminal</span>
+    <div class="code-block-dots"><span></span><span></span><span></span></div>
+  </div>
+  <pre><span class="hljs-attribute">ping</span> -c <span class="hljs-number">10</span> <span class="hljs-number">192.168.8.120</span>
+
+<span class="hljs-comment"># [-c 10] sets count to 10 (10 ICMP requests)</span></pre>
+</div><p><img src="./images/ubuntu-4-icmp.webp" alt="Ubuntu icmp"></p>
+<p>Back on Wireshark we can see some packets coming in, nice! </p>
+<p>This will be a good time go mention the capture screen setup on Wireshark. This screenshot was taken after I ended the capture (with the stop button), applied some filters (to remove some of my home network noise), and exported the filtered into a pcapng file (by going file &gt; export specified packets).</p>
+<p>To filter for this traffic shown, you can simply put <code>icmp or arp</code> into the filter bar and hit enter. But my filtering for these captures was specifically to remove noise from my network that would unnecessarily expose hardware MAC addresses of some of my devices and crowd the packet list, along with other noise from the other protocols like NTP, ARP (for other hosts), mDNS, and others. </p>
+<p>To achieve my goal I used a negation filter that made it so it didn&#39;t display traffic from certain addresses like this: <code>!(eth.addr == xx:xx:xx:xx:xx:xx) &amp;&amp; !(eth.addr == xx:xx:xx:xx:xx:xx)</code> for however many addresses that needed blocking. You can remove the <code>!</code> to have the opposite effect if you want to only display packets from certain addresses explicitly. You can also use <code>ip.addr != x.x.x.x</code> or <code>ip.addr == x.x.x.x</code> for the same effect respectively for IP addresses. There are a lot of different ways to filter many variables as you can certainly see.</p>
+<p>Now lets look at the main capture view of Wireshark, there are three panels: the packet list panel, the packet details panel, and the packet bytes panel. </p>
+<p>The top panel is the packet list, it displays all the packets from the capture — this is the list that we were just filtering. Here we can see an overview of the most relevant information of each packet at a glance. The packets are numbered from when the capture started; and the time displays the time elapsed (in seconds by default) since the capture started; the source and destination column displays the respective IP or MAC address source and destination address of the packet; the protocol displays the protocol; the length displays the length of the packet in bytes; finally the info section displays other relevant information about the packet, depending on the protocol.</p>
+<p>The bottom left panel is the packet details panel. This contains the details of all the data found within the packets themselves, in a structured and readable way. When clicking on the </p>
+<p>Now that we have a capture</p>
+<h2>What I&#39;ve learned so far</h2>
+
+  </article>
+
+
+  <div class="tags">
+    <span class="tag">Wireshark</span>
+    <span class="tag">Packet capture</span>
+    <span class="tag">Network protocols</span>
+  </div>
+
+  <a href="/about/">
+    <div class="author-card">
+      <div class="author-avatar"></div>
+      <div>
+        <h4>takibyte</h4>
+        <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
+      </div>
+    </div>
+  </a>
+
+  <div class="log-nav">
+    <a href="/logs/improving-the-port-scanner-with-argparse/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Improving the port scanner with argparse</div>
+    </a>
+    <a class="next" href="/logs/nmap-scan-capture-and-analysis-with-wireshark/">
+      <div class="dir">Next →</div>
+      <div class="ptitle">Nmap scan capture and analysis with Wireshark</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

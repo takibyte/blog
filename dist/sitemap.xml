@@ -22,7 +22,13 @@
     <loc>https://lab.takibyte.com/projects/network-traffic-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/network-traffic-analysis-with-wireshark/</loc>
+    <loc>https://lab.takibyte.com/logs/encrypted-vs-unencrypted-network-traffic-comparison-with-wireshark/</loc>
+  </url>
+  <url>
+    <loc>https://lab.takibyte.com/logs/nmap-scan-capture-and-analysis-with-wireshark/</loc>
+  </url>
+  <url>
+    <loc>https://lab.takibyte.com/logs/network-traffic-capture-with-wireshark-fundamentals/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/logs/improving-the-port-scanner-with-argparse/</loc>

@@ -5,7 +5,7 @@ type: tool              # tool | series
 status: complete           # active | complete | paused
 icon: scanner             # key into a small icon lookup table
 featured: true
-order: 1
+order: 2
 tags: [Python, Sockets, CLI]
 github: https://github.com/takibyte/pscan   # tool only
 roadmap:                                          # tool only, omit for series

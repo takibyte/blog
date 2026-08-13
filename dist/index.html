@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css">
 
-<script src='/js/theme.js'></script>
+<script src='/js/theme.js' defer></script>
 </head>
 <body>
 
@@ -76,6 +76,17 @@
 
   <div class="project-grid compact">
     
+    <a class="project-card compact" href="/projects/network-traffic-analysis-with-wireshark/">
+      <div class="top-row">
+        <div class="project-icon icon-1">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/></svg>
+        </div>
+        <span class="badge type-series">series</span>
+      </div>
+      <h3>Network Traffic Analysis with Wireshark</h3>
+      <p>Capturing network traffic data, and analysing it with Wireshark.</p>
+    </a>
+
     <a class="project-card compact" href="/projects/pscan-multi-threaded-port-scanner/">
       <div class="top-row">
         <div class="project-icon icon-3">
@@ -86,17 +97,6 @@
       <h3>pscan — Multi-threaded port-scanner</h3>
       <p>Building a network port-scanner from scratch with Python. From implementing the core socket module, to learning about locking threads.</p>
     </a>
-
-    <a class="project-card compact" href="/projects/setting-up-a-dns-sinkhole-with-pi-hole/">
-      <div class="top-row">
-        <div class="project-icon icon-1">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-        </div>
-        <span class="badge type-series">series</span>
-      </div>
-      <h3>Setting up a DNS sinkhole with Pi-hole</h3>
-      <p>A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
-    </a>
   </div>
 
   <div class="toolbar" style="margin-top:56px;">
@@ -106,13 +106,33 @@
 
   <div class="grid">
     
-    <a href="/logs/network-traffic-analysis-with-wireshark/" class="card-link">
+    <a href="/logs/encrypted-vs-unencrypted-network-traffic-comparison-with-wireshark/" class="card-link">
       <div class="card">
-        <div class="thumb" style="background-image: url('/logs/network-traffic-analysis-with-wireshark/images/cover.png');background-size: cover; background-position: center;"></div>
+        <div class="thumb" style="background-image: url('/logs/encrypted-vs-unencrypted-network-traffic-comparison-with-wireshark/images/cover.webp');background-size: cover; background-position: center;"></div>
         <span class="cat cat-homelab mono">HOMELAB</span>
-        <h3>Network traffic analysis with Wireshark</h3>
+        <h3>Encrypted vs unencrypted network traffic comparison with Wireshark</h3>
         <p>Capturing network traffic data, and analysing it with Wireshark.</p>
-        <div class="card-meta"><span>20 July</span><span>2 min</span></div>
+        <div class="card-meta"><span>14 Aug</span><span>1 min</span></div>
+      </div>
+    </a>
+
+    <a href="/logs/nmap-scan-capture-and-analysis-with-wireshark/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/logs/nmap-scan-capture-and-analysis-with-wireshark/images/cover.webp');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Nmap scan capture and analysis with Wireshark</h3>
+        <p>Capturing network traffic data, and analysing it with Wireshark.</p>
+        <div class="card-meta"><span>12 Aug</span><span>1 min</span></div>
+      </div>
+    </a>
+
+    <a href="/logs/network-traffic-capture-with-wireshark-fundamentals/" class="card-link">
+      <div class="card">
+        <div class="thumb" style="background-image: url('/logs/network-traffic-capture-with-wireshark-fundamentals/images/cover.webp');background-size: cover; background-position: center;"></div>
+        <span class="cat cat-homelab mono">HOMELAB</span>
+        <h3>Network traffic capture with Wireshark fundamentals</h3>
+        <p>Capturing network traffic data, and analysing it with Wireshark.</p>
+        <div class="card-meta"><span>10 Aug</span><span>11 min</span></div>
       </div>
     </a>
 
@@ -122,7 +142,7 @@
         <span class="cat cat-tools mono">TOOLS</span>
         <h3>Improving the port scanner with argparse</h3>
         <p>Adding CLI interactivity with argparse, and final thoughts.</p>
-        <div class="card-meta"><span>14 May</span><span>11 min</span></div>
+        <div class="card-meta"><span>21 July</span><span>11 min</span></div>
       </div>
     </a>
 
@@ -132,7 +152,7 @@
         <span class="cat cat-tools mono">TOOLS</span>
         <h3>Upgrading the port scanner with multi-threading</h3>
         <p>Switching out the loop logic for multi-threading, and handling errors.</p>
-        <div class="card-meta"><span>12 May</span><span>9 min</span></div>
+        <div class="card-meta"><span>14 June</span><span>9 min</span></div>
       </div>
     </a>
 
@@ -142,27 +162,7 @@
         <span class="cat cat-tools mono">TOOLS</span>
         <h3>Building a port scanner with Python</h3>
         <p>How I built a simple network port scanner from scratch with Python.</p>
-        <div class="card-meta"><span>10 May</span><span>9 min</span></div>
-      </div>
-    </a>
-
-    <a href="/logs/setting-up-a-pi-hole-part-2/" class="card-link">
-      <div class="card">
-        <div class="thumb" style="background-image: url('/logs/setting-up-a-pi-hole-part-2/images/cover.webp');background-size: cover; background-position: center;"></div>
-        <span class="cat cat-homelab mono">HOMELAB</span>
-        <h3>Setting up a Pi-hole Part 2</h3>
-        <p>A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
-        <div class="card-meta"><span>2 Apr</span><span>14 min</span></div>
-      </div>
-    </a>
-
-    <a href="/logs/setting-up-a-pi-hole-part-1/" class="card-link">
-      <div class="card">
-        <div class="thumb" style="background-image: url('/logs/setting-up-a-pi-hole-part-1/images/cover.webp');background-size: cover; background-position: center;"></div>
-        <span class="cat cat-homelab mono">HOMELAB</span>
-        <h3>Setting up a Pi-hole Part 1</h3>
-        <p>A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.</p>
-        <div class="card-meta"><span>26 Mar</span><span>7 min</span></div>
+        <div class="card-meta"><span>28 May</span><span>9 min</span></div>
       </div>
     </a>
   </div>

@@ -5,11 +5,13 @@ type: series
 status: active
 icon: wifi
 featured: true
-order: 3
+order: 1
 tags: [Wireshark, Packet capture, Network protocols]
-estimatedTotal: 2        # series only — drives the progress bar %
+estimatedTotal: 4        # series only — drives the progress bar %
 logs:
-    - Network traffic analysis with Wireshark
+    - Network traffic capture with Wireshark fundamentals
+    - Nmap scan capture and analysis with Wireshark
+    - Encrypted vs unencrypted network traffic comparison with Wireshark
 
 ---
 
