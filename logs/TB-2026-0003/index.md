@@ -1,6 +1,6 @@
 ---
-title: Setting up a Pi-hole Part 1
-dek: A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.
+title: Raspberry Pi OS installation and ssh configuration
+dek: Setting up a Raspberry Pi headless server for use as a DNS sinkhole.
 author: takibyte
 date: 2026-03-26
 category: homelab

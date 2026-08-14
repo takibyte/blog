@@ -1,6 +1,6 @@
 ---
 title: Packet capture and analysis fundamentals with Wireshark
-dek: Capturing network traffic data, and analysing it with Wireshark.
+dek: Configuring a VM network, Wireshark fundamentals, packet capture, and analysis.
 author: takibyte
 date: 2026-08-10
 category: homelab

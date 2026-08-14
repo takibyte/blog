@@ -1,6 +1,6 @@
 ---
-title: Setting up a Pi-hole Part 2
-dek: A walk-through of my experience setting up and configuring a Raspberry Pi, for use as a DNS sinkhole.
+title: Pi-hole installation, configuration, and network setup
+dek: A walk-through of a Pi-hole installation, including DHCP reservation and DNS configurations.
 author: takibyte
 date: 2026-04-02
 category: homelab

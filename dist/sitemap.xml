@@ -22,12 +22,6 @@
     <loc>https://lab.takibyte.com/projects/packet-capture-and-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/encrypted-vs-unencrypted-packet-capture-with-wireshark/</loc>
-  </url>
-  <url>
-    <loc>https://lab.takibyte.com/logs/nmap-scan-capture-and-analysis-with-wireshark/</loc>
-  </url>
-  <url>
     <loc>https://lab.takibyte.com/logs/packet-capture-and-analysis-fundamentals-with-wireshark/</loc>
   </url>
   <url>
@@ -40,10 +34,10 @@
     <loc>https://lab.takibyte.com/logs/building-a-port-scanner-with-python/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/setting-up-a-pi-hole-part-2/</loc>
+    <loc>https://lab.takibyte.com/logs/pi-hole-installation-configuration-and-network-setup/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/setting-up-a-pi-hole-part-1/</loc>
+    <loc>https://lab.takibyte.com/logs/raspberry-pi-os-installation-and-ssh-configuration/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/logs/setting-up-a-basic-homelab/</loc>
