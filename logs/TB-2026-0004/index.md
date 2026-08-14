@@ -1,6 +1,6 @@
 ---
-title: Pi-hole installation, configuration, and network setup
-dek: A walk-through of a Pi-hole installation, including DHCP reservation and DNS configurations.
+title: Setting up a DNS sinkhole with Pi-hole
+dek: A DNS sinkhole setup with Pi-hole, including DHCP reservation and DNS configurations.
 author: takibyte
 date: 2026-04-02
 category: homelab
