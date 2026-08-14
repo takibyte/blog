@@ -1,5 +1,5 @@
 ---
-title: Encrypted vs unencrypted network traffic comparison with Wireshark
+title: Encrypted vs unencrypted packet capture with Wireshark
 dek: Capturing network traffic data, and analysing it with Wireshark.
 author: takibyte
 date: 2026-08-14

@@ -1,5 +1,5 @@
 ---
-title: Network Traffic Analysis with Wireshark
+title: Packet capture and analysis with Wireshark
 description: Capturing network traffic data, and analysing it with Wireshark.
 type: series
 status: active
@@ -9,9 +9,9 @@ order: 1
 tags: [Wireshark, Packet capture, Network protocols]
 estimatedTotal: 4        # series only — drives the progress bar %
 logs:
-    - Network traffic capture with Wireshark fundamentals
+    - Packet capture and analysis fundamentals with Wireshark
     - Nmap scan capture and analysis with Wireshark
-    - Encrypted vs unencrypted network traffic comparison with Wireshark
+    - Encrypted vs unencrypted packet capture with Wireshark
 
 ---
 

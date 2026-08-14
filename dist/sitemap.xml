@@ -19,16 +19,16 @@
     <loc>https://lab.takibyte.com/projects/setting-up-a-dns-sinkhole-with-pi-hole/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/projects/network-traffic-analysis-with-wireshark/</loc>
+    <loc>https://lab.takibyte.com/projects/packet-capture-and-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/encrypted-vs-unencrypted-network-traffic-comparison-with-wireshark/</loc>
+    <loc>https://lab.takibyte.com/logs/encrypted-vs-unencrypted-packet-capture-with-wireshark/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/logs/nmap-scan-capture-and-analysis-with-wireshark/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/logs/network-traffic-capture-with-wireshark-fundamentals/</loc>
+    <loc>https://lab.takibyte.com/logs/packet-capture-and-analysis-fundamentals-with-wireshark/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/logs/improving-the-port-scanner-with-argparse/</loc>
