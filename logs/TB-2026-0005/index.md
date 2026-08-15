@@ -10,15 +10,23 @@ cover: cover.webp
 
 ## What is a port scanner?
 
+### Definition
+
 A port scanner, is a network tool that can be used to scan a host on a network, and determine what port numbers are open or closed on that host. Determining what port numbers are open can give important information about what kinds of services might be running on that host. This is useful to know for both attackers and defenders of a network.
+
+### Defender utility
 
 Network defenders will want to know what ports are open, because they can use this information to determine whether *unnecessary* ports / services are open, allowing them to close those unneeded ports / services in an effort to harden the security posture of the network.
 
+### Attacker utility
+
 Attackers on the other hand, might use a port scanner to do active reconnaissance on a target host, surveying the host and greater network, looking for potentially vulnerable open ports and services as a way inside, and to otherwise exploit those vulnerabilities.
 
-## Why build a port scanner?
+## Why this project?
 
-The main reason for me to build this is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I've built here, Nmap comes to mind.
+The main reason for me to build a port scanner for this project is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I've built here, Nmap comes to mind.
+
+### Comparison to scanners like Nmap
 
 Nmap is a much more powerful tool that is more than just a port scanner, it can do network host discovery using ICMP, ARP, or TCP SYN; detection evasion techniques; more advanced port scanning techniques like TCP SYN (stealth) scans; and many other features like OS detection and others that I haven't explored yet.
 
@@ -37,9 +45,13 @@ s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
 
 ```
 
+### The Python socket module
+
 Python's **socket** module (based on the historic Berkeley socket API standard) can interface with the low-level networking components of the system, this module is what will allow the port scanner to function at all, and it is therefore the core of this tool and is vital.
 
 In the code snippet shown here, I have imported the socket module with `import socket` so we can access it, I have then created a new socket object with `socket.socket()`. For easy reference later, this socket object is stored in the new variable `s`.
+
+### The socket object
 
 The socket object is made from the underlying class: `class socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)`. The family and type are the only two properties needed, the proto and fileno are only for certain specific cases not required here.
 
@@ -72,9 +84,13 @@ def scan_port(host, port):
 scan_port("localhost", 22)
 ```
 
+### Defining the scan port function
+
 So here we have the crux of the whole program, making an actual socket connection, and testing if a known-open scanned port is detected as being open.
 
 In this code snippet, I have enclosed the socket object within a newly defined function: `def scan_port(host, port):`, this function accepts a **host** IP address / hostname, and a **port** number.
+
+### Socket connect function options
 
 The `result` variable is storing an executed function within the created socket object called `connect_ex()`. `connect_ex()` is related to another function in the socket object called `connect()`, both of these functions attempt a connection to the socket, accepting an IP address and a port number in the form of a tuple: (ip, port).
 
@@ -84,11 +100,15 @@ I just decided to call the referenced value in my scanner `host`, as you can sca
 
 `connect_ex()` is used here, as it returns a number value even on exception: it will return `0` if the connection is successful, and another error number if there is an error. `connect()`, will raise a text exception on failure, which won't be as usable for the port scanner.
 
+### Printing result and closing the socket
+
 `result` is printed, the created socket is closed with `s.close()`, and the function then ends with `return`. The function is called at the bottom with `scan_port("localhost", 22)`, this has the socket object attempt to create a connection to `localhost` (the loopback address / 127.0.0.1), with port `22`, the ssh port (which I know is open on my computer).
 
 :::warn
 It is recommended to close the socket connection with `socket.close()` (`s.close()` in my case), as this will free up resources and prevent memory leaks.
 :::
+
+### Running the program
 
 Now let's run the program so far like this:
 
@@ -127,6 +147,8 @@ for port in range(1, 30):
     scan_port("localhost", port)
 ```
 
+### Looping through a range of ports
+
 To make the scanner a bit more useful now, we'll add a loop, so the function can automatically scan several ports in succession. To do this we can so a simple 'for loop' — as seen in this snippet:
 
 ```py
@@ -139,6 +161,8 @@ This will use a variable `port` and substitute it into its placeholder in the fu
 :::warn
 We need to add a `s.settimeout(1)` to the function after the creation of the socket object, this makes it so the program doesn't keep hanging if a socket connection can't be resolved properly in a timely way. The `1` sets the timeout to 1 second, so if the socket can't be connected, it will move on to the next loop iteration.
 :::
+
+### Improving the print output
 
 To make this a bit nicer, we should print a message saying the port is open (when it is open), and closed (when it is closed), along with the corresponding port. As seen in the code block above, we can do this easily with a conditional `if` statement like this:
 
@@ -184,6 +208,8 @@ for port in range(1, 30):
 :::note
 Keep in mind that with the current state of the scanner, when scanning a host other than `localhost`, the scanner will wait for one second on each failed connection attempt. So for example, if scanning 100 ports, since most ports will be closed, the whole scan will take around 100 seconds. This is obviously not ideal, but will be resolved when we add multi-threading in the next log entry.
 :::
+
+## Wrapping up this entry
 
 And there we have it, an operational port scanner! Though this is quite basic and lacks a lot still, it works, which is pretty cool.
 

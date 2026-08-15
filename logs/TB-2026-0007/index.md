@@ -8,13 +8,15 @@ tags: [Tools, Python, TCP/IP, Networking]
 cover: cover.webp
 ---
 
+## The current state of the port scanner
+
 In the last log entry on bulding a port scanner, I added error handling, and upgraded the old loop-based scanning implementation to a superior mutli-threaded version.
 
 Currently, the port scanner can scan ports relatively quickly and effectively, however there is no way for a user to determine which host to scan and on which ports, without editing the source code itself.
 
-For this, we will use the Python 'argparse' module in the scanner.
+## The port scanner with argparse
 
-## Adding argparse
+To allow for this user interactivity, we will use the Python 'argparse' module in the scanner.
 
 ```py
 #!/usr/bin/env python3
@@ -90,11 +92,15 @@ except KeyboardInterrupt:
 
 This is the port scanner in the same state from the previous log entry, but with `argparse` implemented, let's get into the details of the additions.
 
+## Adding argparse
+
 First, we need to import `argparse` like so:
 
 ```py
 import argparse
 ```
+
+### Defining the parser object
 
 Now we can define the parser for our port scanner program with the following portion:
 
@@ -105,6 +111,8 @@ parser = argparse.ArgumentParser(
 ```
 
 Here, I created a new parser object in my variable `parser`, we define the program name with: `prog="the program name"`, and description with: `description="your description"`.
+
+### Adding arguments to the parser
 
 Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and have those values processed by the parser at runtime. We can then use those user provided values in the program.
 
@@ -122,7 +130,11 @@ parser.add_argument('--end', type=valid_port, default=1024, help='end of the por
 args = parser.parse_args()
 ```
 
+### Validating input ports
+
 Let's first briefly address the `valid_port()` function. This function accepts an argument, assigns it as an integer to the `port` variable, it then uses a conditional `if` statement to check if the user provided port number is within 0 and 65535 (the possible range of ports). If it is within that range it returns the port, if it isn't, it throws the `argparse.ArgumentTypeError()`, with a message that the port isn't valid.
+
+### Argument details
 
 So moving on, we can see the three arguments `parser.add_argument()` I created. 
 
@@ -146,6 +158,8 @@ The `type=valid_port` calls the custom function mentioned above, instead of usin
 
 So by default, I've set the scanner to scan the port range between 1 and 1024 (the common ports number range), if the user doesn't set a range themselves using the argument flags.
 
+### Parsing the arguments
+
 ```py
 args = parser.parse_args()
 ```
@@ -155,6 +169,8 @@ This line actually parses the arguments from the command line at runtime, and th
 You can go through the detailed documentation on python.org to see the various options for the argparse module:
 <https://docs.python.org/3/library/argparse.html>.
 
+### Using argument data
+
 Now that we have arguments defined for the program, we can use the data stored in `args`, to sub into the port scanner logic.
 
 ```py
@@ -163,6 +179,8 @@ ports = range(args.start, args.end + 1)
 ```
 
 Previously the `hostname` and `ports` variables, contained hardcoded values. Now, with the addition of argparse, these are dynamic, and can change depending on the users input, or be the default values (in the case of the ports range). The value parsed from the argument can be access by accessing the object variable with the corresponding argument name e.g. `args.host`. The `+ 1` in the range, accounts for the fact that the Python `range()` function ends before the specified end range, without adding the `+ 1`, the default range would only scan up 1 to 1023 rather than 1024.
+
+### Running the program with input and flags
 
 At this point the arguments are fully functional and can be tested by running the program:
 
@@ -174,6 +192,8 @@ Or simply:
 ```
 python3 pscan.py localhost
 ```
+
+### Handling hostname errors
 
 To catch some exceptions for a missing or incorrect hostname, I added the following error handling blocks:
 
@@ -193,7 +213,8 @@ Now user arguments are fully supported with the port scanner, a user can scan a 
 
 Next we'll look at adding some better user experience and feedback to the port scanner by collecting certain details and printing them to the console.
 
-## Improving the user experience
+
+## The complete port scanner
 
 ```py title=pscan.py
 #!/usr/bin/env python3
@@ -291,9 +312,13 @@ finally:
     print(f"Finished scan in: {round(end_time-start_time, 2)} seconds.")
 ```
 
+## Improving the user experience
+
 Here is the complete version of the port scanner with some additional polishing touches, adding to the user experience. This mainly involves printing useful information to the terminal, making the program more understandable and transparent.
 
 Let's go through all the new additions from top to bottom.
+
+### Importing the time module
 
 First, please note the new time module I added:
 
@@ -303,6 +328,10 @@ import time
 
 This will be used later in the program to print the elapsed time since the scan started.
 
+
+### User feedback with print additions
+
+
 We have this new addition that prints before the scan starts:
 
 ```py
@@ -310,6 +339,8 @@ print(f"Scanning {hostname} ({resolved_hostname}) at ports {args.start}-{args.en
 ```
 
 This prints a formatted string line that gives some information about what host is being scanned, the resolved hostname (IP address), and the port ranges being scanned.
+
+### Collecting port data to display
 
 Next we have a few new variables that collect some data that we can display at the end of the scan as a little scan completed report:
 
@@ -332,6 +363,8 @@ ports_open += 1
 
 These variables will be used soon to print the resulting information to the console.
 
+### Collecting time data
+
 Additionally, we have now two time variables:
 
 ```py
@@ -345,6 +378,8 @@ finally:
 
 The first time variable stores a time value right before the scan starts. I also added a `finally:` clause after the `try:` block that runs the `executor` function calls. Within this `finally:` clause, another time is captured once the whole scan has completed, this time in a variable called `end_time`.
 
+### Printing the scan report
+
 And this is where it all comes together:
 
 ```py
@@ -355,6 +390,8 @@ print(f"Finished scan in: {round(end_time-start_time, 2)} seconds.")
 ```
 
 This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints 'Scan complete.'. The 3rd line prints how many ports total are open, and this segment: `{'ports are' if ports_open > 1 else 'port is'}`, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it to 2 decimal places.
+
+## Example output of the completed scanner
 
 That covers all the additions. Great, the scanner is now complete!
 

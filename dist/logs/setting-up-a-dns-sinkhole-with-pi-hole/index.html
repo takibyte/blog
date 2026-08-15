@@ -94,9 +94,53 @@
       <span class="mono">2 of 2</span>
     </div>
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#installing-pi-hole-on-the-pi" class="toc-link toc-level-2" data-target="installing-pi-hole-on-the-pi">Installing Pi-hole on the Pi</a>
+      <a href="#the-setup" class="toc-link toc-level-2" data-target="the-setup">The Setup</a>
+      <a href="#static-ip-and-dhcp-reservation" class="toc-link toc-level-2" data-target="static-ip-and-dhcp-reservation">Static IP and DHCP Reservation</a>
+      <a href="#reserving-an-ip-address-on-the-dhcp-server" class="toc-link toc-level-3" data-target="reserving-an-ip-address-on-the-dhcp-server">Reserving an IP address on the DHCP server</a>
+      <a href="#network-interface" class="toc-link toc-level-3" data-target="network-interface">Network interface</a>
+      <a href="#upstream-dns-provider" class="toc-link toc-level-2" data-target="upstream-dns-provider">Upstream DNS provider</a>
+      <a href="#blocklists" class="toc-link toc-level-3" data-target="blocklists">Blocklists</a>
+      <a href="#query-logging" class="toc-link toc-level-3" data-target="query-logging">Query logging</a>
+      <a href="#privacy-mode" class="toc-link toc-level-3" data-target="privacy-mode">Privacy mode</a>
+      <a href="#installation-complete" class="toc-link toc-level-3" data-target="installation-complete">Installation complete</a>
+      <a href="#the-pi-hole-admin-panel" class="toc-link toc-level-2" data-target="the-pi-hole-admin-panel">The Pi-hole Admin Panel</a>
+      <a href="#configuring-the-pi-hole-as-a-dns" class="toc-link toc-level-2" data-target="configuring-the-pi-hole-as-a-dns">Configuring the Pi-hole as a DNS</a>
+      <a href="#option-1-configuring-the-dns-for-the-router" class="toc-link toc-level-3" data-target="option-1-configuring-the-dns-for-the-router">Option 1: Configuring the DNS for the router</a>
+      <a href="#pi-hole-admin-panel-check-and-overview" class="toc-link toc-level-3" data-target="pi-hole-admin-panel-check-and-overview">Pi-hole admin panel check and overview</a>
+      <a href="#option-2-configuring-the-dns-via-dhcp" class="toc-link toc-level-3" data-target="option-2-configuring-the-dns-via-dhcp">Option 2: Configuring the DNS via DHCP</a>
+      <a href="#option-3-configuring-the-dns-for-select-devices" class="toc-link toc-level-3" data-target="option-3-configuring-the-dns-for-select-devices">Option 3: Configuring the DNS for select devices</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#installing-pi-hole-on-the-pi" class="toc-link toc-level-2" data-target="installing-pi-hole-on-the-pi">Installing Pi-hole on the Pi</a>
+      <a href="#the-setup" class="toc-link toc-level-2" data-target="the-setup">The Setup</a>
+      <a href="#static-ip-and-dhcp-reservation" class="toc-link toc-level-2" data-target="static-ip-and-dhcp-reservation">Static IP and DHCP Reservation</a>
+      <a href="#reserving-an-ip-address-on-the-dhcp-server" class="toc-link toc-level-3" data-target="reserving-an-ip-address-on-the-dhcp-server">Reserving an IP address on the DHCP server</a>
+      <a href="#network-interface" class="toc-link toc-level-3" data-target="network-interface">Network interface</a>
+      <a href="#upstream-dns-provider" class="toc-link toc-level-2" data-target="upstream-dns-provider">Upstream DNS provider</a>
+      <a href="#blocklists" class="toc-link toc-level-3" data-target="blocklists">Blocklists</a>
+      <a href="#query-logging" class="toc-link toc-level-3" data-target="query-logging">Query logging</a>
+      <a href="#privacy-mode" class="toc-link toc-level-3" data-target="privacy-mode">Privacy mode</a>
+      <a href="#installation-complete" class="toc-link toc-level-3" data-target="installation-complete">Installation complete</a>
+      <a href="#the-pi-hole-admin-panel" class="toc-link toc-level-2" data-target="the-pi-hole-admin-panel">The Pi-hole Admin Panel</a>
+      <a href="#configuring-the-pi-hole-as-a-dns" class="toc-link toc-level-2" data-target="configuring-the-pi-hole-as-a-dns">Configuring the Pi-hole as a DNS</a>
+      <a href="#option-1-configuring-the-dns-for-the-router" class="toc-link toc-level-3" data-target="option-1-configuring-the-dns-for-the-router">Option 1: Configuring the DNS for the router</a>
+      <a href="#pi-hole-admin-panel-check-and-overview" class="toc-link toc-level-3" data-target="pi-hole-admin-panel-check-and-overview">Pi-hole admin panel check and overview</a>
+      <a href="#option-2-configuring-the-dns-via-dhcp" class="toc-link toc-level-3" data-target="option-2-configuring-the-dns-via-dhcp">Option 2: Configuring the DNS via DHCP</a>
+      <a href="#option-3-configuring-the-dns-for-select-devices" class="toc-link toc-level-3" data-target="option-3-configuring-the-dns-for-select-devices">Option 3: Configuring the DNS for select devices</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <p>Now that I&#39;ve set up my Raspberry Pi with its new OS, it&#39;s time to go ahead and actually set up the Pi-hole.</p>
-<h2>Installing Pi-hole on the Pi</h2>
+    <h2 id="installing-pi-hole-on-the-pi">Installing Pi-hole on the Pi</h2>
+<p>Now that I&#39;ve set up my Raspberry Pi with its new OS, it&#39;s time to go ahead and actually set up the Pi-hole.</p>
 <p>Going to <a href="https://pi-hole.net/">https://pi-hole.net/</a>, presents us with a very straight forward set of steps to install Pi-hole. Since we&#39;ve already installed a compatible OS we can head to step 2, install the actual software, found <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install">here</a>.</p>
 <p>Navigating to their GitHub repo installation guide presents us with several options, the simplest of which is using their automated command line installer using a curl command, naturally I&#39;ll choose this option and use the following command:</p>
 
@@ -106,16 +150,16 @@
     <div class="code-block-dots"><span></span><span></span><span></span></div>
   </div>
   <pre>curl -<span class="hljs-variable">sSL</span> <span class="hljs-keyword">https</span>://install.<span class="hljs-literal">pi</span>-hole.net | bash</pre>
-</div><h3>The Setup</h3>
+</div><h2 id="the-setup">The Setup</h2>
 <p><img src="./images/installer1.webp" alt="pi installer"></p>
 <p>The installer begins to run…</p>
 <p><img src="./images/installer2.webp" alt="pi installer"></p>
 <p>Now the installer will run us through the onboarding setup, it&#39;s going to let us select various options for how we want the Pi-hole to be configured.</p>
-<h3>Static IP and DHCP Reservation</h3>
+<h2 id="static-ip-and-dhcp-reservation">Static IP and DHCP Reservation</h2>
 <p><img src="./images/installer3.webp" alt="pi installer"></p>
 <p>In this next screen, the installer tells us that we need to set a static IP address for the Raspberry Pi running Pi-hole. This is because the Pi-hole will act as a DNS (Domain Name System) for the router and/or the other hosts on the local network. If the Pi&#39;s IP address was dynamic (and not static) it will be periodically changing and receiving a new IP address from the DHCP (Dynamic Host Configuration Protocol) server. Whenever the other hosts on the network go to make a DNS request via the Pi-hole, its address would likely have changed, and therefore, the Pi would not be able to respond to the host making the request.</p>
 <p>To circumvent this we&#39;ll do a DHCP reservation, with this we can tell the DHCP server to always give the Raspberry Pi the same static IP address when it comes time for it to renew all the IP address leases for the hosts on the network.</p>
-<h3>Reserving an IP address on the DHCP server</h3>
+<h3 id="reserving-an-ip-address-on-the-dhcp-server">Reserving an IP address on the DHCP server</h3>
 <p><img src="./images/config1.webp" alt="router config"></p>
 <p>For my devices connected on my local network, the DHCP server is my router, this should be the case for most home setups unless one has already set up a separate DHCP server intentionally. Since some standard ISP provided routers apparently don&#39;t provide the ability to do DHCP reservations, pi-hole has the ability to also work as a DHCP server using dnsmasq under the hood if needed, more details on that can be found <a href="https://docs.pi-hole.net/ftldns/">here</a>.</p>
 <p>My router is from GL.inet, so my setup looks like this, but it should be similar for most routers: for my setup, I just had to log in to the admin panel at its IP address, go to the LAN section, go down to the address reservation section, and add a new reservation entry. To set the Raspberry Pi&#39;s IP as static, we need to provide its MAC (Medium Access Control) address to identify the hardware, and set an IP address that it will keep. The pi&#39;s MAC address can be found on the routers&#39; client list. </p>
@@ -124,25 +168,25 @@
 <p>I decided to set my address reservation to <code>192.168.8.100</code>, which is within the range of the pool (<code>192.168.8.100 - 192.168.8.249</code>). Whether one should set their address reservations inside or outside this DHCP pool was debated online, it seemed to depend on the DHCP server and the network architecture generally. As far as I understand at the moment, it doesn&#39;t seem to matter for my situation, as long as it&#39;s in the right subnet and not already taken. The Pi needs to be rebooted in order to get the new static address. This can be done with the command <code>sudo reboot</code>.</p>
 <p><img src="./images/config3.webp" alt="router config"></p>
 <p>After rebooting, we can see here back on the client list that the Raspberry Pi has received its brand-new static/reserved IP address of <code>192.168.8.100</code>.</p>
-<h3>Network interface</h3>
+<h3 id="network-interface">Network interface</h3>
 <p><img src="./images/installer4.webp" alt="pi installer"></p>
 <p>Back to the installer now, it asks us to select a network interface. I selected eth0 (the Ethernet connection), as it&#39;s already connected and will be reliably available, and fast.</p>
-<h3>Upstream DNS provider</h3>
+<h2 id="upstream-dns-provider">Upstream DNS provider</h2>
 <p><img src="./images/installer5.webp" alt="pi installer"></p>
 <p>Here we are offered several choices for which Upstream DNS provider we would like to use. For this i had to learn a bit about upstream DNS servers because i didn&#39;t know much about them at the time, more info can be found in pi-holes documentation <a href="https://docs.pi-hole.net/guides/dns/upstream-dns-providers/?h=upstream">here</a>. I decided to go with Cloudflare&#39;s <code>1.1.1.1</code> DNS as my upstream DNS provider, because it is said to be fast and good for privacy. </p>
 <p>Briefly, this is my understanding as to what upstream DNS providers are for. Ordinarily as a <em>client</em> computer, when connecting to a website hosted on a web <em>server</em> on the internet - we as humans who recognise words much better than numbers - would use a web address consisting of a domain name, and other aspects of the address (<em><strong>example</strong></em>.com). However, my client computer needs the actual IP address of the host to be able to connect, not the domain name. </p>
 <p>A DNS is used to resolve a domain name with its corresponding public IP address, e.g. example.com becomes <code>x.x.x.x</code>. An upstream DNS is required, because they are large providers which have access to all the records linking the domain names to their respective IP addresses. My router by default has its DNS server set to automatic, which is just deferring to whichever upstream DNS provider is set by the upstream network: the ISP (internet service provider) in most cases, or a VPN if one is enabled.</p>
 <p>The Pi-hole acts as an <em>intermediary DNS</em>. When a client connecting through it makes a request to a website (web server host), the Pi-hole DNS first filters the domain name request against a block list, whatever is blocked returns null. The filtered request then passes on to the upstream DNS that has been configured, (Cloudflare <code>1.1.1.1</code>, or google <code>8.8.8.8</code> for example). The upstream DNS resolves the domain name with its corresponding IP address, sending the response back to the Pi-hole. The Pi-hole then finally provides the response back to the original client. The original client computer now has the web server&#39;s actual IP address (or not if it was blocked). The client can now initiate the TCP/IP connection with the web server.</p>
-<h3>Blocklists</h3>
+<h3 id="blocklists">Blocklists</h3>
 <p><img src="./images/installer6.webp" alt="pi installer"></p>
 <p>The set-up now asks if we want to include the default block list, I just went with yes, as the default list is apparently good and well maintained, there are plenty of other block lists that appear to be good and recommended online too. As the set-up says, you can add and remove lists easily later. </p>
-<h3>Query logging</h3>
+<h3 id="query-logging">Query logging</h3>
 <p><img src="./images/installer7.webp" alt="pi installer"></p>
 <p>Query logging allows you to well… <em>log</em> the domain queries made by all clients filtering through the Pi-hole when using it as an intermediary DNS. This enables you to view all the domain queries passing though the Pi-hole, and therefore see what websites all the connected clients are trying to connect to. I enabled this setting because it will allow me to more easily see how Pi-hole is working, and so I can confirm it is working while I learn and experiment with it.</p>
-<h3>Privacy mode</h3>
+<h3 id="privacy-mode">Privacy mode</h3>
 <p><img src="./images/installer8.webp" alt="pi installer"></p>
 <p>This is related to the query logging, it allows you to manage the degree to which you can see what sites are being visited by the connected clients. This is a good feature if you were using Pi-hole and query logging on a family/shared router, so you can respect the privacy of people on your network. Since I&#39;m not using this on a shared router (my Pi is connected through a secondary router), and because I am mainly installing this for experimental purposes, I have gone with option 0 - show everything.</p>
-<h3>Installation complete</h3>
+<h3 id="installation-complete">Installation complete</h3>
 <p><img src="./images/installer9.webp" alt="pi installer"></p>
 <p><img src="./images/installer10.webp" alt="pi installer"></p>
 <p>Nice! Now, as we can see, the Pi-hole installation is complete.
@@ -153,12 +197,12 @@ The installer has given us some final instructions be able to use the newly inst
 <li><p>We can now log in to the admin panel at the Pi&#39;s IP address port 80 with the provided password. In my case <a href="http://192.168.8.100:80/admin">http://192.168.8.100:80/admin</a> (or <a href="http://pi.hole:80/admin">http://pi.hole:80/admin</a>).</p>
 </li>
 </ol>
-<h3>The Pi-hole Admin Panel</h3>
+<h2 id="the-pi-hole-admin-panel">The Pi-hole Admin Panel</h2>
 <p><img src="./images/pihole1.webp" alt="pihole web"></p>
 <p>First, we can go and quickly check out the Pi-hole&#39;s admin panel by navigating the URL mentioned above.
 After logging in, we are presented with the main dashboard. There are a lot of different useful sections here with which we can analyse data coming through the Pi-hole.
 However, as we can see, there isn&#39;t any data coming through the Pi-hole yet. This is because we haven&#39;t pointed any devices/hosts to the Pi-hole yet, it isn&#39;t receiving any requests that it can filter yet.</p>
-<h3>Configuring the Pi-hole as a DNS</h3>
+<h2 id="configuring-the-pi-hole-as-a-dns">Configuring the Pi-hole as a DNS</h2>
 <p>In order to get the Pi-hole to act as a DNS, we first need to configure it as a DNS (with the Pi&#39;s IP address), on whichever devices we want to use the Pi-hole as a DNS.
 This can be done in a few different ways, I&#39;ll show three different ways I tried it (I mean I&#39;m here to learn after all, why not 😄).</p>
 <ol>
@@ -175,12 +219,12 @@ This can be done in a few different ways, I&#39;ll show three different ways I t
 <li>All devices → Pi-hole DNS</li>
 <li>Select devices → Pi-hole DNS</li>
 </ol>
-<h3>Option 1: Configuring the DNS for the router</h3>
+<h3 id="option-1-configuring-the-dns-for-the-router">Option 1: Configuring the DNS for the router</h3>
 <p><img src="./images/config4.webp" alt="router config"></p>
 <p>Anyway, let&#39;s begin by configuring option one first. Heading back over to my router&#39;s admin panel now, we can see that there is a DNS section under network settings. 
 All I had to do was change the mode from automatic to → manual DNS, and then to add the Pi&#39;s IP address (192.168.8.100) to the &#39;DNS server 1&#39; field. Once applying this Pi-hole should be up and running and functioning as our DNS filter now.</p>
 <p>We can confirm that it&#39;s working by heading back over to the admin panel at <a href="http://192.168.8.100:80/admin">http://192.168.8.100:80/admin</a>.</p>
-<h3>Pi-hole admin panel check and overview</h3>
+<h3 id="pi-hole-admin-panel-check-and-overview">Pi-hole admin panel check and overview</h3>
 <p><img src="./images/pihole2.webp" alt="pihole web"></p>
 <p>And success! We can see that queries are successfully coming through, we can also see that some domains are successfully being blocked.</p>
 <p>Without getting too lost in all of the different settings and features just yet, let&#39;s just look at the four panels at the top of Pi-holes&#39;s admin panel. From left to right we have: Total queries, queries blocked, percentage blocked, and domains on list.</p>
@@ -193,19 +237,18 @@ All I had to do was change the mode from automatic to → manual DNS, and then t
 <p><img src="./images/pihole3.webp" alt="pihole web"></p>
 <p>Here is a screenshot of some domains that appeared on my block-list. We can see that many of them are from Google Ads / doubleclick.net, which is expected.
 Additionally, we can see that all the client IP addresses are listed as <code>192.168.8.1</code>, which is my router&#39;s IP address, this matches what we discussed above in regard to the DNS configuration, Pi-hole can only see the queries coming from the router&#39;s IP address and not that of each individual device.</p>
-<h3>Option 2: Configuring the DNS via DHCP</h3>
+<h3 id="option-2-configuring-the-dns-via-dhcp">Option 2: Configuring the DNS via DHCP</h3>
 <p><img src="./images/config5.webp" alt="router config"></p>
 <p>Moving on, now lets change the DNS configuration to instead use DHCP for the DNS assignment. First we&#39;ll undo the DNS setting made previously in the DNS section of the router&#39;s network settings. Next, we&#39;ll head over to the LAN section in network settings, and scroll down to the DHCP server settings. All that&#39;s needed now, is to set the &#39;DNS server 1&#39; field to the Pi&#39;s IP address, in my case <code>192.168.8.100</code>. This should do the trick, after applying the new setting, we can again head back to Pi-hole&#39;s admin panel and verify that the changes work.</p>
 <p><img src="./images/pihole4.webp" alt="pihole web"></p>
 <p>After observing the dashboard and seeing new queries coming in as i visit new websites etc., we can indeed see that it works, great! Something to note, is that we can now see 4 active clients on the total queries panel. This indicates that the DHCP DNS setting has worked, and that Pi-hole can now see the other devices connected to the router (as opposed to earlier when it was only detecting itself/the pi and the router), we can further confirm this by entering into the total queries section and see the queries linked to each device IP address.</p>
-<h3>Option 3: Configuring the DNS for select devices</h3>
+<h3 id="option-3-configuring-the-dns-for-select-devices">Option 3: Configuring the DNS for select devices</h3>
 <p><img src="./images/config6.webp" alt="router config"></p>
 <p>And finally, we have the third option for configuring the DNS as mentioned above, in this option we will only configure the DNS settings on the select devices we want using Pi-hole as a DNS. To do this again, we will first undo the DNS setting made in the previous option (in the router → LAN → DHCP settings). Next, we will configure the DNS setting on each individual device. This will obviously vary quite a bit depending on the devices OS, but the setting should be found somewhere in the network settings in the devices OS, it should be quite similar really. The laptop I am configuring is running macOS, so the screenshot shown here corresponds to the setting found on macs.</p>
 <p>To get to this setting is as follows: Settings → Wi-Fi (or other connected network interface) → Details → DNS. Then it&#39;s just a matter of changing the DNS IP address to that of the Pi <code>192.168.8.100</code>. And done, this will now make it, so this device directly sends its DNS requests to the Pi instead of the router.</p>
 <p>And there we have it. There are many other options and cool features/settings for the Pi-hole to play around with, but for now I&#39;ll leave it there. This was definitely useful to me for getting some hands-on experience with configuring DNS and DHCP settings, and for learning about upstream DNS providers and so on. Thanks for reading!</p>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Homelab</span>
@@ -248,6 +291,119 @@ Additionally, we can see that all the client IP addresses are listed as <code>19
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

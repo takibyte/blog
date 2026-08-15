@@ -76,7 +76,7 @@
       <div class="meta-text">
         <div class="name"><a href="/about/">takibyte</a></div>
         <div class="sub mono">
-          <span>14 June 2026 · 9 min</span>
+          <span>14 June 2026 · 10 min</span>
           <span>TB-2026-0006</span>
         </div>
       </div>
@@ -94,10 +94,55 @@
       <span class="mono">2 of 3</span>
     </div>
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a>
+      <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
+      <a href="#try-and-except-error-handling-in-python" class="toc-link toc-level-3" data-target="try-and-except-error-handling-in-python">Try and except — error handling in Python</a>
+      <a href="#handling-service-name-retrieval" class="toc-link toc-level-3" data-target="handling-service-name-retrieval">Handling service name retrieval</a>
+      <a href="#handling-the-main-socket-connection" class="toc-link toc-level-3" data-target="handling-the-main-socket-connection">Handling the main socket connection</a>
+      <a href="#handling-the-main-function-call" class="toc-link toc-level-3" data-target="handling-the-main-function-call">Handling the main function call</a>
+      <a href="#from-loops-to-threads" class="toc-link toc-level-2" data-target="from-loops-to-threads">From loops to threads</a>
+      <a href="#the-problem-with-looping-a-port-scan" class="toc-link toc-level-3" data-target="the-problem-with-looping-a-port-scan">The problem with looping a port scan</a>
+      <a href="#the-advantages-of-multi-threading" class="toc-link toc-level-3" data-target="the-advantages-of-multi-threading">The advantages of multi-threading</a>
+      <a href="#introducing-with-statements" class="toc-link toc-level-3" data-target="introducing-with-statements">Introducing 'with' statements</a>
+      <a href="#implementing-multi-threading" class="toc-link toc-level-2" data-target="implementing-multi-threading">Implementing multi-threading</a>
+      <a href="#unpacking-the-lambda-function" class="toc-link toc-level-3" data-target="unpacking-the-lambda-function">Unpacking the lambda function</a>
+      <a href="#running-the-scanner-with-multi-threading" class="toc-link toc-level-3" data-target="running-the-scanner-with-multi-threading">Running the scanner with multi-threading</a>
+      <a href="#race-conditions" class="toc-link toc-level-2" data-target="race-conditions">Race conditions</a>
+      <a href="#resolving-race-conditions-with-a-threading-lock" class="toc-link toc-level-3" data-target="resolving-race-conditions-with-a-threading-lock">Resolving race conditions with a threading lock</a>
+      <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a>
+      <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
+      <a href="#try-and-except-error-handling-in-python" class="toc-link toc-level-3" data-target="try-and-except-error-handling-in-python">Try and except — error handling in Python</a>
+      <a href="#handling-service-name-retrieval" class="toc-link toc-level-3" data-target="handling-service-name-retrieval">Handling service name retrieval</a>
+      <a href="#handling-the-main-socket-connection" class="toc-link toc-level-3" data-target="handling-the-main-socket-connection">Handling the main socket connection</a>
+      <a href="#handling-the-main-function-call" class="toc-link toc-level-3" data-target="handling-the-main-function-call">Handling the main function call</a>
+      <a href="#from-loops-to-threads" class="toc-link toc-level-2" data-target="from-loops-to-threads">From loops to threads</a>
+      <a href="#the-problem-with-looping-a-port-scan" class="toc-link toc-level-3" data-target="the-problem-with-looping-a-port-scan">The problem with looping a port scan</a>
+      <a href="#the-advantages-of-multi-threading" class="toc-link toc-level-3" data-target="the-advantages-of-multi-threading">The advantages of multi-threading</a>
+      <a href="#introducing-with-statements" class="toc-link toc-level-3" data-target="introducing-with-statements">Introducing 'with' statements</a>
+      <a href="#implementing-multi-threading" class="toc-link toc-level-2" data-target="implementing-multi-threading">Implementing multi-threading</a>
+      <a href="#unpacking-the-lambda-function" class="toc-link toc-level-3" data-target="unpacking-the-lambda-function">Unpacking the lambda function</a>
+      <a href="#running-the-scanner-with-multi-threading" class="toc-link toc-level-3" data-target="running-the-scanner-with-multi-threading">Running the scanner with multi-threading</a>
+      <a href="#race-conditions" class="toc-link toc-level-2" data-target="race-conditions">Race conditions</a>
+      <a href="#resolving-race-conditions-with-a-threading-lock" class="toc-link toc-level-3" data-target="resolving-race-conditions-with-a-threading-lock">Resolving race conditions with a threading lock</a>
+      <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <p>In the previous log entry, I showed how I made the fundamentals of the port scanner: setting up an initial socket connection within a function, and then looping that function through a range of ports.</p>
+    <h2 id="recapping-the-last-entry">Recapping the last entry</h2>
+<p>In the previous log entry, I showed how I made the fundamentals of the port scanner: setting up an initial socket connection within a function, and then looping that function through a range of ports.</p>
 <p>However, though the scanner functions fine right now, it is missing some things that will improve it significantly.</p>
-<h2>Error handling</h2>
+<h2 id="error-handling">Error handling</h2>
 <p>In most programs, it is a good standard to have some type of error handling present. Error handling is a way to handle potential errors cleanly, it can avoid exposing the program / system internals. Errors, if not handled properly, could pose a security risk, and from what I&#39;ve learnt, it seems like a good habit to have, particularly when working on critical or complex programs.</p>
 <p>Obviously this program isn&#39;t critical or complex by any means, but like I said, it is a good practice to have, and it is helpful for my own learning and practice too.</p>
 
@@ -142,7 +187,8 @@
 
 <span class="hljs-keyword">except</span> KeyboardInterrupt:
       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nScan cancelled by the user.&quot;</span>)</pre>
-</div><p>In the code block above, I have added the Python implementation of error handling: <code>try</code> and <code>except</code>. The full sequence could be: </p>
+</div><h3 id="try-and-except-error-handling-in-python">Try and except — error handling in Python</h3>
+<p>In the code block above, I have added the Python implementation of error handling: <code>try</code> and <code>except</code>. The full sequence could be: </p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -158,6 +204,7 @@
 <span class="hljs-keyword">finally</span>:
     <span class="hljs-comment"># This will always run, regardless of whether or not there are errors, can be used as a final clean-up step.</span></pre>
 </div><p>So far I have only used <code>try</code> and <code>except</code>, the others are optional and not needed right now.</p>
+<h3 id="handling-service-name-retrieval">Handling service name retrieval</h3>
 <p>Looking at the innermost try / except, we can see:</p>
 
 <div class="code-block">
@@ -177,6 +224,7 @@ s.close()
 <span class="hljs-keyword">return</span></pre>
 </div><p>Here I have added another print function, it gets and prints the service name with the port number that was just scanned, (for example, <code>ssh</code> for port 22). Using <code>try:</code>, we can attempt to get the service, but if there isn&#39;t one, it will throw the <code>except OSError:</code>, which will handle the error and print a message. The <code>OSError</code> is a generic Python error related to system errors, more information can be found <a href="https://docs.python.org/3/library/exceptions.html#OSError">here</a>. </p>
 <p>Additionally, in this block, I have added <code>, end=&quot; - &quot;</code> within the original print function. Normally, the print function automatically includes a newline with <code>\n</code>, including <code>end=&quot; - &quot;</code> overrides the new line and appends a dash, this simply allows for the service name to be formatted onto the same line as the printed port number.</p>
+<h3 id="handling-the-main-socket-connection">Handling the main socket connection</h3>
 <p>Next, lets look at the main <code>try:</code> before the socket object creation. This <code>try:</code> block has the corresponding exception clauses here:</p>
 
 <div class="code-block">
@@ -197,6 +245,7 @@ s.close()
 </div><p>Both of these are socket module related errors, and are a subclass of the <code>OSError</code> mentioned above.
 <code>socket.timeout:</code>, as the print message indicates, is thrown when a scan times out.
 <code>socket.gaierror:</code>, is related to errors getting address info with the <code>getaddrinfo()</code> or <code>getnameinfo()</code> socket functions (hence gai). More information on both of these error types and more can be found in the <a href="https://docs.python.org/3/library/socket.html#exceptions">documentation</a>.</p>
+<h3 id="handling-the-main-function-call">Handling the main function call</h3>
 <p>Finally, the last try / except set is shown here:</p>
 
 <div class="code-block">
@@ -211,8 +260,10 @@ s.close()
 <span class="hljs-keyword">except</span> KeyboardInterrupt:
       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nScan cancelled by the user.&quot;</span>)</pre>
 </div><p>Here, I have moved the main <code>scan_port()</code> function call into a <code>try:</code> block, and added a <code>KeyboardInterrupt:</code> exception. As the error print message indicates, this exception is thrown when the user cancels the program (with control ^ C for example). This allows the user to cancel the program cleanly with an exception message, without displaying the default messy system error.</p>
-<h2>From loops to threads</h2>
+<h2 id="from-loops-to-threads">From loops to threads</h2>
+<h3 id="the-problem-with-looping-a-port-scan">The problem with looping a port scan</h3>
 <p>There is a bit of a problem with the scanner at the moment, right now, the scanner has to loop through sequentially, trying each socket with an incrementing port number. This is fine, but since we have a timeout set to 1 second, when a connection doesn&#39;t happen, it waits 1 second before moving on (this is more apparent when scanning a host other than localhost). In a sense this is good, because it makes sure the scanner doesn&#39;t hang on a connection attempt for too long, and it also doesn&#39;t give up on one too soon. The problem is that if you scan, say, 1000 ports, since most would be closed, it would take around 1000 seconds to complete the scan, which is obviously not ideal. Furthermore, with this loop setup, there is only one sequential process happening, under-utilising the capabilities of the CPU.</p>
+<h3 id="the-advantages-of-multi-threading">The advantages of multi-threading</h3>
 <p>This is where concurrent multi-threading comes into play. Using this, will make it so we could have (for example) 100 threads each attempting a different socket in the range we set, so even with 1 second timeouts, the speed will be drastically increased due to the parallel processing. That&#39;s not to mention the increase in speed from simultaneous processing as well — many threads will be working at the same time, reducing the processing time regardless of the timeout setting.</p>
 <p>So now that we know why multi-threading will be a big advantage here, here&#39;s how I went about implementing it.</p>
 
@@ -262,7 +313,9 @@ print_lock = threading.Lock()
 
 <span class="hljs-keyword">except</span> KeyboardInterrupt:
       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nScan cancelled by the user.&quot;</span>)</pre>
-</div><p>Let&#39;s break these next additions down. First, I have now included <code>with</code> statements three times throughout the program structure. <code>with</code> statements, are a control flow structure that makes opening and closing processes cleaner, as it automates the closing / cleanup step. This is superior for most cases, and especially so when it comes to opening many threads — using <code>with</code>, safely closes used threads after they are done. Having a habit of using <code>with</code> statements is useful for preventing things like memory leaks, because you don&#39;t have to remember to close opened / used processes. So, after implementing this, I have removed the close socket cleanup function: <code>s.close()</code>, as it is now handled by the <code>with</code> statement.</p>
+</div><h3 id="introducing-with-statements">Introducing &#39;with&#39; statements</h3>
+<p>Let&#39;s break these next additions down. First, I have now included <code>with</code> statements three times throughout the program structure. <code>with</code> statements, are a control flow structure that makes opening and closing processes cleaner, as it automates the closing / cleanup step. This is superior for most cases, and especially so when it comes to opening many threads — using <code>with</code>, safely closes used threads after they are done. Having a habit of using <code>with</code> statements is useful for preventing things like memory leaks, because you don&#39;t have to remember to close opened / used processes. So, after implementing this, I have removed the close socket cleanup function: <code>s.close()</code>, as it is now handled by the <code>with</code> statement.</p>
+<h2 id="implementing-multi-threading">Implementing multi-threading</h2>
 <p>The main implementation of multithreading uses the <code>ThreadPoolExecutor</code>, which I have imported with the statement near the top: <code>from concurrent.futures import ThreadPoolExecutor</code>.</p>
 
 <div class="code-block">
@@ -274,13 +327,15 @@ print_lock = threading.Lock()
       <span class="hljs-keyword">with</span> ThreadPoolExecutor(max_workers=<span class="hljs-number">100</span>) <span class="hljs-keyword">as</span> executor:
             executor.<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> port : scan_port(hostname, port), ports)</pre>
 </div><p>Here we can see the <code>ThreadPoolExecutor</code> being called into the new variable <code>executor</code> using <code>with</code>, the <code>max_workers</code> parameter has been set to 100, this means we are setting maximum of 100 threads in our thread pool that can be used.</p>
-<p>Next is a slightly more difficult part to understand (at least it was for me initially). A <code>lambda</code> wrapper is needed here, because the <code>scan_port()</code> function requires two arguments (hostname and port), however, the <code>executor.map()</code> function can only pass one argument at a time + the iterable list <code>ports</code>. The <code>lambda</code> function solves this by taking the single port value in each instance, and calling the <code>scan_port()</code> function itself, with the additional <code>hostname</code> argument already baked into the function call.</p>
+<h3 id="unpacking-the-lambda-function">Unpacking the lambda function</h3>
+<p>Next is a slightly more difficult part to understand (at least it was for me initially). A <code>lambda</code> function is needed here, because the <code>scan_port()</code> function requires two arguments (hostname and port), however, the <code>executor.map()</code> function can only pass one argument at a time + the iterable list <code>ports</code>. The <code>lambda</code> function wrapper solves this by taking the single port value in each instance, and calling the <code>scan_port()</code> function itself, with the additional <code>hostname</code> argument already baked into the function call.</p>
 <p>The result of this is: up to 100 threads are being used to scan all the sockets, with each socket containing one of the different ports in the <code>ports</code> list.</p>
 
 <div class="callout">
   <span class="icon mono">NOTE</span>
   <p>Please note that the hostname and ports list is now moved into their own variable at the beginning of the program.</p>
 </div>
+<h3 id="running-the-scanner-with-multi-threading">Running the scanner with multi-threading</h3>
 <p>Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren&#39;t the localhost loopback IP address.</p>
 
 <div class="code-block">
@@ -289,8 +344,12 @@ print_lock = threading.Lock()
     <div class="code-block-dots"><span></span><span></span><span></span></div>
   </div>
   <pre><span class="hljs-keyword">python3</span> pscan.<span class="hljs-keyword">py</span></pre>
-</div><p>However, since we have implemented multi-threading now, we have introduced the potential for a different issue.
-Now that multiple threads are running concurrently when scanning, you may encounter what are known as race conditions. Race conditions can happen when multiple processes are trying to access and use the same data, but with potential for time overlaps. One thread could try to open a socket with a particular port, while that thread is scanning the socket, another thread may try to access the <code>print()</code> function within the same <code>scan_port()</code> function. This could result in the output in the terminal being out of order or garbled, which could lead to incorrect service names being attributed to port numbers when printing.</p>
+</div><h2 id="race-conditions">Race conditions</h2>
+<p>However, since we have implemented multi-threading now, we have introduced the potential for a different issue.
+Now that multiple threads are running concurrently when scanning, you may encounter what are known as race conditions. </p>
+<p>Race conditions can happen when multiple processes are trying to access and use the same data, but with potential for time overlaps. One thread could try to open a socket with a particular port, while that thread is scanning the socket, another thread may try to access the <code>print()</code> function within the same <code>scan_port()</code> function. 
+This could result in the output in the terminal being out of order or garbled, which could lead to incorrect service names being attributed to port numbers when printing.</p>
+<h3 id="resolving-race-conditions-with-a-threading-lock">Resolving race conditions with a threading lock</h3>
 <p>The solution to this is straight forward to implement, it involves calling <code>threading.Lock()</code>.
 In the code block above I have enabled access to <code>threading.Lock()</code> by importing the module:</p>
 
@@ -323,11 +382,11 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
             <span class="hljs-keyword">except</span> OSError:
                 <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error: Service not known.&quot;</span>)</pre>
 </div><p>What this does, is make it so that only one thread can access this wrapped block of code at a time. When within that <code>with print_lock:</code> block, the other threads have to wait until the thread currently using it releases the lock again. Since we use a <code>with</code> statement here, the <code>print_lock</code> is automatically released once it&#39;s done.</p>
-<p>And there we go, in this log entry we have: implemented error handling to carefully handle some errors, implemented multi-threading whilst protecting from race conditions with <code>threading.Lock()</code>.</p>
+<h2 id="what-weve-covered-and-whats-next">What we&#39;ve covered and what&#39;s next</h2>
+<p>And there we go, in this log entry we have: implemented error handling to carefully handle some errors, restructured the code using &#39;with&#39; statements, and implemented multi-threading with ThreadPoolExecutor(), whilst protecting from race conditions with threading.Lock().</p>
 <p>In the next and final log entry, I will be adding argparse functionality — so the port scanner is CLI interactive — as well as add some other polishing touches.</p>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Tools</span>
@@ -371,6 +430,119 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

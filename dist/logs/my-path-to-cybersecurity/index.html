@@ -90,19 +90,49 @@
 
   
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+      <a href="#entry-point-and-covering-theory-with-certs" class="toc-link toc-level-3" data-target="entry-point-and-covering-theory-with-certs">Entry point and covering theory with certs</a>
+      <a href="#strategy-for-developing-practical-abilities" class="toc-link toc-level-3" data-target="strategy-for-developing-practical-abilities">Strategy for developing practical abilities</a>
+      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a>
+      <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+      <a href="#certifications-and-path-completions" class="toc-link toc-level-3" data-target="certifications-and-path-completions">Certifications and path completions</a>
+      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+      <a href="#entry-point-and-covering-theory-with-certs" class="toc-link toc-level-3" data-target="entry-point-and-covering-theory-with-certs">Entry point and covering theory with certs</a>
+      <a href="#strategy-for-developing-practical-abilities" class="toc-link toc-level-3" data-target="strategy-for-developing-practical-abilities">Strategy for developing practical abilities</a>
+      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a>
+      <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+      <a href="#certifications-and-path-completions" class="toc-link toc-level-3" data-target="certifications-and-path-completions">Certifications and path completions</a>
+      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <h2>The plan</h2>
-<p>My plan to get into cybersecurity professionally, is basically to learn and practice as much as I can on the things relevant to an entry-level position. From there I want to keep learning and progressing while on the job.</p>
+    <h2 id="the-plan">The plan</h2>
+<p>Regarding how I see my path into becoming a cybersecurity professional, my plan is essentially to learn and practice as much as I can, on the things relevant to an entry-level position. From there I naturally will want to keep learning and progressing while on the job.</p>
+<h3 id="entry-point-and-covering-theory-with-certs">Entry point and covering theory with certs</h3>
 <p>From what I understand, one of the most accessible entry points into cybersecurity is the SOC Analyst Level 1 (or equivalent) position. For this I&#39;ll need to develop and show a good basic IT proficiency, as well as networking fundamentals, and security fundamentals. After looking around online and doing some research, the CompTIA Network+ and Security+ certifications seem to be well suited to making sure I know (and can prove I know) these fundamentals from a theory perspective — so getting these certs should be a priority.</p>
+<h3 id="strategy-for-developing-practical-abilities">Strategy for developing practical abilities</h3>
 <p>The cybersecurity profession is not just about theory however, I need to get hands-on experience with a variety of systems, tools, and scenarios, and I need to be able to show that experience. That is where doing homelab practice projects, TryHackMe learning paths, and CTF rooms come into play.</p>
 <ul>
 <li>The homelabs are the best way to be able to practice endless scenarios and projects, these can go deeper and get more and more advanced the better I get.</li>
 <li>The TryHackMe learning paths are a structured way to introduce me to the relevant topics, concepts, and tools in a progression that makes sense.</li>
 <li>CTF rooms are fun, and allow me to get more hands on with pentesting tools, to help me better understand practically how an attacker will think about breaking into a system or network.</li>
 </ul>
-<p>And tying this all together will be this website, where I can do writeups for these homelab projects, THM rooms, and any other notes I feel like writing along the way.</p>
+<h3 id="homelab-website">Homelab website</h3>
+<p>And tying this all together will be this website, where I can do writeup logs for these homelab projects, THM rooms, and any other notes I feel like writing along the way.</p>
+<h2 id="the-roadmap">The roadmap</h2>
 <p>So here, the plan can be split into two parts: the certifications and path completions (a checklist of goals), and the ever ongoing homelab project ideas and CTF writeups.</p>
-<h2>Certifications and path completions</h2>
+<h3 id="certifications-and-path-completions">Certifications and path completions</h3>
 <br>
 <div class="roadmap-list">
     <div class="roadmap-item done">
@@ -124,7 +154,7 @@
         <span class="check"></span> TryHackMe Jr Penetration Tester Path
     </div>
 </div>
-<br><h2>Homelab project ideas</h2>
+<br><h3 id="homelab-project-ideas">Homelab project ideas</h3>
 <ul>
 <li><p>Build a cybersecurity homelab</p>
 </li>
@@ -149,7 +179,6 @@
 </ul>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Study</span>
@@ -190,6 +219,119 @@
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

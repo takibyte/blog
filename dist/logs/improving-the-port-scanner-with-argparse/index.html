@@ -76,7 +76,7 @@
       <div class="meta-text">
         <div class="name"><a href="/about/">takibyte</a></div>
         <div class="sub mono">
-          <span>21 July 2026 · 11 min</span>
+          <span>21 July 2026 · 12 min</span>
           <span>TB-2026-0007</span>
         </div>
       </div>
@@ -94,11 +94,64 @@
       <span class="mono">3 of 3</span>
     </div>
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#the-current-state-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-current-state-of-the-port-scanner">The current state of the port scanner</a>
+      <a href="#the-port-scanner-with-argparse" class="toc-link toc-level-2" data-target="the-port-scanner-with-argparse">The port scanner with argparse</a>
+      <a href="#adding-argparse" class="toc-link toc-level-2" data-target="adding-argparse">Adding argparse</a>
+      <a href="#defining-the-parser-object" class="toc-link toc-level-3" data-target="defining-the-parser-object">Defining the parser object</a>
+      <a href="#adding-arguments-to-the-parser" class="toc-link toc-level-3" data-target="adding-arguments-to-the-parser">Adding arguments to the parser</a>
+      <a href="#validating-input-ports" class="toc-link toc-level-3" data-target="validating-input-ports">Validating input ports</a>
+      <a href="#argument-details" class="toc-link toc-level-3" data-target="argument-details">Argument details</a>
+      <a href="#parsing-the-arguments" class="toc-link toc-level-3" data-target="parsing-the-arguments">Parsing the arguments</a>
+      <a href="#using-argument-data" class="toc-link toc-level-3" data-target="using-argument-data">Using argument data</a>
+      <a href="#running-the-program-with-input-and-flags" class="toc-link toc-level-3" data-target="running-the-program-with-input-and-flags">Running the program with input and flags</a>
+      <a href="#handling-hostname-errors" class="toc-link toc-level-3" data-target="handling-hostname-errors">Handling hostname errors</a>
+      <a href="#the-complete-port-scanner" class="toc-link toc-level-2" data-target="the-complete-port-scanner">The complete port scanner</a>
+      <a href="#improving-the-user-experience" class="toc-link toc-level-2" data-target="improving-the-user-experience">Improving the user experience</a>
+      <a href="#importing-the-time-module" class="toc-link toc-level-3" data-target="importing-the-time-module">Importing the time module</a>
+      <a href="#user-feedback-with-print-additions" class="toc-link toc-level-3" data-target="user-feedback-with-print-additions">User feedback with print additions</a>
+      <a href="#collecting-port-data-to-display" class="toc-link toc-level-3" data-target="collecting-port-data-to-display">Collecting port data to display</a>
+      <a href="#collecting-time-data" class="toc-link toc-level-3" data-target="collecting-time-data">Collecting time data</a>
+      <a href="#printing-the-scan-report" class="toc-link toc-level-3" data-target="printing-the-scan-report">Printing the scan report</a>
+      <a href="#example-output-of-the-completed-scanner" class="toc-link toc-level-2" data-target="example-output-of-the-completed-scanner">Example output of the completed scanner</a>
+      <a href="#final-thoughts" class="toc-link toc-level-2" data-target="final-thoughts">Final thoughts</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#the-current-state-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-current-state-of-the-port-scanner">The current state of the port scanner</a>
+      <a href="#the-port-scanner-with-argparse" class="toc-link toc-level-2" data-target="the-port-scanner-with-argparse">The port scanner with argparse</a>
+      <a href="#adding-argparse" class="toc-link toc-level-2" data-target="adding-argparse">Adding argparse</a>
+      <a href="#defining-the-parser-object" class="toc-link toc-level-3" data-target="defining-the-parser-object">Defining the parser object</a>
+      <a href="#adding-arguments-to-the-parser" class="toc-link toc-level-3" data-target="adding-arguments-to-the-parser">Adding arguments to the parser</a>
+      <a href="#validating-input-ports" class="toc-link toc-level-3" data-target="validating-input-ports">Validating input ports</a>
+      <a href="#argument-details" class="toc-link toc-level-3" data-target="argument-details">Argument details</a>
+      <a href="#parsing-the-arguments" class="toc-link toc-level-3" data-target="parsing-the-arguments">Parsing the arguments</a>
+      <a href="#using-argument-data" class="toc-link toc-level-3" data-target="using-argument-data">Using argument data</a>
+      <a href="#running-the-program-with-input-and-flags" class="toc-link toc-level-3" data-target="running-the-program-with-input-and-flags">Running the program with input and flags</a>
+      <a href="#handling-hostname-errors" class="toc-link toc-level-3" data-target="handling-hostname-errors">Handling hostname errors</a>
+      <a href="#the-complete-port-scanner" class="toc-link toc-level-2" data-target="the-complete-port-scanner">The complete port scanner</a>
+      <a href="#improving-the-user-experience" class="toc-link toc-level-2" data-target="improving-the-user-experience">Improving the user experience</a>
+      <a href="#importing-the-time-module" class="toc-link toc-level-3" data-target="importing-the-time-module">Importing the time module</a>
+      <a href="#user-feedback-with-print-additions" class="toc-link toc-level-3" data-target="user-feedback-with-print-additions">User feedback with print additions</a>
+      <a href="#collecting-port-data-to-display" class="toc-link toc-level-3" data-target="collecting-port-data-to-display">Collecting port data to display</a>
+      <a href="#collecting-time-data" class="toc-link toc-level-3" data-target="collecting-time-data">Collecting time data</a>
+      <a href="#printing-the-scan-report" class="toc-link toc-level-3" data-target="printing-the-scan-report">Printing the scan report</a>
+      <a href="#example-output-of-the-completed-scanner" class="toc-link toc-level-2" data-target="example-output-of-the-completed-scanner">Example output of the completed scanner</a>
+      <a href="#final-thoughts" class="toc-link toc-level-2" data-target="final-thoughts">Final thoughts</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <p>In the last log entry on bulding a port scanner, I added error handling, and upgraded the old loop-based scanning implementation to a superior mutli-threaded version.</p>
+    <h2 id="the-current-state-of-the-port-scanner">The current state of the port scanner</h2>
+<p>In the last log entry on bulding a port scanner, I added error handling, and upgraded the old loop-based scanning implementation to a superior mutli-threaded version.</p>
 <p>Currently, the port scanner can scan ports relatively quickly and effectively, however there is no way for a user to determine which host to scan and on which ports, without editing the source code itself.</p>
-<p>For this, we will use the Python &#39;argparse&#39; module in the scanner.</p>
-<h2>Adding argparse</h2>
+<h2 id="the-port-scanner-with-argparse">The port scanner with argparse</h2>
+<p>To allow for this user interactivity, we will use the Python &#39;argparse&#39; module in the scanner.</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -175,6 +228,7 @@ print_lock = threading.Lock()
 <span class="hljs-keyword">except</span> KeyboardInterrupt:
       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nScan cancelled by the user.&quot;</span>)</pre>
 </div><p>This is the port scanner in the same state from the previous log entry, but with <code>argparse</code> implemented, let&#39;s get into the details of the additions.</p>
+<h2 id="adding-argparse">Adding argparse</h2>
 <p>First, we need to import <code>argparse</code> like so:</p>
 
 <div class="code-block">
@@ -183,7 +237,8 @@ print_lock = threading.Lock()
     <div class="code-block-dots"><span></span><span></span><span></span></div>
   </div>
   <pre><span class="hljs-keyword">import</span> argparse</pre>
-</div><p>Now we can define the parser for our port scanner program with the following portion:</p>
+</div><h3 id="defining-the-parser-object">Defining the parser object</h3>
+<p>Now we can define the parser for our port scanner program with the following portion:</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -194,6 +249,7 @@ print_lock = threading.Lock()
     prog=<span class="hljs-string">&quot;pscan&quot;</span>,
     description=<span class="hljs-string">&quot;A simple port scanner&quot;</span>)</pre>
 </div><p>Here, I created a new parser object in my variable <code>parser</code>, we define the program name with: <code>prog=&quot;the program name&quot;</code>, and description with: <code>description=&quot;your description&quot;</code>.</p>
+<h3 id="adding-arguments-to-the-parser">Adding arguments to the parser</h3>
 <p>Pretty straightforward so far. Next we can use our newly created parser object to start adding arguments. These arguments that we define, are used to take the user CLI input found after designated flags, and have those values processed by the parser at runtime. We can then use those user provided values in the program.</p>
 
 <div class="code-block">
@@ -212,7 +268,9 @@ parser.add_argument(<span class="hljs-string">&#x27;host&#x27;</span>, <span cla
 parser.add_argument(<span class="hljs-string">&#x27;--start&#x27;</span>, <span class="hljs-built_in">type</span>=valid_port, default=<span class="hljs-number">1</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;start of the port range to be scanned&#x27;</span>)
 parser.add_argument(<span class="hljs-string">&#x27;--end&#x27;</span>, <span class="hljs-built_in">type</span>=valid_port, default=<span class="hljs-number">1024</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;end of the port range to be scanned&#x27;</span>)
 args = parser.parse_args()</pre>
-</div><p>Let&#39;s first briefly address the <code>valid_port()</code> function. This function accepts an argument, assigns it as an integer to the <code>port</code> variable, it then uses a conditional <code>if</code> statement to check if the user provided port number is within 0 and 65535 (the possible range of ports). If it is within that range it returns the port, if it isn&#39;t, it throws the <code>argparse.ArgumentTypeError()</code>, with a message that the port isn&#39;t valid.</p>
+</div><h3 id="validating-input-ports">Validating input ports</h3>
+<p>Let&#39;s first briefly address the <code>valid_port()</code> function. This function accepts an argument, assigns it as an integer to the <code>port</code> variable, it then uses a conditional <code>if</code> statement to check if the user provided port number is within 0 and 65535 (the possible range of ports). If it is within that range it returns the port, if it isn&#39;t, it throws the <code>argparse.ArgumentTypeError()</code>, with a message that the port isn&#39;t valid.</p>
+<h3 id="argument-details">Argument details</h3>
 <p>So moving on, we can see the three arguments <code>parser.add_argument()</code> I created. </p>
 <p>The first line:</p>
 
@@ -235,6 +293,7 @@ parser.add_argument(<span class="hljs-string">&#x27;--end&#x27;</span>, <span cl
 </div><p>These have similar syntax to the first line with some differences worth going over. These arguments are both optional, the user doesn&#39;t need to specify these, as denoted with the flags in front of their names (two dashes).
 The <code>type=valid_port</code> calls the custom function mentioned above, instead of using a built-in type like a string or integer. <code>default=</code> specifies what value is parsed by default if a user doesn&#39;t use this optional argument. And the help value is the same as seen above.</p>
 <p>So by default, I&#39;ve set the scanner to scan the port range between 1 and 1024 (the common ports number range), if the user doesn&#39;t set a range themselves using the argument flags.</p>
+<h3 id="parsing-the-arguments">Parsing the arguments</h3>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -245,6 +304,7 @@ The <code>type=valid_port</code> calls the custom function mentioned above, inst
 </div><p>This line actually parses the arguments from the command line at runtime, and then stores in into the <code>args</code> variable for use in the rest of the program.</p>
 <p>You can go through the detailed documentation on python.org to see the various options for the argparse module:
 <a href="https://docs.python.org/3/library/argparse.html">https://docs.python.org/3/library/argparse.html</a>.</p>
+<h3 id="using-argument-data">Using argument data</h3>
 <p>Now that we have arguments defined for the program, we can use the data stored in <code>args</code>, to sub into the port scanner logic.</p>
 
 <div class="code-block">
@@ -255,6 +315,7 @@ The <code>type=valid_port</code> calls the custom function mentioned above, inst
   <pre>hostname = args.host
 ports = <span class="hljs-built_in">range</span>(args.start, args.end + <span class="hljs-number">1</span>)</pre>
 </div><p>Previously the <code>hostname</code> and <code>ports</code> variables, contained hardcoded values. Now, with the addition of argparse, these are dynamic, and can change depending on the users input, or be the default values (in the case of the ports range). The value parsed from the argument can be access by accessing the object variable with the corresponding argument name e.g. <code>args.host</code>. The <code>+ 1</code> in the range, accounts for the fact that the Python <code>range()</code> function ends before the specified end range, without adding the <code>+ 1</code>, the default range would only scan up 1 to 1023 rather than 1024.</p>
+<h3 id="running-the-program-with-input-and-flags">Running the program with input and flags</h3>
 <p>At this point the arguments are fully functional and can be tested by running the program:</p>
 
 <div class="code-block">
@@ -271,7 +332,8 @@ ports = <span class="hljs-built_in">range</span>(args.start, args.end + <span cl
     <div class="code-block-dots"><span></span><span></span><span></span></div>
   </div>
   <pre><span class="hljs-keyword">python3</span> pscan.<span class="hljs-keyword">py</span> localhost</pre>
-</div><p>To catch some exceptions for a missing or incorrect hostname, I added the following error handling blocks:</p>
+</div><h3 id="handling-hostname-errors">Handling hostname errors</h3>
+<p>To catch some exceptions for a missing or incorrect hostname, I added the following error handling blocks:</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -288,7 +350,7 @@ ports = <span class="hljs-built_in">range</span>(args.start, args.end + <span cl
 </div><p>The first block raises an exception to the user if they did not provide the host positional argument. The second block tries to resolve the hostname early in the program using: <code>socket.gethostbyname(hostname)</code>, and throws an exception if the host doesn&#39;t resolve, there would be no point continuing to scan if the host doesn&#39;t resolve here.</p>
 <p>Now user arguments are fully supported with the port scanner, a user can scan a valid specified host between optionally set valid port number ranges. Nice!</p>
 <p>Next we&#39;ll look at adding some better user experience and feedback to the port scanner by collecting certain details and printing them to the console.</p>
-<h2>Improving the user experience</h2>
+<h2 id="the-complete-port-scanner">The complete port scanner</h2>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -388,8 +450,10 @@ start_time = time.time()
     <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Scan complete.&quot;</span>)
     <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{ports_open}</span> <span class="hljs-subst">{<span class="hljs-string">&#x27;ports are&#x27;</span> <span class="hljs-keyword">if</span> ports_open &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;port is&#x27;</span>}</span> open. Scanned <span class="hljs-subst">{total_scanned}</span> ports in total.&quot;</span>)
     <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Finished scan in: <span class="hljs-subst">{<span class="hljs-built_in">round</span>(end_time-start_time, <span class="hljs-number">2</span>)}</span> seconds.&quot;</span>)</pre>
-</div><p>Here is the complete version of the port scanner with some additional polishing touches, adding to the user experience. This mainly involves printing useful information to the terminal, making the program more understandable and transparent.</p>
+</div><h2 id="improving-the-user-experience">Improving the user experience</h2>
+<p>Here is the complete version of the port scanner with some additional polishing touches, adding to the user experience. This mainly involves printing useful information to the terminal, making the program more understandable and transparent.</p>
 <p>Let&#39;s go through all the new additions from top to bottom.</p>
+<h3 id="importing-the-time-module">Importing the time module</h3>
 <p>First, please note the new time module I added:</p>
 
 <div class="code-block">
@@ -399,6 +463,7 @@ start_time = time.time()
   </div>
   <pre><span class="hljs-keyword">import</span> time</pre>
 </div><p>This will be used later in the program to print the elapsed time since the scan started.</p>
+<h3 id="user-feedback-with-print-additions">User feedback with print additions</h3>
 <p>We have this new addition that prints before the scan starts:</p>
 
 <div class="code-block">
@@ -408,6 +473,7 @@ start_time = time.time()
   </div>
   <pre><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Scanning <span class="hljs-subst">{hostname}</span> (<span class="hljs-subst">{resolved_hostname}</span>) at ports <span class="hljs-subst">{args.start}</span>-<span class="hljs-subst">{args.end}</span>&quot;</span>)</pre>
 </div><p>This prints a formatted string line that gives some information about what host is being scanned, the resolved hostname (IP address), and the port ranges being scanned.</p>
+<h3 id="collecting-port-data-to-display">Collecting port data to display</h3>
 <p>Next we have a few new variables that collect some data that we can display at the end of the scan as a little scan completed report:</p>
 
 <div class="code-block">
@@ -429,6 +495,7 @@ ports_open += <span class="hljs-number">1</span></pre>
 <code>global ports_open</code>, this sets the already initalised <code>ports_open</code> variable, and makes in accessible globally (inside and outside of the function).
 <code>ports_open += 1</code>, this increments the variable each time a port is found to be open (because it sits within the conditional &#39;true&#39; block), this will tally up the amount of ports open throughout the scan.</p>
 <p>These variables will be used soon to print the resulting information to the console.</p>
+<h3 id="collecting-time-data">Collecting time data</h3>
 <p>Additionally, we have now two time variables:</p>
 
 <div class="code-block">
@@ -443,6 +510,7 @@ start_time = time.time()
 <span class="hljs-keyword">finally</span>:
     end_time = time.time()</pre>
 </div><p>The first time variable stores a time value right before the scan starts. I also added a <code>finally:</code> clause after the <code>try:</code> block that runs the <code>executor</code> function calls. Within this <code>finally:</code> clause, another time is captured once the whole scan has completed, this time in a variable called <code>end_time</code>.</p>
+<h3 id="printing-the-scan-report">Printing the scan report</h3>
 <p>And this is where it all comes together:</p>
 
 <div class="code-block">
@@ -455,6 +523,7 @@ start_time = time.time()
 <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{ports_open}</span> <span class="hljs-subst">{<span class="hljs-string">&#x27;ports are&#x27;</span> <span class="hljs-keyword">if</span> ports_open &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;port is&#x27;</span>}</span> open. Scanned <span class="hljs-subst">{total_scanned}</span> ports in total.&quot;</span>)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Finished scan in: <span class="hljs-subst">{<span class="hljs-built_in">round</span>(end_time-start_time, <span class="hljs-number">2</span>)}</span> seconds.&quot;</span>)</pre>
 </div><p>This is the scan report I mentioned above. The first line prints 46 dashes (as a visual separator from the above scan output). The 2nd line prints &#39;Scan complete.&#39;. The 3rd line prints how many ports total are open, and this segment: <code>{&#39;ports are&#39; if ports_open &gt; 1 else &#39;port is&#39;}</code>, just changes the grammar based on whether port should be a plural. This line also prints the total number of scanned ports. Finally, the last line prints the amount of time elapsed, by finding the difference between the start and end time — and rounding it to 2 decimal places.</p>
+<h2 id="example-output-of-the-completed-scanner">Example output of the completed scanner</h2>
 <p>That covers all the additions. Great, the scanner is now complete!</p>
 <p>This is an example terminal output you might see if you used the scanner at this point:</p>
 
@@ -471,7 +540,7 @@ open port: 80 - http
 Scan complete.
 2 ports are open. Scanned 1024 ports in total.
 Finished scan in: 11.1 seconds.</pre>
-</div><h2>Final thoughts</h2>
+</div><h2 id="final-thoughts">Final thoughts</h2>
 <p>To summarise, so far we have: </p>
 <ol>
 <li>Created an initial socket connection.</li>
@@ -485,7 +554,6 @@ Finished scan in: 11.1 seconds.</pre>
 <p>This was a nice little project to try to better understand how a simple port scanner can work under the hood. It was also a good opportunity to get more familiar with some Python as well. Thank you for reading! I hope you&#39;ll join me in the next log entry ✌🏻</p>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Tools</span>
@@ -529,6 +597,119 @@ Finished scan in: 11.1 seconds.</pre>
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

@@ -8,6 +8,8 @@ tags: [Tools, Python, TCP/IP, Networking]
 cover: cover.webp
 ---
 
+## Recapping the last entry
+
 In the previous log entry, I showed how I made the fundamentals of the port scanner: setting up an initial socket connection within a function, and then looping that function through a range of ports.
 
 However, though the scanner functions fine right now, it is missing some things that will improve it significantly.
@@ -57,6 +59,8 @@ except KeyboardInterrupt:
       print("\nScan cancelled by the user.")
 ```
 
+### Try and except — error handling in Python
+
 In the code block above, I have added the Python implementation of error handling: `try` and `except`. The full sequence could be: 
 
 ```py
@@ -71,6 +75,8 @@ finally:
 ```
 
 So far I have only used `try` and `except`, the others are optional and not needed right now.
+
+### Handling service name retrieval
 
 Looking at the innermost try / except, we can see:
 
@@ -91,6 +97,8 @@ Here I have added another print function, it gets and prints the service name wi
 
 Additionally, in this block, I have added `, end=" - "` within the original print function. Normally, the print function automatically includes a newline with `\n`, including `end=" - "` overrides the new line and appends a dash, this simply allows for the service name to be formatted onto the same line as the printed port number.
 
+### Handling the main socket connection
+
 Next, lets look at the main `try:` before the socket object creation. This `try:` block has the corresponding exception clauses here:
 
 ```py
@@ -110,6 +118,8 @@ Both of these are socket module related errors, and are a subclass of the `OSErr
 `socket.timeout:`, as the print message indicates, is thrown when a scan times out.
 `socket.gaierror:`, is related to errors getting address info with the `getaddrinfo()` or `getnameinfo()` socket functions (hence gai). More information on both of these error types and more can be found in the [documentation](https://docs.python.org/3/library/socket.html#exceptions).
 
+### Handling the main function call
+
 Finally, the last try / except set is shown here:
 
 ```py
@@ -125,7 +135,11 @@ Here, I have moved the main `scan_port()` function call into a `try:` block, and
 
 ## From loops to threads
 
+### The problem with looping a port scan
+
 There is a bit of a problem with the scanner at the moment, right now, the scanner has to loop through sequentially, trying each socket with an incrementing port number. This is fine, but since we have a timeout set to 1 second, when a connection doesn't happen, it waits 1 second before moving on (this is more apparent when scanning a host other than localhost). In a sense this is good, because it makes sure the scanner doesn't hang on a connection attempt for too long, and it also doesn't give up on one too soon. The problem is that if you scan, say, 1000 ports, since most would be closed, it would take around 1000 seconds to complete the scan, which is obviously not ideal. Furthermore, with this loop setup, there is only one sequential process happening, under-utilising the capabilities of the CPU.
+
+### The advantages of multi-threading
 
 This is where concurrent multi-threading comes into play. Using this, will make it so we could have (for example) 100 threads each attempting a different socket in the range we set, so even with 1 second timeouts, the speed will be drastically increased due to the parallel processing. That's not to mention the increase in speed from simultaneous processing as well — many threads will be working at the same time, reducing the processing time regardless of the timeout setting.
 
@@ -175,7 +189,12 @@ except KeyboardInterrupt:
       print("\nScan cancelled by the user.")
 ```
 
+### Introducing 'with' statements
+
 Let's break these next additions down. First, I have now included `with` statements three times throughout the program structure. `with` statements, are a control flow structure that makes opening and closing processes cleaner, as it automates the closing / cleanup step. This is superior for most cases, and especially so when it comes to opening many threads — using `with`, safely closes used threads after they are done. Having a habit of using `with` statements is useful for preventing things like memory leaks, because you don't have to remember to close opened / used processes. So, after implementing this, I have removed the close socket cleanup function: `s.close()`, as it is now handled by the `with` statement.
+
+
+## Implementing multi-threading
 
 The main implementation of multithreading uses the `ThreadPoolExecutor`, which I have imported with the statement near the top: `from concurrent.futures import ThreadPoolExecutor`.
 
@@ -187,7 +206,9 @@ try:
 
 Here we can see the `ThreadPoolExecutor` being called into the new variable `executor` using `with`, the `max_workers` parameter has been set to 100, this means we are setting maximum of 100 threads in our thread pool that can be used.
 
-Next is a slightly more difficult part to understand (at least it was for me initially). A `lambda` wrapper is needed here, because the `scan_port()` function requires two arguments (hostname and port), however, the `executor.map()` function can only pass one argument at a time + the iterable list `ports`. The `lambda` function solves this by taking the single port value in each instance, and calling the `scan_port()` function itself, with the additional `hostname` argument already baked into the function call.
+### Unpacking the lambda function
+
+Next is a slightly more difficult part to understand (at least it was for me initially). A `lambda` function is needed here, because the `scan_port()` function requires two arguments (hostname and port), however, the `executor.map()` function can only pass one argument at a time + the iterable list `ports`. The `lambda` function wrapper solves this by taking the single port value in each instance, and calling the `scan_port()` function itself, with the additional `hostname` argument already baked into the function call.
 
 The result of this is: up to 100 threads are being used to scan all the sockets, with each socket containing one of the different ports in the `ports` list.
 
@@ -195,14 +216,23 @@ The result of this is: up to 100 threads are being used to scan all the sockets,
 Please note that the hostname and ports list is now moved into their own variable at the beginning of the program.
 :::
 
+### Running the scanner with multi-threading
+
 Now when we run the program with multi-threading, we should see a dramatic increase in speed, particularly when scanning hosts that aren't the localhost loopback IP address.
 
 ```
 python3 pscan.py
 ```
 
+## Race conditions 
+
 However, since we have implemented multi-threading now, we have introduced the potential for a different issue.
-Now that multiple threads are running concurrently when scanning, you may encounter what are known as race conditions. Race conditions can happen when multiple processes are trying to access and use the same data, but with potential for time overlaps. One thread could try to open a socket with a particular port, while that thread is scanning the socket, another thread may try to access the `print()` function within the same `scan_port()` function. This could result in the output in the terminal being out of order or garbled, which could lead to incorrect service names being attributed to port numbers when printing.
+Now that multiple threads are running concurrently when scanning, you may encounter what are known as race conditions. 
+
+Race conditions can happen when multiple processes are trying to access and use the same data, but with potential for time overlaps. One thread could try to open a socket with a particular port, while that thread is scanning the socket, another thread may try to access the `print()` function within the same `scan_port()` function. 
+This could result in the output in the terminal being out of order or garbled, which could lead to incorrect service names being attributed to port numbers when printing.
+
+### Resolving race conditions with a threading lock
 
 The solution to this is straight forward to implement, it involves calling `threading.Lock()`.
 In the code block above I have enabled access to `threading.Lock()` by importing the module:
@@ -231,6 +261,8 @@ with print_lock:
 
 What this does, is make it so that only one thread can access this wrapped block of code at a time. When within that `with print_lock:` block, the other threads have to wait until the thread currently using it releases the lock again. Since we use a `with` statement here, the `print_lock` is automatically released once it's done.
 
-And there we go, in this log entry we have: implemented error handling to carefully handle some errors, implemented multi-threading whilst protecting from race conditions with `threading.Lock()`.
+## What we've covered and what's next
+
+And there we go, in this log entry we have: implemented error handling to carefully handle some errors, restructured the code using 'with' statements, and implemented multi-threading with ThreadPoolExecutor(), whilst protecting from race conditions with threading.Lock().
 
 In the next and final log entry, I will be adding argparse functionality — so the port scanner is CLI interactive — as well as add some other polishing touches.

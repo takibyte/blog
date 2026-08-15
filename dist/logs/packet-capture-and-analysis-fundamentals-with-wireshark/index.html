@@ -76,7 +76,7 @@
       <div class="meta-text">
         <div class="name"><a href="/about/">takibyte</a></div>
         <div class="sub mono">
-          <span>10 August 2026 · 16 min</span>
+          <span>14 August 2026 · 16 min</span>
           <span>TB-2026-0008</span>
         </div>
       </div>
@@ -94,26 +94,74 @@
       <span class="mono">1 of 1</span>
     </div>
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#the-plan-for-this-homelab" class="toc-link toc-level-2" data-target="the-plan-for-this-homelab">The plan for this homelab</a>
+      <a href="#network-topology" class="toc-link toc-level-2" data-target="network-topology">Network topology</a>
+      <a href="#the-kali-and-ubuntu-vms" class="toc-link toc-level-2" data-target="the-kali-and-ubuntu-vms">The Kali and Ubuntu VMs</a>
+      <a href="#configuring-the-ubuntu-vm" class="toc-link toc-level-3" data-target="configuring-the-ubuntu-vm">Configuring the Ubuntu VM</a>
+      <a href="#configuring-the-kali-vm" class="toc-link toc-level-3" data-target="configuring-the-kali-vm">Configuring the Kali VM</a>
+      <a href="#vm-host-mac-and-ip-addresses" class="toc-link toc-level-3" data-target="vm-host-mac-and-ip-addresses">VM host MAC and IP addresses</a>
+      <a href="#vm-desktops" class="toc-link toc-level-3" data-target="vm-desktops">VM desktops</a>
+      <a href="#wireshark-overview" class="toc-link toc-level-2" data-target="wireshark-overview">Wireshark overview</a>
+      <a href="#testing-packet-capture-with-ping" class="toc-link toc-level-2" data-target="testing-packet-capture-with-ping">Testing packet capture with ping</a>
+      <a href="#packet-capture-analysis" class="toc-link toc-level-2" data-target="packet-capture-analysis">Packet capture analysis</a>
+      <a href="#the-packet-list-panel" class="toc-link toc-level-2" data-target="the-packet-list-panel">The packet list panel</a>
+      <a href="#the-packet-details-and-bytes-panels" class="toc-link toc-level-2" data-target="the-packet-details-and-bytes-panels">The packet details and bytes panels</a>
+      <a href="#analysis-of-an-icmp-packet" class="toc-link toc-level-2" data-target="analysis-of-an-icmp-packet">Analysis of an ICMP packet</a>
+      <a href="#frame-1-packet-metadata" class="toc-link toc-level-3" data-target="frame-1-packet-metadata">Frame 1: Packet — metadata</a>
+      <a href="#ethernet-ii-header" class="toc-link toc-level-3" data-target="ethernet-ii-header">Ethernet II — header</a>
+      <a href="#internet-protocol-version-4-header" class="toc-link toc-level-3" data-target="internet-protocol-version-4-header">Internet Protocol Version 4 — header</a>
+      <a href="#internet-control-message-protocol-header-and-payload" class="toc-link toc-level-3" data-target="internet-control-message-protocol-header-and-payload">Internet Control Message Protocol — header and payload</a>
+      <a href="#what-ive-learnt-and-whats-to-come" class="toc-link toc-level-2" data-target="what-ive-learnt-and-whats-to-come">What I've learnt and what's to come</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#the-plan-for-this-homelab" class="toc-link toc-level-2" data-target="the-plan-for-this-homelab">The plan for this homelab</a>
+      <a href="#network-topology" class="toc-link toc-level-2" data-target="network-topology">Network topology</a>
+      <a href="#the-kali-and-ubuntu-vms" class="toc-link toc-level-2" data-target="the-kali-and-ubuntu-vms">The Kali and Ubuntu VMs</a>
+      <a href="#configuring-the-ubuntu-vm" class="toc-link toc-level-3" data-target="configuring-the-ubuntu-vm">Configuring the Ubuntu VM</a>
+      <a href="#configuring-the-kali-vm" class="toc-link toc-level-3" data-target="configuring-the-kali-vm">Configuring the Kali VM</a>
+      <a href="#vm-host-mac-and-ip-addresses" class="toc-link toc-level-3" data-target="vm-host-mac-and-ip-addresses">VM host MAC and IP addresses</a>
+      <a href="#vm-desktops" class="toc-link toc-level-3" data-target="vm-desktops">VM desktops</a>
+      <a href="#wireshark-overview" class="toc-link toc-level-2" data-target="wireshark-overview">Wireshark overview</a>
+      <a href="#testing-packet-capture-with-ping" class="toc-link toc-level-2" data-target="testing-packet-capture-with-ping">Testing packet capture with ping</a>
+      <a href="#packet-capture-analysis" class="toc-link toc-level-2" data-target="packet-capture-analysis">Packet capture analysis</a>
+      <a href="#the-packet-list-panel" class="toc-link toc-level-2" data-target="the-packet-list-panel">The packet list panel</a>
+      <a href="#the-packet-details-and-bytes-panels" class="toc-link toc-level-2" data-target="the-packet-details-and-bytes-panels">The packet details and bytes panels</a>
+      <a href="#analysis-of-an-icmp-packet" class="toc-link toc-level-2" data-target="analysis-of-an-icmp-packet">Analysis of an ICMP packet</a>
+      <a href="#frame-1-packet-metadata" class="toc-link toc-level-3" data-target="frame-1-packet-metadata">Frame 1: Packet — metadata</a>
+      <a href="#ethernet-ii-header" class="toc-link toc-level-3" data-target="ethernet-ii-header">Ethernet II — header</a>
+      <a href="#internet-protocol-version-4-header" class="toc-link toc-level-3" data-target="internet-protocol-version-4-header">Internet Protocol Version 4 — header</a>
+      <a href="#internet-control-message-protocol-header-and-payload" class="toc-link toc-level-3" data-target="internet-control-message-protocol-header-and-payload">Internet Control Message Protocol — header and payload</a>
+      <a href="#what-ive-learnt-and-whats-to-come" class="toc-link toc-level-2" data-target="what-ive-learnt-and-whats-to-come">What I've learnt and what's to come</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <h2>The plan for this homelab</h2>
+    <h2 id="the-plan-for-this-homelab">The plan for this homelab</h2>
 <p>In this homelab project, I want to do a simple experiment with network traffic analysis, testing how I can capture data sent over a network with a tool like Wireshark, and how to analyse and interpret the captured data packets and frames.
 In the subsequent logs on this topic, I plan to go deeper into the capture and analysis — capturing data from multiple sources including from indirect hosts on my network with port mirroring, and also analysing more types of network traffic. </p>
 <p>For this log entry however, I will go over a more fundamental and basic network traffic capture situation. I will use two machines on the network: a Kali Linux VM on my MacBook, and a Ubuntu VM on my Mac mini server. The Kali VM, will be generating the network traffic to be captured, the traffic will be directed to the Ubuntu VM. </p>
 <p>Initially I will set up the VMs and network to get the capture between the hosts I want, and then to test the setup with a simple ping ICMP (internet control message protocol) capture. In the following log entries in this Wireshark fundamentals series, I will: do a targeted active reconnaissance scan with Nmap, make a http connection with an &#39;in the clear&#39; file transfer, attempt an ssh connection, and finally, I will show a secure copy (scp) transfer, contrasting the unencrypted http traffic with the encrypted ssh / sftp traffic.</p>
-<h2>Network topology</h2>
+<h2 id="network-topology">Network topology</h2>
 <p>The Ubuntu VM will be the target server, the receiver of the network traffic. It will therefore be the system capturing the network traffic with Wireshark.</p>
 <p><img src="./images/topology.webp" alt="Network topology"></p>
 <p>The setup I outlined can be seen in the network topology diagram above. Since this test will focus on generating directed unicast network traffic (connections directed to and from the Ubuntu VM IP address), the data captured should mostly be coming from the Kali VM, and not other hosts on the network. To pickup traffic from other hosts, that traffic would either need to be some kind of broadcast, anycast, or multicast traffic, or I&#39;d need to set up monitoring on my switch with port mirroring. I will surely do this in one of the following logs, but for now I&#39;ll keep it simple until I cover something more rudimentary.</p>
-<h2>The Kali and Ubuntu VMs</h2>
+<h2 id="the-kali-and-ubuntu-vms">The Kali and Ubuntu VMs</h2>
 <p>Before getting into any kind of Wireshark traffic capture, I need to make sure that both of these host VMs are set up and configured properly. For this homelab experiment, I used UTM as my virtual machine hypervisor software. In future homelabs I&#39;ll use other software like VMware, but for now I&#39;m using UTM, I&#39;ve found UTM simple to set up, and it also has the option to use either the QEMU or Apple virtualisation engine.</p>
 <p>Setting up the VM with UTM could be covered in a separate write-up, but here I&#39;ll just say that I simply downloaded a Kali Linux and Ubuntu ISO image from their respective websites, and followed through with the setup to install a VM instance — Kali on the MacBook Air, Ubuntu on the Mac mini.</p>
 <p>Now this is the important part of the VM setup for this lab: setting up and identifying the MAC and IP address situation of both of the VMs. Navigating to the UTM network settings, we can configure the network mode.</p>
-<h3>Configuring the Ubuntu VM</h3>
+<h3 id="configuring-the-ubuntu-vm">Configuring the Ubuntu VM</h3>
 <p><img src="./images/ubuntu-0-utm.webp" alt="Ubuntu UTM"></p>
 <p>As can be seen here, on the Ubuntu VM I decided to set the network mode to bridged mode. Bridged mode passes through the VM to the rest of the network as its own host entity. This means that my router will recognise the Ubuntu VM as a separate host to the Mac mini host it lives within. The generated MAC address by UTM for the Ubuntu VM is also shown here, and this is the MAC address the router will use when assigning the VM host its own IP address on the network with DHCP.</p>
 <p><img src="./images/ubuntu-address.webp" alt="Ubuntu address"></p>
 <p>Here we can see the Ubuntu VM host as it appears on my router&#39;s client list (via the web interface). Note that the MAC address is the same as what was generated for the VM and not the MAC address of the Mac mini host itself, this is what I wanted, as it sets up the Ubuntu as a separate host. I&#39;ve also set the IP address of the Ubuntu VM host via DHCP address reservation to: <code>192.168.8.120</code>. This will make it so the IP stays the same and doesn&#39;t periodically change, making it easier and more consistent as a target machine. This IP address is what will be targeted by the Kali VM, and will show up a lot in the rest of this write-up.</p>
-<h3>Configuring the Kali VM</h3>
+<h3 id="configuring-the-kali-vm">Configuring the Kali VM</h3>
 <p><img src="./images/kali-0-utm.webp" alt="Kali UTM"></p>
 <p>This is the same UTM network settings page, but now on the MacBook, and for the Kali VM.
 For the Kali VM I have left it as the default shared network setting, while it would&#39;ve been nice to have the Kali VM as its own separate host entity just like the Ubuntu VM has, the situation here is a little different. While the Mac mini (with Ubuntu VM) is connected to my switch via a wired Ethernet connection, the MacBook (with Kali VM) is connected to my router via a Wi-Fi connection. The wired connection can handle multiple MAC addresses originating from the same network interface, this is common on an Ethernet connection, but apparently multiple MAC addresses moving from the same Wi-Fi interface isn&#39;t supported, at least on my OS, and from what some brief research had shown.</p>
@@ -125,7 +173,7 @@ For the Kali VM I have left it as the default shared network setting, while it w
   <span class="icon mono">NOTE</span>
   <p>The MAC address shown here is a randomised MAC address, hence why I feel comfortable sharing it. Many modern operating systems have this privacy feature on by default for Wi-Fi connected network devices, as it prevents tracking and fingerprinting of your hardware MAC address across networks. Randomised locally administered addresses (LAA), can be identified by the second hexadecimal digit in the first octet, it will always be 2, 6, A, or E — as seen with mine.</p>
 </div>
-<h3>VM host MAC and IP addresses</h3>
+<h3 id="vm-host-mac-and-ip-addresses">VM host MAC and IP addresses</h3>
 <p>Now we have the addresses for each VM host which is great, this is important as it&#39;ll allow us to identify them in the Wireshark traffic capture.</p>
 
 <div class="code-block">
@@ -142,13 +190,13 @@ kali vm
 -------
 IP: 192.168.8.209
 MAC: 4E:21:01:F3:C3:47</pre>
-</div><h3>VM desktops</h3>
+</div><h3 id="vm-desktops">VM desktops</h3>
 <p>Both VMs are now set, we can boot them up and start the capture scenarios.</p>
 <p><img src="./images/ubuntu-1-desktop.webp" alt="Ubuntu desktop"></p>
 <p>Here is what my Ubuntu VM desktop looks like with Wireshark installed and opened.</p>
 <p><img src="./images/kali-1-desktop.webp" alt="Kali desktop"></p>
 <p>And here is what my Kali VM desktop looks like with the terminal opened.</p>
-<h2>Wireshark overview</h2>
+<h2 id="wireshark-overview">Wireshark overview</h2>
 <p><img src="./images/ubuntu-2-wireshark.webp" alt="Wireshark"></p>
 <p>Looking a little closer here at Wireshark on Ubuntu, we can see the home panel with various options. In the centre there is the main capture section, here you can see a capture filter, and a list of available interfaces and presets.</p>
 <p>The interface I&#39;ll be capturing from is: <code>enp0s1</code>. This is what Ubuntu is calling the Ethernet interface which is connecting the Mac mini to the switch. The filter section from the home capture page, can be useful for filtering out traffic from specified protocols, addresses, and more. Filtering before the capture makes it so the filtered traffic won&#39;t even be seen in the capture. The alternative is capturing everything and then filtering the capture once it&#39;s been captured. A combination of both can also be done. </p>
@@ -161,7 +209,7 @@ From my understanding however, this won&#39;t pick up unicast traffic between ot
   <span class="icon mono">NOTE</span>
   <p>For capturing other unicast traffic on the network (from one host to another, but not the capture host), another network monitoring solution is first needed to be implemented, such as port mirroring / SPAN on a switch, or a network tap.</p>
 </div>
-<h2>Testing packet capture with ping</h2>
+<h2 id="testing-packet-capture-with-ping">Testing packet capture with ping</h2>
 <p>So now I am ready to start capturing some traffic. One of the simplest ways to test the setup is to ping the Ubuntu VM from the Kali VM. So that&#39;s exactly what I will do.</p>
 <p><img src="./images/ubuntu-3-wireshark-blank.webp" alt="Ubuntu icmp"></p>
 <p>Here on Ubuntu, I have started a capture on the <code>enp0s1</code> interface. While this is capturing live, I&#39;ll switch over to Kali and ping Ubuntu.</p>
@@ -176,42 +224,42 @@ From my understanding however, this won&#39;t pick up unicast traffic between ot
   <pre><span class="hljs-attribute">ping</span> -c <span class="hljs-number">10</span> <span class="hljs-number">192.168.8.120</span>
 
 <span class="hljs-comment"># [-c 10] sets count to 10 (10 ICMP ping requests)</span></pre>
-</div><h2>Packet capture analysis</h2>
+</div><h2 id="packet-capture-analysis">Packet capture analysis</h2>
 <p><img src="./images/wireshark-icmp.webp" alt="Wireshark icmp"></p>
 <p>Back in Wireshark we can see some packets coming in, nice! </p>
 <p>This will be a good time to mention the capture screen setup on Wireshark. This screenshot was taken after I ended the capture (with the stop button), applied some filters (to remove some of my home network noise), and exported the filtered capture into a pcapng file (by going to file &gt; export specified packets).</p>
 <p>To filter for the traffic shown in this screenshot, you can simply put <code>icmp or arp</code> into the filter bar and hit enter. But my filtering for these captures, was specifically done to remove noise from my network, filtering out packets that would unnecessarily expose hardware MAC addresses of some of my devices, and also crowding the packet list. This included noise from other protocols like NTP, ARP (communicating with other hosts), mDNS, and others.</p>
 <p>To achieve my goal, I used a negation filter that made it so the capture didn&#39;t display traffic from certain addresses. I used a filter like this: <code>!(eth.addr == xx:xx:xx:xx:xx:xx) &amp;&amp; !(eth.addr == xx:xx:xx:xx:xx:xx)</code> for however many addresses that needed blocking. You can remove the <code>!</code> to have the opposite effect if you want to only display packets from certain addresses explicitly. You can also use <code>ip.addr != x.x.x.x</code> or <code>ip.addr == x.x.x.x</code> for the same deny / allow effect with IP addresses. There are a lot of different ways to filter many variables as you can certainly see.</p>
 <p>Now lets look at the main capture view of Wireshark, there are three panels: the packet list panel, the packet details panel, and the packet bytes panel. </p>
-<h2>The packet list panel</h2>
+<h2 id="the-packet-list-panel">The packet list panel</h2>
 <p><img src="./images/wireshark-top.webp" alt="Wireshark top panel"></p>
 <p>The top panel is the packet list, it displays all the packets from the capture — this is the list that we were just filtering. Here we can see an overview of the most relevant information of each packet at a glance: the packets numbered sequentially from the capture start; the time elapsed in seconds since the capture started; the source and destination IP / MAC address of the packet; the protocol; the length of the packet in bytes; and an additional information section differing based on protocol.</p>
 <p>In the screenshot above, lets look at our ping capture. We can see 22 packets in total, 20 of which are ICMP packets. This makes sense since we just did a ping scan with a count of 10, this has resulted in 10 ping requests from <code>192.168.8.209 (Kali VM)</code> to <code>192.168.8.120 (Ubuntu VM)</code>, and 10 ping replies in the opposite direction.</p>
 <p>Another interesting thing to note here is that there are 2 ARP packets that turned up in this scan as well. Since ARP works at layer 2 (Ethernet / data link layer), the MAC addresses are displayed, as those packets don&#39;t have IP addresses or other header information from higher network layer protocols. Checking those MAC addresses we can note that they belong to the Ubuntu and Kali VMs. The first ARP packet is from <code>22:ce:b9:74:45:24 (Ubuntu VM)</code>, it asks <code>4E:21:01:F3:C3:47 (Kali VM)</code> who has <code>192.168.8.209 (Kali VM)</code>? Tell <code>192.168.8.120 (Ubuntu VM)</code>. This is basically Ubuntu asking Kali who has Kali&#39;s IP? The 2nd ARP packet is the expected reply from Kali to Ubuntu, saying that it has that IP address.</p>
 <p>This is an ARP (address resolution protocol) table update, it is the system that happens at layer 2 to make sure hosts can communicate with each other using MAC addresses matched to the correct IP addresses. This also happened right before the ICMP messages started flowing, but between my router and these hosts — however those are filtered out from my capture.</p>
-<h2>The packet details and bytes panels</h2>
+<h2 id="the-packet-details-and-bytes-panels">The packet details and bytes panels</h2>
 <p><img src="./images/wireshark-bottom.webp" alt="Wireshark bottom panels"></p>
 <p>The bottom left panel is the packet details panel. This contains the details of all the data found within the packets themselves, in a structured and readable way. Wireshark parses the raw Ethernet frame data into all the protocol headers and the payload contained within.</p>
 <p>The bottom right panel is the packet bytes panel. This contains the raw byte data represented in both hexadecimal and ascii formats. When clicking on the headers and payloads in the details panel, the corresponding bytes are highlighted in the packet bytes panel. Similarly, when clicking on packets in the packet list panel, the details of those packets are displayed in the packet details panel.</p>
 <p>Now I&#39;ll briefly go over some of the details found in the packet details panel for packet 1.</p>
-<h2>Analysis of an ICMP packet</h2>
-<h3>Frame 1: Packet — metadata</h3>
+<h2 id="analysis-of-an-icmp-packet">Analysis of an ICMP packet</h2>
+<h3 id="frame-1-packet-metadata">Frame 1: Packet — metadata</h3>
 <p><img src="./images/packet-1-frame.webp" alt="Packet 1 frame"></p>
 <p>Since the packet selected is packet 1 (the first ICMP packet), there will naturally only be the headers and payload data found within a ICMP packet, (a TCP packet will have some different headers and a different payload for instance).
 An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, and an ICMP header and payload.</p>
 <p>The first section in the details panel (expanded in the screenshot above), is actually an additional meta section provided by Wireshark — Frame 1: Packet. This section provides capture metadata about the selected packet, metadata like: the total bytes, interface id, capture timestamps, protocols, etc.</p>
 <p>When this section is selected, the entire packet / frame is highlighted on the packet byte panel.</p>
-<h3>Ethernet II — header</h3>
+<h3 id="ethernet-ii-header">Ethernet II — header</h3>
 <p><img src="./images/packet-1-ethernet.webp" alt="Packet 1 Ethernet"></p>
 <p>This section — Ethernet II — is where the actual packet / frame data begins. Here we can see the Ethernet frame data selected. An Ethernet frame on the wire actually first has 7 bytes of a preamble (alternating 10101010 — for clock synchronisation), and 1 byte for a start frame delimiter (SFD, signals frame start, 10101011), in the header right before what is shown here in Wireshark. It also has a tail of 4 bytes with a frame check sequence Frame Check Sequence (CRC). The NIC usually strips these additional parts of the Ethernet frame as it enters the interface, and everything else is what we see here in Wireshark.</p>
 <p>Other than the additional preamble and SFD, the Ethernet frame begins with the destination MAC address, followed by the source MAC address, and then the Ethernet type. Looking at the highlighted Ethernet frame in the packet byte panel, we can recognise the destination Ubuntu VM MAC address as the first 6 bytes: <code>22 ce b9 74 45 24</code>, followed by the source Kali VM MAC address in the next 6 bytes: <code>4e 21 01 f3 c3 47</code>, and finally the type (IPv4) in the last 2 bytes: <code>08 00</code>.</p>
-<h3>Internet Protocol Version 4 — header</h3>
+<h3 id="internet-protocol-version-4-header">Internet Protocol Version 4 — header</h3>
 <p><img src="./images/packet-1-ipv4.webp" alt="Packet 1 IPv4"></p>
 <p>This section — Internet Protocol Version 4 — contains the IP header information. The IP header contains information such as: version, length, flags, time to live (TTL), protocol, and the source and destination IP addresses themselves. If you were to select these values, the corresponding bytes in the packet bytes panel would be highlighted. For instance, if we were to select the source IP address value, the 4 bytes containing the source IP address would be highlighted.</p>
-<h3>Internet Control Message Protocol — header and payload</h3>
+<h3 id="internet-control-message-protocol-header-and-payload">Internet Control Message Protocol — header and payload</h3>
 <p><img src="./images/packet-1-icmp.webp" alt="Packet 1 ICMP"></p>
 <p>And lastly, this section — Internet Control Message Protocol — contains the ICMP header information, as well as the ICMP payload data. The ICMP header is pretty minimal, it contains values such as: a type (8 for ping request 0 for ping reply), a code for errors, a checksum, and identifiers. The ICMP data payload is also quite minimal, it contains: a timestamp, and some arbitrary data (notice the sequential bytes: 10, 11, 12, 13...). The arbitrary data is a filler, which is used, so the packet reaches a certain size.</p>
-<h2>What I&#39;ve learnt and what&#39;s to come</h2>
+<h2 id="what-ive-learnt-and-whats-to-come">What I&#39;ve learnt and what&#39;s to come</h2>
 <p>So far in this log entry we&#39;ve covered:</p>
 <ul>
 <li>An overview of the plan for this homelab project</li>
@@ -235,7 +283,6 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
 <p>That wraps up my packet capture and analysis fundamentals log entry. Next up I&#39;ll be running an Nmap scan against the Ubuntu VM, and capturing what that reconnaissance traffic actually looks like on the wire — thanks for reading, hope to see you in the next one!</p>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Wireshark</span>
@@ -275,6 +322,119 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

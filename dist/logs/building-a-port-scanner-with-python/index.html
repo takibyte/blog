@@ -94,16 +94,68 @@
       <span class="mono">1 of 3</span>
     </div>
 
+  
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">
+      <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+      <a href="#definition" class="toc-link toc-level-3" data-target="definition">Definition</a>
+      <a href="#defender-utility" class="toc-link toc-level-3" data-target="defender-utility">Defender utility</a>
+      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a>
+      <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
+      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a>
+      <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+      <a href="#the-python-socket-module" class="toc-link toc-level-3" data-target="the-python-socket-module">The Python socket module</a>
+      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a>
+      <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+      <a href="#defining-the-scan-port-function" class="toc-link toc-level-3" data-target="defining-the-scan-port-function">Defining the scan port function</a>
+      <a href="#socket-connect-function-options" class="toc-link toc-level-3" data-target="socket-connect-function-options">Socket connect function options</a>
+      <a href="#printing-result-and-closing-the-socket" class="toc-link toc-level-3" data-target="printing-result-and-closing-the-socket">Printing result and closing the socket</a>
+      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a>
+      <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+      <a href="#looping-through-a-range-of-ports" class="toc-link toc-level-3" data-target="looping-through-a-range-of-ports">Looping through a range of ports</a>
+      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a>
+      <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a>
+      </nav>
+    </details>
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">
+      <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+      <a href="#definition" class="toc-link toc-level-3" data-target="definition">Definition</a>
+      <a href="#defender-utility" class="toc-link toc-level-3" data-target="defender-utility">Defender utility</a>
+      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a>
+      <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
+      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a>
+      <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+      <a href="#the-python-socket-module" class="toc-link toc-level-3" data-target="the-python-socket-module">The Python socket module</a>
+      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a>
+      <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+      <a href="#defining-the-scan-port-function" class="toc-link toc-level-3" data-target="defining-the-scan-port-function">Defining the scan port function</a>
+      <a href="#socket-connect-function-options" class="toc-link toc-level-3" data-target="socket-connect-function-options">Socket connect function options</a>
+      <a href="#printing-result-and-closing-the-socket" class="toc-link toc-level-3" data-target="printing-result-and-closing-the-socket">Printing result and closing the socket</a>
+      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a>
+      <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+      <a href="#looping-through-a-range-of-ports" class="toc-link toc-level-3" data-target="looping-through-a-range-of-ports">Looping through a range of ports</a>
+      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a>
+      <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a>
+      </nav>
+    </aside>
+
   <article class="body">
-    <h2>What is a port scanner?</h2>
+    <h2 id="what-is-a-port-scanner">What is a port scanner?</h2>
+<h3 id="definition">Definition</h3>
 <p>A port scanner, is a network tool that can be used to scan a host on a network, and determine what port numbers are open or closed on that host. Determining what port numbers are open can give important information about what kinds of services might be running on that host. This is useful to know for both attackers and defenders of a network.</p>
+<h3 id="defender-utility">Defender utility</h3>
 <p>Network defenders will want to know what ports are open, because they can use this information to determine whether <em>unnecessary</em> ports / services are open, allowing them to close those unneeded ports / services in an effort to harden the security posture of the network.</p>
+<h3 id="attacker-utility">Attacker utility</h3>
 <p>Attackers on the other hand, might use a port scanner to do active reconnaissance on a target host, surveying the host and greater network, looking for potentially vulnerable open ports and services as a way inside, and to otherwise exploit those vulnerabilities.</p>
-<h2>Why build a port scanner?</h2>
-<p>The main reason for me to build this is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I&#39;ve built here, Nmap comes to mind.</p>
+<h2 id="why-this-project">Why this project?</h2>
+<p>The main reason for me to build a port scanner for this project is of course, for a learning experience — to get a better understanding of how a simple scanner might work under the hood. There are many much more capable port scanners than the one I&#39;ve built here, Nmap comes to mind.</p>
+<h3 id="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</h3>
 <p>Nmap is a much more powerful tool that is more than just a port scanner, it can do network host discovery using ICMP, ARP, or TCP SYN; detection evasion techniques; more advanced port scanning techniques like TCP SYN (stealth) scans; and many other features like OS detection and others that I haven&#39;t explored yet.</p>
 <p>My scanner here is a humble TCP connect port scanner, where you can scan the ports of a host whose address you already have, completing a full TCP three-way handshake with each connection (rather than a SYN scan, which doesn&#39;t complete the handshake).</p>
-<h2>The core of the port scanner</h2>
+<h2 id="the-core-of-the-port-scanner">The core of the port scanner</h2>
 <p>A port scanner doesn&#39;t actually scan ports by themselves, they scan what is known as a socket. A socket is essentially an IP address, a transport layer protocol (TCP or UDP), and the port number — the socket is the union of these three things, and is used to form connections.</p>
 
 <div class="code-block">
@@ -117,13 +169,15 @@
 
 s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>=socket.SOCK_STREAM)
 </pre>
-</div><p>Python&#39;s <strong>socket</strong> module (based on the historic Berkeley socket API standard) can interface with the low-level networking components of the system, this module is what will allow the port scanner to function at all, and it is therefore the core of this tool and is vital.</p>
+</div><h3 id="the-python-socket-module">The Python socket module</h3>
+<p>Python&#39;s <strong>socket</strong> module (based on the historic Berkeley socket API standard) can interface with the low-level networking components of the system, this module is what will allow the port scanner to function at all, and it is therefore the core of this tool and is vital.</p>
 <p>In the code snippet shown here, I have imported the socket module with <code>import socket</code> so we can access it, I have then created a new socket object with <code>socket.socket()</code>. For easy reference later, this socket object is stored in the new variable <code>s</code>.</p>
+<h3 id="the-socket-object">The socket object</h3>
 <p>The socket object is made from the underlying class: <code>class socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)</code>. The family and type are the only two properties needed, the proto and fileno are only for certain specific cases not required here.</p>
 <p>The <code>family</code> property has several value options (two main ones), this specifies the &#39;Address Family&#39;, hence the &#39;AF&#39; in <code>socket.AF_INET</code> — referring to the type of IP address in the socket. The two main values here could be either <code>AF_INET</code>, representing the IPv4 address family; and <code>AF_INET6</code>, representing the IPv6 address family.</p>
 <p>The <code>type</code> property has again, a number of options, but there are two main options: <code>SOCK_STREAM</code>, the default value, this represents the connection-orientated Transmission Control Protocol (TCP); and <code>SOCK_DGRAM</code>, representing the &#39;connectionless&#39; User Datagram Protocol (UDP).</p>
 <p>In this port scanner, we will be using the <code>AF_INET</code> and <code>SOCK_STREAM</code> for our values in the newly created socket object — as IPv4 is still the standard, and a TCP based verifiable connection will be more useful here, (the other options could be added to the scanner later as an additional option).</p>
-<h2>Making the first socket connection</h2>
+<h2 id="making-the-first-socket-connection">Making the first socket connection</h2>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -145,8 +199,10 @@ s = socket.socket(family=socket.AF_INET, <span class="hljs-built_in">type</span>
     <span class="hljs-keyword">return</span>
 
 scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">22</span>)</pre>
-</div><p>So here we have the crux of the whole program, making an actual socket connection, and testing if a known-open scanned port is detected as being open.</p>
+</div><h3 id="defining-the-scan-port-function">Defining the scan port function</h3>
+<p>So here we have the crux of the whole program, making an actual socket connection, and testing if a known-open scanned port is detected as being open.</p>
 <p>In this code snippet, I have enclosed the socket object within a newly defined function: <code>def scan_port(host, port):</code>, this function accepts a <strong>host</strong> IP address / hostname, and a <strong>port</strong> number.</p>
+<h3 id="socket-connect-function-options">Socket connect function options</h3>
 <p>The <code>result</code> variable is storing an executed function within the created socket object called <code>connect_ex()</code>. <code>connect_ex()</code> is related to another function in the socket object called <code>connect()</code>, both of these functions attempt a connection to the socket, accepting an IP address and a port number in the form of a tuple: (ip, port).</p>
 
 <div class="callout">
@@ -154,12 +210,14 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
   <p>I just decided to call the referenced value in my scanner <code>host</code>, as you can scan hostnames or host IP addresses, they will both resolve to the same valid IP.</p>
 </div>
 <p><code>connect_ex()</code> is used here, as it returns a number value even on exception: it will return <code>0</code> if the connection is successful, and another error number if there is an error. <code>connect()</code>, will raise a text exception on failure, which won&#39;t be as usable for the port scanner.</p>
+<h3 id="printing-result-and-closing-the-socket">Printing result and closing the socket</h3>
 <p><code>result</code> is printed, the created socket is closed with <code>s.close()</code>, and the function then ends with <code>return</code>. The function is called at the bottom with <code>scan_port(&quot;localhost&quot;, 22)</code>, this has the socket object attempt to create a connection to <code>localhost</code> (the loopback address / 127.0.0.1), with port <code>22</code>, the ssh port (which I know is open on my computer).</p>
 
 <div class="callout warn">
   <span class="icon mono">WARN</span>
   <p>It is recommended to close the socket connection with <code>socket.close()</code> (<code>s.close()</code> in my case), as this will free up resources and prevent memory leaks.</p>
 </div>
+<h3 id="running-the-program">Running the program</h3>
 <p>Now let&#39;s run the program so far like this:</p>
 
 <div class="code-block">
@@ -169,7 +227,7 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
   </div>
   <pre><span class="hljs-keyword">python3</span> pscan.<span class="hljs-keyword">py</span></pre>
 </div><p>This will return <code>0</code>, indicating the socket object successfully connected and that the port is open, nice it worked!</p>
-<h2>Scanning multiple ports</h2>
+<h2 id="scanning-multiple-ports">Scanning multiple ports</h2>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -199,7 +257,8 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
 
 <span class="hljs-keyword">for</span> port <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">30</span>):
     scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, port)</pre>
-</div><p>To make the scanner a bit more useful now, we&#39;ll add a loop, so the function can automatically scan several ports in succession. To do this we can so a simple &#39;for loop&#39; — as seen in this snippet:</p>
+</div><h3 id="looping-through-a-range-of-ports">Looping through a range of ports</h3>
+<p>To make the scanner a bit more useful now, we&#39;ll add a loop, so the function can automatically scan several ports in succession. To do this we can so a simple &#39;for loop&#39; — as seen in this snippet:</p>
 
 <div class="code-block">
   <div class="code-block-head">
@@ -214,6 +273,7 @@ scan_port(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="h
   <span class="icon mono">WARN</span>
   <p>We need to add a <code>s.settimeout(1)</code> to the function after the creation of the socket object, this makes it so the program doesn&#39;t keep hanging if a socket connection can&#39;t be resolved properly in a timely way. The <code>1</code> sets the timeout to 1 second, so if the socket can&#39;t be connected, it will move on to the next loop iteration.</p>
 </div>
+<h3 id="improving-the-print-output">Improving the print output</h3>
 <p>To make this a bit nicer, we should print a message saying the port is open (when it is open), and closed (when it is closed), along with the corresponding port. As seen in the code block above, we can do this easily with a conditional <code>if</code> statement like this:</p>
 
 <div class="code-block">
@@ -263,11 +323,11 @@ s.close()
   <span class="icon mono">NOTE</span>
   <p>Keep in mind that with the current state of the scanner, when scanning a host other than <code>localhost</code>, the scanner will wait for one second on each failed connection attempt. So for example, if scanning 100 ports, since most ports will be closed, the whole scan will take around 100 seconds. This is obviously not ideal, but will be resolved when we add multi-threading in the next log entry.</p>
 </div>
+<h2 id="wrapping-up-this-entry">Wrapping up this entry</h2>
 <p>And there we have it, an operational port scanner! Though this is quite basic and lacks a lot still, it works, which is pretty cool.</p>
 <p>In the next logs, I&#39;ll write about how I improved this simple port scanner to have: proper error handling; replacing the loop with multi-threading for much faster speeds; and argparse, allowing for user input, and the ability to interactively set which ports to scan using the CLI.</p>
 
   </article>
-
 
   <div class="tags">
     <span class="tag">Tools</span>
@@ -311,6 +371,119 @@ s.close()
     menuToggle.classList.toggle('open', isOpen);
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
+
+  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
+  // handler drives all of it: (a) which heading is "active" in whichever
+  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
+  // state machine, and (c) the mobile panel switching from sitting inline
+  // where it was written to fixed-at-top-of-screen once you've scrolled
+  // past it, so it stays reachable mid-article without scrolling back up.
+  const tocSidebar = document.querySelector('.toc');
+  const mobileToc = document.querySelector('.toc-mobile');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  if ((tocSidebar || mobileToc) && tocLinks.length) {
+    const article = document.querySelector('article.body');
+    const anchorTarget = document.querySelector('.log-media') || article;
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
+
+    // The mobile panel's resting position, captured once before it's ever
+    // switched to fixed (its rect wouldn't mean anything after that).
+    const mobileTocOriginalTop = mobileToc
+      ? mobileToc.getBoundingClientRect().top + window.scrollY
+      : null;
+
+    function updateActiveHeading() {
+      let current = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+          current = h;
+        } else {
+          break;
+        }
+      }
+      tocLinks.forEach((link) => link.classList.remove('active'));
+      if (current) {
+        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+          .forEach((link) => link.classList.add('active'));
+      }
+    }
+
+    function positionDesktopToc() {
+      if (!tocSidebar) return;
+      const scrollY = window.scrollY;
+      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+
+      tocSidebar.style.visibility = 'visible';
+
+      if (scrollY + OFFSET < anchorStartPage) {
+        // Above the article — park it at the article's start (this is the
+        // exact page position the "fixed" branch below would place it at
+        // the moment you reach that point, so there's no jump on handoff).
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + OFFSET < stopTop) {
+        // Reading through the article — follow the viewport.
+        tocSidebar.style.position = 'fixed';
+        tocSidebar.style.top = `${OFFSET}px`;
+      } else {
+        // Past the article — park it here so it scrolls away with the
+        // page instead of overlapping the tags/author-card/footer.
+        tocSidebar.style.position = 'absolute';
+        tocSidebar.style.top = `${stopTop}px`;
+      }
+    }
+
+    function positionMobileToc() {
+      if (!mobileToc || mobileTocOriginalTop === null) return;
+      const scrollY = window.scrollY;
+      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+      // Fixed once you've scrolled past where it was written, dropped again
+      // past the end of the article — mirrors the desktop sidebar's bounds.
+      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
+      mobileToc.classList.toggle('is-fixed', shouldFix);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveHeading();
+          positionDesktopToc();
+          positionMobileToc();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActiveHeading();
+    positionDesktopToc();
+    positionMobileToc();
+
+    const topLink = document.querySelector('.toc-top-link');
+    if (topLink) {
+      topLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Jumping to a section closes the mobile panel — otherwise it's left
+    // sitting open over the top of the article you just navigated to.
+    if (mobileToc) {
+      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+      });
+    }
+  }
 </script>
 
 </body>

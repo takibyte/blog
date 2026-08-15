@@ -2,7 +2,7 @@
 title: Packet capture and analysis fundamentals with Wireshark
 dek: Configuring a VM network, Wireshark fundamentals, packet capture, and analysis.
 author: takibyte
-date: 2026-08-10
+date: 2026-08-14
 category: homelab
 tags: [Wireshark, Packet capture, Network protocols]
 cover: cover.webp

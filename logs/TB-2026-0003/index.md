@@ -60,13 +60,13 @@ This will be my main (or first) user account used to log in to the Pi. I'll also
 
 ![pi imager](./images/pi-imager5.webp)
 
-### Choose wi-fi
+### Choose Wi-Fi
 
 I think this is optional (like a few of these customisation settings), but it is convenient to already have the Wi-Fi configured in the installation process, because it'll allow me to not need any keyboard, monitor, or ethernet cable plugged in to be able to establish a connection to the pi's terminal initially.
 
 ![pi imager](./images/pi-imager6.webp)
 
-### SSH authentication
+## SSH authentication
 
 This part is crucial to my setup. Since I want to run the Pi remotely and headless (without a monitor), I need to configure a way to establish a secure ssh connection. This imager software makes it really easy.
 
@@ -117,13 +117,15 @@ And we're finished setting up the Pi. Now just eject the microSD and slot it int
 
 ![pi imager](./images/pi-imager10.webp)
 
-### Connecting to the Pi
+## Connecting to the Pi
 
 Now that the Pi is powered on, I want to connect via ssh.
 
 ```
 ssh user@pi.local
 ```
+
+### Troubleshooting a non-default ssh key name
 
 This should ordinarily work, but I ran into an issue unfortunately (permission denied):
 
@@ -149,6 +151,8 @@ After running the command and entering the passphrase, I successfully connected 
 
 ![terminal 4](./images/terminal4.webp)
 
+### Adding an alias in ssh config
+
 To optimise this a bit, I found a way to ssh into the pi without having to be explicit each time. I added / edited the config file at `~/.ssh/config` to include a shortcut command:
 
 ```txt title=config
@@ -160,3 +164,11 @@ Host pi
 ```
 
 With this now, to connect to the Pi, all a have to do is type: `ssh pi`, and the `pi` command will automatically use this host identity information to grab the correct hostname, user, and private key file 👍
+
+## What we've covered and what's next
+
+In this entry so far, we have set up a fresh installation of Raspberry Pi OS on a headless Raspberry Pi, including: the configuration of remote ssh access, the troubleshooting of public key names, and command optimisation with an ssh host alias.
+
+Now that we have a new Pi server set up and configured, we can continue on to set up a DNS sinkhole on the Pi with Pi-hole. I hope you'll join me in the next entry as I do just that.
+
+

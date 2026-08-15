@@ -27,6 +27,14 @@ const staticEntries = ['index.html', 'css', 'js', 'assets', 'about', 'favicon.ic
 
 const seenSlugs = new Set();
 
+// Minimum number of headings (H2 + H3 combined) a log needs before we
+// bother generating a TOC. Counting both levels together — rather than
+// just H2 — matters because not every log uses H2 as its main structural
+// level; some (e.g. a single long walkthrough) organize almost entirely
+// with H3s instead. Short logs still just render at full width with no
+// sidebar/panel.
+const TOC_MIN_HEADINGS = 4;
+
 /* ============================================================================
    1. ICONS (used by project cards/pages)
    ============================================================================ */
@@ -110,8 +118,12 @@ function renderThemeSelectMobile() {
 }
 
 /* ============================================================================
-   3. MARKED CONFIG (code blocks + callouts)
+   3. MARKED CONFIG (code blocks + callouts + heading anchors)
    ============================================================================ */
+
+// Reset before parsing each log so heading ids/slugs never leak across posts.
+let currentHeadings = [];
+let headingSlugCounts = {};
 
 marked.use({
   renderer: {
@@ -134,6 +146,26 @@ marked.use({
   </div>
   <pre>${highlighted}</pre>
 </div>`;
+    },
+    heading(token) {
+      const level = token.depth;
+      const html = this.parser.parseInline(token.tokens);
+
+      // Only H2/H3 get anchors + collected into the TOC — H1 doesn't occur in
+      // log bodies (that's the page title) and H4+ would be too granular.
+      if (level !== 2 && level !== 3) {
+        return `<h${level}>${html}</h${level}>\n`;
+      }
+
+      // Strip leftover inline markdown chars before slugifying so anchors stay clean.
+      const plainText = token.text.replace(/[*_`~]/g, '');
+      let slug = slugify(plainText);
+      const seenCount = headingSlugCounts[slug] || 0;
+      headingSlugCounts[slug] = seenCount + 1;
+      if (seenCount > 0) slug = `${slug}-${seenCount}`;
+
+      currentHeadings.push({ id: slug, level, text: plainText });
+      return `<h${level} id="${slug}">${html}</h${level}>\n`;
     }
   }
 });
@@ -201,6 +233,40 @@ function renderSeriesBadge(seriesInfo) {
       <a href="/projects/${project.slug}/">Part of project: ${project.title} →</a>
       <span class="mono">${index + 1} of ${total}</span>
     </div>`;
+}
+
+// Table of contents — shared link list markup used by both the desktop
+// sidebar and the mobile collapsible panel.
+function renderTocLinks(headings) {
+  return headings.map(h => `
+      <a href="#${h.id}" class="toc-link toc-level-${h.level}" data-target="${h.id}">${h.text}</a>`).join('');
+}
+
+function renderTocDesktop(headings) {
+  return `
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <nav class="toc-nav">${renderTocLinks(headings)}
+      </nav>
+    </aside>`;
+}
+
+function renderTocMobile(headings) {
+  return `
+    <details class="toc-mobile">
+      <summary>// on this page</summary>
+      <nav class="toc-nav">${renderTocLinks(headings)}
+      </nav>
+    </details>`;
+}
+
+// Table of contents — mobile collapsible panel + desktop sidebar, combined
+// into one block. Returns '' if the log doesn't have enough headings to
+// bother with (see TOC_MIN_HEADINGS). Doesn't touch the article's own
+// markup at all — it's just inserted as a sibling before it.
+function renderToc(headings) {
+  if (headings.length < TOC_MIN_HEADINGS) return '';
+  return `${renderTocMobile(headings)}${renderTocDesktop(headings)}`;
 }
 
 function renderLatestLogs(p) {
@@ -374,7 +440,12 @@ for (const folder of fs.readdirSync(logsDir)) {
 
   const raw = fs.readFileSync(logPath, 'utf-8');
   const { data, content } = matter(raw);
+
+  // Reset heading collection state so ids/counts don't leak between logs.
+  currentHeadings = [];
+  headingSlugCounts = {};
   const html = marked.parse(content);
+  const headings = currentHeadings;
 
   const words = content.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / 200);
@@ -389,7 +460,7 @@ for (const folder of fs.readdirSync(logsDir)) {
   }
   seenSlugs.add(slug);
 
-  rawLogs.push({ folder, logFolder, data, html, minutes, formattedDate, shortDate, tags, slug });
+  rawLogs.push({ folder, logFolder, data, html, headings, minutes, formattedDate, shortDate, tags, slug });
 }
 
 // Chronological order (oldest first) — this order is what prev/next nav is built from
@@ -446,6 +517,12 @@ for (const folder of fs.readdirSync(projectsDir)) {
 
   const raw = fs.readFileSync(projectPath, 'utf-8');
   const { data, content } = matter(raw);
+
+  // Same heading renderer runs here (it's global to `marked`) — reset its
+  // state first so a project's own H2/H3s can't leak into whichever log
+  // happened to be parsed last in the section-7 loop.
+  currentHeadings = [];
+  headingSlugCounts = {};
   const bodyHtml = marked.parse(content);
   const slug = data.slug || slugify(data.title ?? folder);
 
@@ -475,7 +552,7 @@ for (const p of projects) {
    ============================================================================ */
 
 rawLogs.forEach((log) => {
-  const { data, html, minutes, formattedDate, tags, slug, logFolder, id, prevLog, nextLog } = log;
+  const { data, html, headings, minutes, formattedDate, tags, slug, logFolder, id, prevLog, nextLog } = log;
 
   const seriesInfo = logToProject.get(slug);
 
@@ -489,6 +566,7 @@ rawLogs.forEach((log) => {
     .replaceAll('{{id}}', id)
     .replace('{{cover}}', data.cover ? `<img class="log-media" src="./images/${data.cover}" alt="">` : '')
     .replace('{{minutes}}', minutes)
+    .replace('{{toc}}', renderToc(headings))
     .replace('{{content}}', html)
     .replace('{{seriesBadge}}', renderSeriesBadge(seriesInfo))
     .replace('{{logNav}}', renderLogNav(prevLog, nextLog))

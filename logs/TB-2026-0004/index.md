@@ -8,9 +8,9 @@ tags: [Homelab, Raspberry Pi, OS]
 cover: cover.webp
 ---
 
-Now that I've set up my Raspberry Pi with its new OS, it's time to go ahead and actually set up the Pi-hole.
-
 ## Installing Pi-hole on the Pi
+
+Now that I've set up my Raspberry Pi with its new OS, it's time to go ahead and actually set up the Pi-hole.
 
 Going to <https://pi-hole.net/>, presents us with a very straight forward set of steps to install Pi-hole. Since we've already installed a compatible OS we can head to step 2, install the actual software, found [here](https://github.com/pi-hole/pi-hole/#one-step-automated-install).
 
@@ -20,7 +20,7 @@ Navigating to their GitHub repo installation guide presents us with several opti
 curl -sSL https://install.pi-hole.net | bash
 ```
 
-### The Setup
+## The Setup
 
 ![pi installer](./images/installer1.webp)
 
@@ -30,7 +30,7 @@ The installer begins to run…
 
 Now the installer will run us through the onboarding setup, it's going to let us select various options for how we want the Pi-hole to be configured.
 
-### Static IP and DHCP Reservation
+## Static IP and DHCP Reservation
 
 ![pi installer](./images/installer3.webp)
 
@@ -68,7 +68,7 @@ After rebooting, we can see here back on the client list that the Raspberry Pi h
 Back to the installer now, it asks us to select a network interface. I selected eth0 (the Ethernet connection), as it's already connected and will be reliably available, and fast.
 
 
-### Upstream DNS provider
+## Upstream DNS provider
 
 ![pi installer](./images/installer5.webp)
 
@@ -114,7 +114,7 @@ The installer has given us some final instructions be able to use the newly inst
 
 2. We can now log in to the admin panel at the Pi's IP address port 80 with the provided password. In my case http://192.168.8.100:80/admin (or http://pi.hole:80/admin).
 
-### The Pi-hole Admin Panel
+## The Pi-hole Admin Panel
 
 ![pihole web](./images/pihole1.webp)
 
@@ -122,7 +122,7 @@ First, we can go and quickly check out the Pi-hole's admin panel by navigating t
 After logging in, we are presented with the main dashboard. There are a lot of different useful sections here with which we can analyse data coming through the Pi-hole.
 However, as we can see, there isn't any data coming through the Pi-hole yet. This is because we haven't pointed any devices/hosts to the Pi-hole yet, it isn't receiving any requests that it can filter yet.
 
-### Configuring the Pi-hole as a DNS
+## Configuring the Pi-hole as a DNS
 
 In order to get the Pi-hole to act as a DNS, we first need to configure it as a DNS (with the Pi's IP address), on whichever devices we want to use the Pi-hole as a DNS.
 This can be done in a few different ways, I'll show three different ways I tried it (I mean I'm here to learn after all, why not 😄).

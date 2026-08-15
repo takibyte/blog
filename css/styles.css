@@ -753,7 +753,7 @@ h1.headline{
   display:flex;justify-content:space-between;align-items:center;
   background:var(--surface);border:1px solid var(--line);
   border-radius:8px;padding:12px 16px;
-  margin:0 0 64px;
+  margin:0 0 16px;
   font-family:var(--font-mono);font-size:13px;
   gap:8px 12px; /* row-gap column-gap — row-gap only matters once it wraps */
   flex-wrap:wrap;
@@ -1126,4 +1126,125 @@ article.body img{
   .about-hero{flex-direction:column;text-align:center;align-items:center;}
   .stats-strip{grid-template-columns:repeat(2,1fr);}
   .stack-grid{grid-template-columns:1fr 1fr;}
+}
+
+
+/* ==========================================================================
+   TABLE OF CONTENTS — floats in the left gutter (desktop) / collapsible
+   panel above the article (mobile). It's a plain sibling of .wrap's
+   children — .wrap itself never changes width or position.
+   Only rendered on logs with 3+ H2 sections — see build.js renderToc().
+   Replace the old "TABLE OF CONTENTS" section at the end of styles.css
+   with this whole block.
+   ========================================================================== */
+
+/* ---- mobile / default: collapsible "on this page" panel ----
+   Sits above the article, collapsed by default. Native <details> so it
+   needs no JS and stays keyboard/screen-reader accessible for free. */
+.toc-mobile{
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent-1);
+  border-radius:6px;
+  background:var(--surface);
+  margin:8px 0 32px;
+  padding:16px 18px;
+  max-width:100%;
+  overflow-x:hidden;
+  transition:box-shadow .15s ease;
+}
+/* Fixed-to-top state: kicks in once you've scrolled past its original
+   spot in the page (see positionMobileToc() in log.html) and drops away
+   again past the end of the article. Collapsed, it's just a slim bar;
+   expanded, the link list overlays the top of the article. */
+.toc-mobile.is-fixed{
+  position:fixed;
+  top:0;left:0;right:0;
+  width:100%;
+  max-width:none;
+  margin:0;
+  border-radius:0;
+  border-left:none;
+  border-bottom:3px solid var(--accent-1);
+  padding:14px 32px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  z-index:50;
+}
+.toc-mobile.is-fixed .toc-nav{
+  max-height:60vh;
+  overflow-y:auto;
+}
+.toc-mobile summary{
+  cursor:pointer;
+  list-style:none;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-mono);
+  font-size:12px;letter-spacing:0.05em;
+  color:var(--accent-1);
+}
+.toc-mobile summary::-webkit-details-marker{display:none;}
+.toc-mobile summary::after{
+  content:"+";
+  font-family:var(--font-mono);
+  color:var(--muted);font-size:15px;
+}
+.toc-mobile[open] summary::after{content:"–";}
+.toc-mobile .toc-nav{
+  margin-top:16px;padding-top:16px;
+  border-top:1px solid var(--line);
+}
+
+/* ---- shared link styles (both mobile panel and desktop sidebar) ---- */
+.toc-label{
+  display:block;
+  font-size:12px;color:var(--muted);letter-spacing:0.05em;
+  margin-bottom:16px;
+}
+.toc-top-link:hover{color:var(--accent-1);}
+.toc-nav{display:flex;flex-direction:column;gap:9px;min-width:0;}
+.toc-link{
+  font-size:13px;color:var(--muted);line-height:1.5;
+  border-left:2px solid transparent;padding-left:12px;
+  min-width:0;overflow-wrap:break-word;word-break:break-word;
+}
+.toc-link:hover{color:var(--ink);}
+.toc-link.active{color:var(--accent-1);border-left-color:var(--accent-1);}
+.toc-link.toc-level-3{padding-left:24px;font-size:12.5px;color:var(--faint);}
+.toc-link.toc-level-3:hover{color:var(--ink-soft);}
+.toc-link.toc-level-3.active{color:var(--accent-1);}
+
+/* Room to breathe when a heading is jumped to directly */
+article.body h2, article.body h3{scroll-margin-top:28px;}
+
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth;}
+}
+
+/* ---- desktop: sidebar in the right gutter ----
+   Hidden until there's comfortable room beside the centered 760px .wrap.
+   Horizontal position is calculated off viewport center, since .wrap is
+   centered — not tied to any container, so it can't affect .wrap's layout.
+   `position` and `top` below are just the initial/fallback values — the
+   script in log.html takes over on scroll to hide it above the article,
+   pin it to the viewport while you're reading, and park it at a fixed
+   page position once you scroll past the article's end (see positionToc()
+   in log.html) so it can never drift into the footer. */
+.toc{display:none;}
+
+@media (min-width:1300px){
+  .toc-mobile{display:none;}
+  .toc{
+    display:block;
+    width:200px;
+    position:fixed;
+    top:110px;
+    visibility:hidden; /* prevents a flash at the wrong spot before the script runs and positions it — the script sets this to visible immediately */
+    /* 380 = half of .wrap's 760px max-width, 40 = gap, 200 = toc width. */
+    right:calc(50% - 380px - 40px - 200px);
+    max-height:calc(100vh - 140px);
+    overflow-y:auto;
+  }
+
+  /* To move it to the left instead, swap the rule above for:
+  .toc{ right:auto; left:calc(50% - 380px - 40px - 200px); }
+  */
 }
