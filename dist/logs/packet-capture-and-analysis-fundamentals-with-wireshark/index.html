@@ -326,9 +326,11 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
   // Table of contents — desktop sidebar + mobile panel behavior. One scroll
   // handler drives all of it: (a) which heading is "active" in whichever
   // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
-  // state machine, and (c) the mobile panel switching from sitting inline
-  // where it was written to fixed-at-top-of-screen once you've scrolled
-  // past it, so it stays reachable mid-article without scrolling back up.
+  // state machine, and (c) the mobile panel fading in once you reach the
+  // cover/article and fading out again past the end of it. Both (b) and
+  // (c) share the same live-recomputed anchor/article boundaries each
+  // frame — nothing is cached from page load, so there's nothing that can
+  // go stale if the mobile nav dropdown opens and shifts the layout above.
   const tocSidebar = document.querySelector('.toc');
   const mobileToc = document.querySelector('.toc-mobile');
   const tocLinks = document.querySelectorAll('.toc-link');
@@ -338,14 +340,8 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
     const anchorTarget = document.querySelector('.log-media') || article;
     const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
 
-    const OFFSET = 110;       // px from viewport top the desktop sidebar sits at, matches its CSS top
-    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end
-
-    // The mobile panel's resting position, captured once before it's ever
-    // switched to fixed (its rect wouldn't mean anything after that).
-    const mobileTocOriginalTop = mobileToc
-      ? mobileToc.getBoundingClientRect().top + window.scrollY
-      : null;
+    const OFFSET = 48;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end (desktop sidebar only)
 
     function updateActiveHeading() {
       let current = headings[0];
@@ -363,41 +359,38 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
       }
     }
 
-    function positionDesktopToc() {
-      if (!tocSidebar) return;
+    function updateTocPositions() {
       const scrollY = window.scrollY;
       const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
       const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
-      const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
 
-      tocSidebar.style.visibility = 'visible';
+      if (tocSidebar) {
+        const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
+        tocSidebar.style.visibility = 'visible';
 
-      if (scrollY + OFFSET < anchorStartPage) {
-        // Above the article — park it at the article's start (this is the
-        // exact page position the "fixed" branch below would place it at
-        // the moment you reach that point, so there's no jump on handoff).
-        tocSidebar.style.position = 'absolute';
-        tocSidebar.style.top = `${anchorStartPage}px`;
-      } else if (scrollY + OFFSET < stopTop) {
-        // Reading through the article — follow the viewport.
-        tocSidebar.style.position = 'fixed';
-        tocSidebar.style.top = `${OFFSET}px`;
-      } else {
-        // Past the article — park it here so it scrolls away with the
-        // page instead of overlapping the tags/author-card/footer.
-        tocSidebar.style.position = 'absolute';
-        tocSidebar.style.top = `${stopTop}px`;
+        if (scrollY + OFFSET < anchorStartPage) {
+          // Above the article — park it at the article's start (this is the
+          // exact page position the "fixed" branch below would place it at
+          // the moment you reach that point, so there's no jump on handoff).
+          tocSidebar.style.position = 'absolute';
+          tocSidebar.style.top = `${anchorStartPage}px`;
+        } else if (scrollY + OFFSET < stopTop) {
+          // Reading through the article — follow the viewport.
+          tocSidebar.style.position = 'fixed';
+          tocSidebar.style.top = `${OFFSET}px`;
+        } else {
+          // Past the article — park it here so it scrolls away with the
+          // page instead of overlapping the tags/author-card/footer.
+          tocSidebar.style.position = 'absolute';
+          tocSidebar.style.top = `${stopTop}px`;
+        }
       }
-    }
 
-    function positionMobileToc() {
-      if (!mobileToc || mobileTocOriginalTop === null) return;
-      const scrollY = window.scrollY;
-      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
-      // Fixed once you've scrolled past where it was written, dropped again
-      // past the end of the article — mirrors the desktop sidebar's bounds.
-      const shouldFix = scrollY > mobileTocOriginalTop && scrollY < articleBottomPage;
-      mobileToc.classList.toggle('is-fixed', shouldFix);
+      if (mobileToc) {
+        const visible = scrollY + OFFSET >= anchorStartPage && scrollY + OFFSET < articleBottomPage;
+        if (!visible) mobileToc.removeAttribute('open'); // reset so it's always collapsed on re-entry
+        mobileToc.classList.toggle('is-visible', visible);
+      }
     }
 
     let ticking = false;
@@ -405,8 +398,7 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
       if (!ticking) {
         requestAnimationFrame(() => {
           updateActiveHeading();
-          positionDesktopToc();
-          positionMobileToc();
+          updateTocPositions();
           ticking = false;
         });
         ticking = true;
@@ -416,8 +408,7 @@ An ICMP packet will have: An Ethernet frame (header and tail), an IPv4 header, a
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     updateActiveHeading();
-    positionDesktopToc();
-    positionMobileToc();
+    updateTocPositions();
 
     const topLink = document.querySelector('.toc-top-link');
     if (topLink) {

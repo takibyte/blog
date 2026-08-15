@@ -753,7 +753,7 @@ h1.headline{
   display:flex;justify-content:space-between;align-items:center;
   background:var(--surface);border:1px solid var(--line);
   border-radius:8px;padding:12px 16px;
-  margin:0 0 16px;
+  margin:0 0 8px;
   font-family:var(--font-mono);font-size:13px;
   gap:8px 12px; /* row-gap column-gap — row-gap only matters once it wraps */
   flex-wrap:wrap;
@@ -1138,40 +1138,32 @@ article.body img{
    with this whole block.
    ========================================================================== */
 
-/* ---- mobile / default: collapsible "on this page" panel ----
-   Sits above the article, collapsed by default. Native <details> so it
-   needs no JS and stays keyboard/screen-reader accessible for free. */
+/* ---- mobile: fixed bar, fades in once you reach the article ----
+   Always position:fixed (never sits in the document flow, so there's
+   nothing to reserve space for and nothing that can jump when it
+   appears). Visibility is driven by updateTocPositions() in log.html,
+   which — like the desktop sidebar — recalculates its bounds fresh on every scroll rather than trusting a cached position, so it
+   can't drift out of sync after something like the mobile nav dropdown
+   opening and shifting the page's layout. */
 .toc-mobile{
-  border:1px solid var(--line);
-  border-left:3px solid var(--accent-1);
-  border-radius:6px;
-  background:var(--surface);
-  margin:8px 0 32px;
-  padding:16px 18px;
-  max-width:100%;
-  overflow-x:hidden;
-  transition:box-shadow .15s ease;
-}
-/* Fixed-to-top state: kicks in once you've scrolled past its original
-   spot in the page (see positionMobileToc() in log.html) and drops away
-   again past the end of the article. Collapsed, it's just a slim bar;
-   expanded, the link list overlays the top of the article. */
-.toc-mobile.is-fixed{
   position:fixed;
   top:0;left:0;right:0;
-  width:100%;
-  max-width:none;
-  margin:0;
-  border-radius:0;
-  border-left:none;
+  z-index:50;
+  background:var(--surface);
   border-bottom:3px solid var(--accent-1);
   padding:14px 32px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);
-  z-index:50;
+  overflow-x:hidden;
+  opacity:0;
+  visibility:hidden;
+  /* Visibility flips to hidden only after the fade-out finishes (so it's
+     still there, just fading, throughout); flips to visible instantly
+     when fading in. The .is-visible rule below overrides the delay. */
+  transition:opacity .2s ease, visibility 0s linear .2s;
 }
-.toc-mobile.is-fixed .toc-nav{
-  max-height:60vh;
-  overflow-y:auto;
+.toc-mobile.is-visible{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .2s ease, visibility 0s linear 0s;
 }
 .toc-mobile summary{
   cursor:pointer;
@@ -1191,6 +1183,8 @@ article.body img{
 .toc-mobile .toc-nav{
   margin-top:16px;padding-top:16px;
   border-top:1px solid var(--line);
+  max-height:80vh;
+  overflow-y:auto;
 }
 
 /* ---- shared link styles (both mobile panel and desktop sidebar) ---- */
@@ -1212,8 +1206,12 @@ article.body img{
 .toc-link.toc-level-3:hover{color:var(--ink-soft);}
 .toc-link.toc-level-3.active{color:var(--accent-1);}
 
-/* Room to breathe when a heading is jumped to directly */
-article.body h2, article.body h3{scroll-margin-top:28px;}
+/* Room to breathe when a heading is jumped to directly. Bigger by default
+   to clear the mobile TOC bar when it's faded in at the top of the
+   screen (see .toc-mobile above) — overridden smaller on desktop below,
+   where the sidebar sits beside the content instead of over top of it,
+   so there's nothing to clear. */
+article.body h2, article.body h3{scroll-margin-top:88px;}
 
 @media (prefers-reduced-motion:no-preference){
   html{scroll-behavior:smooth;}
@@ -1232,6 +1230,7 @@ article.body h2, article.body h3{scroll-margin-top:28px;}
 
 @media (min-width:1300px){
   .toc-mobile{display:none;}
+  article.body h2, article.body h3{scroll-margin-top:28px;}
   .toc{
     display:block;
     width:200px;
@@ -1240,7 +1239,7 @@ article.body h2, article.body h3{scroll-margin-top:28px;}
     visibility:hidden; /* prevents a flash at the wrong spot before the script runs and positions it — the script sets this to visible immediately */
     /* 380 = half of .wrap's 760px max-width, 40 = gap, 200 = toc width. */
     right:calc(50% - 380px - 40px - 200px);
-    max-height:calc(100vh - 140px);
+    max-height:calc(100vh - 96px);
     overflow-y:auto;
   }
 

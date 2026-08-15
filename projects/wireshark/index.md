@@ -17,5 +17,5 @@ This project is a collection of homelabs centred on using Wireshark for packet c
 
 The first entry in this series will cover: configuring a virtual machine network, going over the fundamentals of the Wireshark application, and going through a simple unicast packet capture scenario. I'll then go over the core viewing panels in the post-capture screen of Wireshark for analysis, going into some detail about the packet list, packet details, and packet bytes panels.
 
-The log entries following this initial entry will include: a Nmap reconnaissance scan capture, an unencrypted TCP transfer capture, and an encrypted SFTP transfer capture — contrasting encrypted vs unencrypted packets. Later on, I plan to do port mirroring captures, and simulated attack captures.
+The log entries following this initial entry will include: an Nmap reconnaissance scan capture, an unencrypted TCP transfer capture, and an encrypted SFTP transfer capture — contrasting encrypted vs unencrypted packets. Later on, I plan to do port mirroring captures, and simulated attack captures.
 

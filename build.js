@@ -687,3 +687,4 @@ ${allUrls.map(url => `  <url>\n    <loc>${siteUrl}${url}</loc>\n  </url>`).join(
 fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemapXml);
 
 console.log('Build complete → ./dist');
+
