@@ -246,7 +246,7 @@ a{color:inherit;text-decoration:none;}
 
 /* ---- header / nav / subscribe ---- */
 header{
-  max-width:1200px;margin:0 auto;
+  max-width:1280px;margin:0 auto;
   padding:26px 32px;
   display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid var(--line);
@@ -292,14 +292,14 @@ nav a.active{color:var(--accent-1);}
 .subscribe:hover{border-color:var(--accent-1);color:var(--accent-1);}
 
 /* ---- content containers ---- */
-main{max-width:1200px;margin:0 auto;padding:48px 32px 90px;}
+main{max-width:1280px;margin:0 auto;padding:48px 32px 90px;}
 
 /* Narrower single-column wrapper, used by Log and About */
 .wrap{max-width:760px;margin:0 auto;padding:0 32px;}
 
 /* ---- footer ---- */
 footer{
-  max-width:1200px;margin:0 auto;padding:32px;
+  max-width:1280px;margin:0 auto;padding:32px;
   border-top:1px solid var(--line);
   display:flex;justify-content:space-between;
   font-family:var(--font-mono);
@@ -856,7 +856,7 @@ article.body img{
 .callout.warn{border-left-color:var(--caution);}
 .callout.warn .icon{color:var(--caution);}
 
-.tags{display:flex;gap:8px;margin-top:44px;padding-top:28px;border-top:1px solid var(--line);}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:44px;padding-top:28px;border-top:1px solid var(--line);}
 
 .author-card{
   display:flex;gap:16px;align-items:center;
@@ -1151,7 +1151,7 @@ article.body img{
   z-index:50;
   background:var(--surface);
   border-bottom:3px solid var(--accent-1);
-  padding:14px 32px;
+  padding:14px 18px;
   overflow-x:hidden;
   opacity:0;
   visibility:hidden;
@@ -1190,9 +1190,56 @@ article.body img{
 /* ---- shared link styles (both mobile panel and desktop sidebar) ---- */
 .toc-label{
   display:block;
-  font-size:12px;color:var(--muted);letter-spacing:0.05em;
+  font-size:12.5px;color:var(--accent-1);letter-spacing:0.05em;
   margin-bottom:16px;
+  border-left:2px solid transparent;
+  /* padding-left:6px; */
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
 }
+/* .toc-label.active{color:var(--accent-1);border-left-color:var(--accent-1);} */
+
+.toc-arrow{
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.toc-arrow.visible{opacity:1;}
+
+.toc-mobile-title{
+  display:block;
+  font-size:13px;color:var(--ink);
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.toc-mobile-title:hover{color:var(--accent-1);}
+.toc-current{color:var(--muted);font-weight:normal;}
+
+.toc-summary-label{
+  display:flex;align-items:center;
+  flex:1 1 auto;
+  min-width:0;    /* lets this item shrink below its content width — required for the ellipsis child to ever kick in */
+  overflow:hidden;
+}
+.toc-summary-prefix{
+  flex-shrink:0;               /* "// on this page" itself never clips or shrinks */
+  margin-right:var(--toc-gap, 6px); /* ← tweak this variable to adjust spacing before the "#" */
+}
+.toc-current{
+  display:flex;align-items:center;
+  flex:1 1 auto;
+  min-width:0;    /* same trick, one level deeper, so the text span below can actually shrink */
+  color:var(--muted);font-weight:normal;
+}
+#toc-current-text{
+  display:inline-block;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.toc-mobile summary::after{flex-shrink:0;padding-left:12px;} /* keeps the "+" a fixed size regardless of how tight things get */
+
+
 .toc-top-link:hover{color:var(--accent-1);}
 .toc-nav{display:flex;flex-direction:column;gap:9px;min-width:0;}
 .toc-link{
@@ -1228,7 +1275,7 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
    in log.html) so it can never drift into the footer. */
 .toc{display:none;}
 
-@media (min-width:1300px){
+@media (min-width:1280px){
   .toc-mobile{display:none;}
   article.body h2, article.body h3{scroll-margin-top:28px;}
   .toc{
@@ -1239,11 +1286,31 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
     visibility:hidden; /* prevents a flash at the wrong spot before the script runs and positions it — the script sets this to visible immediately */
     /* 380 = half of .wrap's 760px max-width, 40 = gap, 200 = toc width. */
     right:calc(50% - 380px - 40px - 200px);
-    max-height:calc(100vh - 96px);
+    max-height:calc(100vh - 72px);
     overflow-y:auto;
   }
 
   /* To move it to the left instead, swap the rule above for:
   .toc{ right:auto; left:calc(50% - 380px - 40px - 200px); }
   */
+}
+
+.toc-crumb-desktop{display:none;}
+
+@media (min-width:1280px){
+  .toc-crumb-desktop{
+    display:block;
+    width:200px;
+    position:fixed;
+    top:110px;
+    visibility:hidden;
+    left:calc(50% - 380px - 40px - 200px);
+    max-height:calc(100vh - 72px);
+    overflow-y:auto;
+  }
+
+.toc-crumb-nav{display:flex;flex-direction:column;gap:14px;}
+.toc-crumb-nav-link{font-size:12.5px;color:var(--muted);line-height:1.5;}
+.toc-crumb-nav-link:hover{color:var(--ink);}
+.toc-crumb-nav-link.next{text-align:right;}
 }

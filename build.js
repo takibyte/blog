@@ -242,32 +242,89 @@ function renderTocLinks(headings) {
       <a href="#${h.id}" class="toc-link toc-level-${h.level}" data-target="${h.id}">${h.text}</a>`).join('');
 }
 
-function renderTocDesktop(headings) {
+function renderTocMobile(headings, title, id) {
+  return `
+    <details class="toc-mobile">
+      <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// ${id}</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
+      <nav class="toc-nav">
+        <a href="#" class="toc-mobile-title toc-top-link">${title} ↑</a>
+        ${renderTocLinks(headings)}
+      </nav>
+    </details>`;
+}
+
+function renderTocDesktop(headings, title, id) {
   return `
     <aside class="toc">
-      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
       <nav class="toc-nav">${renderTocLinks(headings)}
       </nav>
     </aside>`;
 }
 
-function renderTocMobile(headings) {
+// Resolves gutter prev/next with a three-step fallback: series-scoped
+// neighbor (if this log belongs to a project and isn't at the series
+// edge) → site-wide chronological neighbor (also covers standalone logs,
+// and is what lets you walk back OUT of a project once you hit either
+// end of its series) → nothing left in that direction at all (true
+// first/last log site-wide — handled by the caller with an archive link,
+// see renderTocCrumbDesktop below).
+function resolveCrumbNav(prevLog, nextLog, seriesInfo) {
+  let prevItem = null, nextItem = null;
+
+  if (seriesInfo) {
+    const { project, index, total } = seriesInfo;
+    if (index > 0) prevItem = navItemInfo(project.linkedLogs[index - 1]);
+    if (index < total - 1) nextItem = navItemInfo(project.linkedLogs[index + 1]);
+  }
+
+  if (!prevItem) prevItem = navItemInfo(prevLog);
+  if (!nextItem) nextItem = navItemInfo(nextLog);
+
+  return { prevItem, nextItem };
+}
+
+function renderTocCrumbDesktop(prevLog, nextLog, seriesInfo, id) {
+  const { prevItem, nextItem } = resolveCrumbNav(prevLog, nextLog, seriesInfo);
+
+  const prevHtml = prevItem
+    ? `<a href="/logs/${prevItem.slug}/" class="toc-crumb-nav-link">← ${prevItem.title}</a>`
+    : `<a href="/logs/" class="toc-crumb-nav-link">← All logs</a>`; // true start of the site — nothing older exists
+
+  const nextHtml = nextItem
+    ? `<a href="/logs/${nextItem.slug}/" class="toc-crumb-nav-link next">${nextItem.title} →</a>`
+    : `<a href="/logs/" class="toc-crumb-nav-link next">All logs →</a>`; // true end of the site — this is the newest post
+
   return `
-    <details class="toc-mobile">
-      <summary>// on this page</summary>
-      <nav class="toc-nav">${renderTocLinks(headings)}
-      </nav>
-    </details>`;
+    <aside class="toc-crumb-desktop">
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// ${id}</a>
+      <div class="toc-crumb-nav">
+        ${prevHtml}
+        ${nextHtml}
+      </div>
+    </aside>`;
 }
 
 // Table of contents — mobile collapsible panel + desktop sidebar, combined
 // into one block. Returns '' if the log doesn't have enough headings to
 // bother with (see TOC_MIN_HEADINGS). Doesn't touch the article's own
 // markup at all — it's just inserted as a sibling before it.
-function renderToc(headings) {
-  if (headings.length < TOC_MIN_HEADINGS) return '';
-  return `${renderTocMobile(headings)}${renderTocDesktop(headings)}`;
+function renderToc(headings, title, id, prevLog, nextLog, seriesInfo) {
+  const leftGutter = renderTocCrumbDesktop(prevLog, nextLog, seriesInfo, id);
+  if (headings.length < TOC_MIN_HEADINGS) return leftGutter;
+  return `${renderTocMobile(headings, title, id)}${leftGutter}${renderTocDesktop(headings, title, id)}`;
 }
+
+// Normalizes prev/next log references to {title, slug} regardless of shape —
+// rawLogs entries (prevLog/nextLog from section 10) carry frontmatter under
+// .data; project.linkedLogs entries (from logsList) already have title/slug
+// flattened. Lets the series and site-wide branches below share one path.
+function navItemInfo(item) {
+  if (!item) return null;
+  if (item.data) return { title: item.data.title ?? item.slug, slug: item.slug };
+  return { title: item.title ?? item.slug, slug: item.slug };
+}
+
 
 function renderLatestLogs(p) {
   return `
@@ -492,6 +549,7 @@ rawLogs.forEach((log, index) => {
     displayDate: formattedDate,
     shortDate,
     year,
+    id: id,
     category: (data.category ?? '').toUpperCase(),
     categoryClass: categoryClass((data.category ?? '').toUpperCase()),
     id, tags, cover: data.cover, minutes: log.minutes, slug
@@ -566,7 +624,7 @@ rawLogs.forEach((log) => {
     .replaceAll('{{id}}', id)
     .replace('{{cover}}', data.cover ? `<img class="log-media" src="./images/${data.cover}" alt="">` : '')
     .replace('{{minutes}}', minutes)
-    .replace('{{toc}}', renderToc(headings))
+    .replace('{{toc}}', renderToc(headings, data.title ?? '', id ?? '', prevLog, nextLog, seriesInfo))
     .replace('{{content}}', html)
     .replace('{{seriesBadge}}', renderSeriesBadge(seriesInfo))
     .replace('{{logNav}}', renderLogNav(prevLog, nextLog))

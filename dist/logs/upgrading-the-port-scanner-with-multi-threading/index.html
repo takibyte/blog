@@ -96,8 +96,10 @@
 
   
     <details class="toc-mobile">
-      <summary>// on this page</summary>
+      <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// TB-2026-0006</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
       <nav class="toc-nav">
+        <a href="#" class="toc-mobile-title toc-top-link">Upgrading the port scanner with multi-threading ↑</a>
+        
       <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a>
       <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
       <a href="#try-and-except-error-handling-in-python" class="toc-link toc-level-3" data-target="try-and-except-error-handling-in-python">Try and except — error handling in Python</a>
@@ -116,8 +118,15 @@
       <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a>
       </nav>
     </details>
+    <aside class="toc-crumb-desktop">
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// TB-2026-0006</a>
+      <div class="toc-crumb-nav">
+        <a href="/logs/building-a-port-scanner-with-python/" class="toc-crumb-nav-link">← Building a port scanner with Python</a>
+        <a href="/logs/improving-the-port-scanner-with-argparse/" class="toc-crumb-nav-link next">Improving the port scanner with argparse →</a>
+      </div>
+    </aside>
     <aside class="toc">
-      <a href="#" class="toc-label mono toc-top-link">// on this page</a>
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
       <nav class="toc-nav">
       <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a>
       <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
@@ -423,7 +432,7 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
 </footer>
 
 <script>
-  const menuToggle = document.getElementById('menuToggle');
+const menuToggle = document.getElementById('menuToggle');
   const mobileNav = document.getElementById('mobileNav');
   menuToggle.addEventListener('click', () => {
     const isOpen = mobileNav.classList.toggle('open');
@@ -439,64 +448,95 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
   // (c) share the same live-recomputed anchor/article boundaries each
   // frame — nothing is cached from page load, so there's nothing that can
   // go stale if the mobile nav dropdown opens and shifts the layout above.
+  // Mobile and desktop each get their own anchor + offset (see
+  // getAnchor()/getOffset() below) so the two breakpoints' fade/park
+  // points can be tuned independently.
   const tocSidebar = document.querySelector('.toc');
   const mobileToc = document.querySelector('.toc-mobile');
   const tocLinks = document.querySelectorAll('.toc-link');
+  const leftGutter = document.querySelector('.toc-crumb-desktop');
 
-  if ((tocSidebar || mobileToc) && tocLinks.length) {
+  if (tocSidebar || mobileToc || leftGutter) {
     const article = document.querySelector('article.body');
-    const anchorTarget = document.querySelector('.log-media') || article;
-    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
 
-    const OFFSET = 48;       // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const isDesktop = () => window.matchMedia('(min-width:1280px)').matches;
+
+    const OFFSET_DESKTOP = 48;   // px from viewport top the desktop sidebar sits at, matches its CSS top
+    const OFFSET_MOBILE = 0;    // px — mobile bar fade-in trigger, tune independently of desktop
+    const ANCHOR_DESKTOP = document.querySelector('.breadcrumb') || article;
+    const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // swap for a different element if mobile should anchor elsewhere
+
+    function getOffset() { return isDesktop() ? OFFSET_DESKTOP : OFFSET_MOBILE; }
+    function getAnchor() { return isDesktop() ? ANCHOR_DESKTOP : ANCHOR_MOBILE; }
+
     const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end (desktop sidebar only)
 
     function updateActiveHeading() {
-      let current = headings[0];
+      if (!tocLinks.length) return;
+      let current = null;
+      const TOLERANCE = 4; // px — absorbs sub-pixel/rounding drift from scroll-margin-top landing
       for (const h of headings) {
-        if (h.getBoundingClientRect().top - OFFSET <= 0) {
+        const margin = parseFloat(getComputedStyle(h).scrollMarginTop) || 0;
+        if (h.getBoundingClientRect().top - margin <= TOLERANCE) {
           current = h;
         } else {
           break;
         }
       }
       tocLinks.forEach((link) => link.classList.remove('active'));
+      document.querySelectorAll('.toc-label').forEach((el) => el.classList.remove('active'));
+
       if (current) {
         document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
           .forEach((link) => link.classList.add('active'));
+      } else {
+        document.querySelectorAll('.toc-label').forEach((el) => el.classList.add('active'));
+      }
+
+      const currentTextEl = document.getElementById('toc-current-text');
+      if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
+    }
+
+    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    function positionGutter(el, offset, anchorStartPage, articleBottomPage, scrollY) {
+      if (!el) return;
+      const stopTop = articleBottomPage - el.offsetHeight - BOTTOM_BUFFER;
+      el.style.visibility = 'visible';
+
+      if (scrollY + offset < anchorStartPage) {
+        el.style.position = 'absolute';
+        el.style.top = `${anchorStartPage}px`;
+      } else if (scrollY + offset < stopTop) {
+        el.style.position = 'fixed';
+        el.style.top = `${offset}px`;
+      } else {
+        el.style.position = 'absolute';
+        el.style.top = `${stopTop}px`;
       }
     }
 
     function updateTocPositions() {
       const scrollY = window.scrollY;
-      const anchorStartPage = anchorTarget.getBoundingClientRect().top + scrollY;
+      const offset = getOffset();
+      const anchor = getAnchor();
+      const anchorStartPage = anchor.getBoundingClientRect().top + scrollY;
       const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
 
-      if (tocSidebar) {
-        const stopTop = articleBottomPage - tocSidebar.offsetHeight - BOTTOM_BUFFER;
-        tocSidebar.style.visibility = 'visible';
+      const inArticle = scrollY + offset >= anchorStartPage;
+      document.querySelectorAll('.toc-arrow').forEach((el) => el.classList.toggle('visible', inArticle));
 
-        if (scrollY + OFFSET < anchorStartPage) {
-          // Above the article — park it at the article's start (this is the
-          // exact page position the "fixed" branch below would place it at
-          // the moment you reach that point, so there's no jump on handoff).
-          tocSidebar.style.position = 'absolute';
-          tocSidebar.style.top = `${anchorStartPage}px`;
-        } else if (scrollY + OFFSET < stopTop) {
-          // Reading through the article — follow the viewport.
-          tocSidebar.style.position = 'fixed';
-          tocSidebar.style.top = `${OFFSET}px`;
-        } else {
-          // Past the article — park it here so it scrolls away with the
-          // page instead of overlapping the tags/author-card/footer.
-          tocSidebar.style.position = 'absolute';
-          tocSidebar.style.top = `${stopTop}px`;
-        }
+      if (isDesktop()) {
+        positionGutter(tocSidebar, offset, anchorStartPage, articleBottomPage, scrollY);
+        positionGutter(leftGutter, offset, anchorStartPage, articleBottomPage, scrollY);
+      } else {
+        if (tocSidebar) tocSidebar.style.visibility = 'hidden';
+        if (leftGutter) leftGutter.style.visibility = 'hidden';
       }
 
       if (mobileToc) {
-        const visible = scrollY + OFFSET >= anchorStartPage && scrollY + OFFSET < articleBottomPage;
-        if (!visible) mobileToc.removeAttribute('open'); // reset so it's always collapsed on re-entry
+        const visible = scrollY + offset >= anchorStartPage && scrollY + offset < articleBottomPage;
+        if (!visible) mobileToc.removeAttribute('open');
         mobileToc.classList.toggle('is-visible', visible);
       }
     }
@@ -518,13 +558,14 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
     updateActiveHeading();
     updateTocPositions();
 
-    const topLink = document.querySelector('.toc-top-link');
-    if (topLink) {
-      topLink.addEventListener('click', (e) => {
+    document.querySelectorAll('.toc-top-link').forEach((link) => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.pushState(null, '', window.location.pathname + window.location.search + '#');
+        document.querySelector('.toc-mobile')?.removeAttribute('open');
       });
-    }
+    });
 
     // Jumping to a section closes the mobile panel — otherwise it's left
     // sitting open over the top of the article you just navigated to.
