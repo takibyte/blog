@@ -29,16 +29,22 @@
     <a href="/about/">About</a>
   </nav>
   
-    <select id="theme-select" class="theme-select" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
@@ -50,16 +56,22 @@
   <a class="active" href="/logs/">Logs</a>
   <a href="/about/">About</a>
   
-    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
@@ -68,7 +80,7 @@
     <div class="breadcrumb">
       <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>Building a port scanner with Python
     </div>
-    <div class="log-cat cat-homelab mono">// TOOLS</div>
+    <div class="log-cat cat-homelab mono cat-tools">TOOLS</div>
     <h1 class="headline">Building a port scanner with Python</h1>
     <p class="dek">How I built a simple network port scanner from scratch with Python.</p>
     <div class="meta-row">
@@ -99,25 +111,47 @@
       <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// TB-2026-0005</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
       <nav class="toc-nav">
         <a href="#" class="toc-mobile-title toc-top-link">Building a port scanner with Python ↑</a>
+        <button type="button" class="toc-expand-all mono">expand all</button>
         
-      <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+        <button type="button" class="toc-group-toggle" data-group="what-is-a-port-scanner" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="what-is-a-port-scanner"><div class="toc-group-inner">
       <a href="#definition" class="toc-link toc-level-3" data-target="definition">Definition</a>
       <a href="#defender-utility" class="toc-link toc-level-3" data-target="defender-utility">Defender utility</a>
-      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a>
-      <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
-      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a>
-      <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
+        <button type="button" class="toc-group-toggle" data-group="why-this-project" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="why-this-project"><div class="toc-group-inner">
+      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+        <button type="button" class="toc-group-toggle" data-group="the-core-of-the-port-scanner" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-core-of-the-port-scanner"><div class="toc-group-inner">
       <a href="#the-python-socket-module" class="toc-link toc-level-3" data-target="the-python-socket-module">The Python socket module</a>
-      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a>
-      <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+        <button type="button" class="toc-group-toggle" data-group="making-the-first-socket-connection" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="making-the-first-socket-connection"><div class="toc-group-inner">
       <a href="#defining-the-scan-port-function" class="toc-link toc-level-3" data-target="defining-the-scan-port-function">Defining the scan port function</a>
       <a href="#socket-connect-function-options" class="toc-link toc-level-3" data-target="socket-connect-function-options">Socket connect function options</a>
       <a href="#printing-result-and-closing-the-socket" class="toc-link toc-level-3" data-target="printing-result-and-closing-the-socket">Printing result and closing the socket</a>
-      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a>
-      <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+        <button type="button" class="toc-group-toggle" data-group="scanning-multiple-ports" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="scanning-multiple-ports"><div class="toc-group-inner">
       <a href="#looping-through-a-range-of-ports" class="toc-link toc-level-3" data-target="looping-through-a-range-of-ports">Looping through a range of ports</a>
-      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a>
-      <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a>
+      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a></div></div></div>
+      <div class="toc-h2-row">
+        <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a></div>
       </nav>
     </details>
     <aside class="toc-crumb-desktop">
@@ -129,25 +163,47 @@
     </aside>
     <aside class="toc">
       <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
+      <button type="button" class="toc-expand-all mono">expand all</button>
       <nav class="toc-nav">
-      <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#what-is-a-port-scanner" class="toc-link toc-level-2" data-target="what-is-a-port-scanner">What is a port scanner?</a>
+        <button type="button" class="toc-group-toggle" data-group="what-is-a-port-scanner" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="what-is-a-port-scanner"><div class="toc-group-inner">
       <a href="#definition" class="toc-link toc-level-3" data-target="definition">Definition</a>
       <a href="#defender-utility" class="toc-link toc-level-3" data-target="defender-utility">Defender utility</a>
-      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a>
-      <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
-      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a>
-      <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+      <a href="#attacker-utility" class="toc-link toc-level-3" data-target="attacker-utility">Attacker utility</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#why-this-project" class="toc-link toc-level-2" data-target="why-this-project">Why this project?</a>
+        <button type="button" class="toc-group-toggle" data-group="why-this-project" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="why-this-project"><div class="toc-group-inner">
+      <a href="#comparison-to-scanners-like-nmap" class="toc-link toc-level-3" data-target="comparison-to-scanners-like-nmap">Comparison to scanners like Nmap</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-core-of-the-port-scanner" class="toc-link toc-level-2" data-target="the-core-of-the-port-scanner">The core of the port scanner</a>
+        <button type="button" class="toc-group-toggle" data-group="the-core-of-the-port-scanner" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-core-of-the-port-scanner"><div class="toc-group-inner">
       <a href="#the-python-socket-module" class="toc-link toc-level-3" data-target="the-python-socket-module">The Python socket module</a>
-      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a>
-      <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+      <a href="#the-socket-object" class="toc-link toc-level-3" data-target="the-socket-object">The socket object</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#making-the-first-socket-connection" class="toc-link toc-level-2" data-target="making-the-first-socket-connection">Making the first socket connection</a>
+        <button type="button" class="toc-group-toggle" data-group="making-the-first-socket-connection" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="making-the-first-socket-connection"><div class="toc-group-inner">
       <a href="#defining-the-scan-port-function" class="toc-link toc-level-3" data-target="defining-the-scan-port-function">Defining the scan port function</a>
       <a href="#socket-connect-function-options" class="toc-link toc-level-3" data-target="socket-connect-function-options">Socket connect function options</a>
       <a href="#printing-result-and-closing-the-socket" class="toc-link toc-level-3" data-target="printing-result-and-closing-the-socket">Printing result and closing the socket</a>
-      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a>
-      <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+      <a href="#running-the-program" class="toc-link toc-level-3" data-target="running-the-program">Running the program</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#scanning-multiple-ports" class="toc-link toc-level-2" data-target="scanning-multiple-ports">Scanning multiple ports</a>
+        <button type="button" class="toc-group-toggle" data-group="scanning-multiple-ports" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="scanning-multiple-ports"><div class="toc-group-inner">
       <a href="#looping-through-a-range-of-ports" class="toc-link toc-level-3" data-target="looping-through-a-range-of-ports">Looping through a range of ports</a>
-      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a>
-      <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a>
+      <a href="#improving-the-print-output" class="toc-link toc-level-3" data-target="improving-the-print-output">Improving the print output</a></div></div></div>
+      <div class="toc-h2-row">
+        <a href="#wrapping-up-this-entry" class="toc-link toc-level-2" data-target="wrapping-up-this-entry">Wrapping up this entry</a></div>
       </nav>
     </aside>
 
@@ -404,7 +460,7 @@ const menuToggle = document.getElementById('menuToggle');
 
     const OFFSET_DESKTOP = 48;   // px from viewport top the desktop sidebar sits at, matches its CSS top
     const OFFSET_MOBILE = 0;    // px — mobile bar fade-in trigger, tune independently of desktop
-    const ANCHOR_DESKTOP = document.querySelector('.breadcrumb') || article;
+    const ANCHOR_DESKTOP = document.querySelector('article.body') || article;
     const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // swap for a different element if mobile should anchor elsewhere
 
     function getOffset() { return isDesktop() ? OFFSET_DESKTOP : OFFSET_MOBILE; }
@@ -436,9 +492,43 @@ const menuToggle = document.getElementById('menuToggle');
 
       const currentTextEl = document.getElementById('toc-current-text');
       if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
+
+      document.querySelectorAll('.toc-current').forEach((el) => {
+        el.classList.toggle('toc-current-hidden', !current);
+      });
+
+      const currentGroupId = current ? parentGroup[current.id] : null;
+      updateGroups(currentGroupId);
     }
 
     const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    // Maps every heading id to the id of its "group" — itself if it's an H2,
+    // or the nearest preceding H2 if it's an H3. Drives which .toc-group
+    // stays open as you scroll (see updateGroups below).
+    const parentGroup = {};
+    {
+      let lastH2 = null;
+      headings.forEach((h) => {
+        if (h.tagName === 'H2') { lastH2 = h.id; parentGroup[h.id] = h.id; }
+        else { parentGroup[h.id] = lastH2; }
+      });
+    }
+
+    // Groups the reader has explicitly pinned open (via the per-group toggle
+    // or "expand all") — these stay open regardless of scroll position,
+    // layered on top of whichever group auto-opens from scrolling.
+    const pinnedGroups = new Set();
+
+    function updateGroups(currentGroupId) {
+      document.querySelectorAll('.toc-group[data-group-id]').forEach((group) => {
+        const id = group.dataset.groupId;
+        const expanded = pinnedGroups.has(id) || id === currentGroupId;
+        group.classList.toggle('expanded', expanded);
+        document.querySelectorAll(`.toc-group-toggle[data-group="${id}"]`)
+          .forEach((btn) => btn.setAttribute('aria-expanded', expanded ? 'true' : 'false'));
+      });
+    }
 
     function positionGutter(el, offset, anchorStartPage, articleBottomPage, scrollY) {
       if (!el) return;
@@ -505,6 +595,32 @@ const menuToggle = document.getElementById('menuToggle');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         history.pushState(null, '', window.location.pathname + window.location.search + '#');
         document.querySelector('.toc-mobile')?.removeAttribute('open');
+      });
+    });
+
+
+    document.querySelectorAll('.toc-group-toggle').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.dataset.group;
+        if (pinnedGroups.has(id)) pinnedGroups.delete(id); else pinnedGroups.add(id);
+        updateActiveHeading();
+      });
+    });
+
+    const allGroupIds = [...document.querySelectorAll('.toc-group[data-group-id]')]
+      .map((g) => g.dataset.groupId)
+      .filter((id, i, arr) => arr.indexOf(id) === i); // de-dupe: mobile + desktop both render the same groups
+
+    document.querySelectorAll('.toc-expand-all').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allPinned = allGroupIds.every((id) => pinnedGroups.has(id));
+        if (allPinned) pinnedGroups.clear();
+        else allGroupIds.forEach((id) => pinnedGroups.add(id));
+        document.querySelectorAll('.toc-expand-all')
+          .forEach((b) => { b.textContent = allPinned ? 'expand all' : 'collapse all'; });
+        updateActiveHeading();
       });
     });
 

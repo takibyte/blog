@@ -29,16 +29,22 @@
     <a href="/about/">About</a>
   </nav>
   
-    <select id="theme-select" class="theme-select" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
@@ -50,16 +56,22 @@
   <a class="active" href="/logs/">Logs</a>
   <a href="/about/">About</a>
   
-    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
@@ -68,7 +80,7 @@
     <div class="breadcrumb">
       <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>My path to cybersecurity
     </div>
-    <div class="log-cat cat-homelab mono">// NOTES</div>
+    <div class="log-cat cat-homelab mono cat-notes">NOTES</div>
     <h1 class="headline">My path to cybersecurity</h1>
     <p class="dek">A brief overview of my plans to level up my skill and knowledge in order to enter into the cybersecurity profession.</p>
     <div class="meta-row">
@@ -95,14 +107,23 @@
       <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// TB-2026-0001</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
       <nav class="toc-nav">
         <a href="#" class="toc-mobile-title toc-top-link">My path to cybersecurity ↑</a>
+        <button type="button" class="toc-expand-all mono">expand all</button>
         
-      <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+        <button type="button" class="toc-group-toggle" data-group="the-plan" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-plan"><div class="toc-group-inner">
       <a href="#entry-point-and-covering-theory-with-certs" class="toc-link toc-level-3" data-target="entry-point-and-covering-theory-with-certs">Entry point and covering theory with certs</a>
       <a href="#strategy-for-developing-practical-abilities" class="toc-link toc-level-3" data-target="strategy-for-developing-practical-abilities">Strategy for developing practical abilities</a>
-      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a>
-      <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+        <button type="button" class="toc-group-toggle" data-group="the-roadmap" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-roadmap"><div class="toc-group-inner">
       <a href="#certifications-and-path-completions" class="toc-link toc-level-3" data-target="certifications-and-path-completions">Certifications and path completions</a>
-      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a>
+      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a></div></div></div>
       </nav>
     </details>
     <aside class="toc-crumb-desktop">
@@ -114,14 +135,23 @@
     </aside>
     <aside class="toc">
       <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
+      <button type="button" class="toc-expand-all mono">expand all</button>
       <nav class="toc-nav">
-      <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-plan" class="toc-link toc-level-2" data-target="the-plan">The plan</a>
+        <button type="button" class="toc-group-toggle" data-group="the-plan" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-plan"><div class="toc-group-inner">
       <a href="#entry-point-and-covering-theory-with-certs" class="toc-link toc-level-3" data-target="entry-point-and-covering-theory-with-certs">Entry point and covering theory with certs</a>
       <a href="#strategy-for-developing-practical-abilities" class="toc-link toc-level-3" data-target="strategy-for-developing-practical-abilities">Strategy for developing practical abilities</a>
-      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a>
-      <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+      <a href="#homelab-website" class="toc-link toc-level-3" data-target="homelab-website">Homelab website</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#the-roadmap" class="toc-link toc-level-2" data-target="the-roadmap">The roadmap</a>
+        <button type="button" class="toc-group-toggle" data-group="the-roadmap" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="the-roadmap"><div class="toc-group-inner">
       <a href="#certifications-and-path-completions" class="toc-link toc-level-3" data-target="certifications-and-path-completions">Certifications and path completions</a>
-      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a>
+      <a href="#homelab-project-ideas" class="toc-link toc-level-3" data-target="homelab-project-ideas">Homelab project ideas</a></div></div></div>
       </nav>
     </aside>
 
@@ -252,7 +282,7 @@ const menuToggle = document.getElementById('menuToggle');
 
     const OFFSET_DESKTOP = 48;   // px from viewport top the desktop sidebar sits at, matches its CSS top
     const OFFSET_MOBILE = 0;    // px — mobile bar fade-in trigger, tune independently of desktop
-    const ANCHOR_DESKTOP = document.querySelector('.breadcrumb') || article;
+    const ANCHOR_DESKTOP = document.querySelector('article.body') || article;
     const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // swap for a different element if mobile should anchor elsewhere
 
     function getOffset() { return isDesktop() ? OFFSET_DESKTOP : OFFSET_MOBILE; }
@@ -284,9 +314,43 @@ const menuToggle = document.getElementById('menuToggle');
 
       const currentTextEl = document.getElementById('toc-current-text');
       if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
+
+      document.querySelectorAll('.toc-current').forEach((el) => {
+        el.classList.toggle('toc-current-hidden', !current);
+      });
+
+      const currentGroupId = current ? parentGroup[current.id] : null;
+      updateGroups(currentGroupId);
     }
 
     const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+    // Maps every heading id to the id of its "group" — itself if it's an H2,
+    // or the nearest preceding H2 if it's an H3. Drives which .toc-group
+    // stays open as you scroll (see updateGroups below).
+    const parentGroup = {};
+    {
+      let lastH2 = null;
+      headings.forEach((h) => {
+        if (h.tagName === 'H2') { lastH2 = h.id; parentGroup[h.id] = h.id; }
+        else { parentGroup[h.id] = lastH2; }
+      });
+    }
+
+    // Groups the reader has explicitly pinned open (via the per-group toggle
+    // or "expand all") — these stay open regardless of scroll position,
+    // layered on top of whichever group auto-opens from scrolling.
+    const pinnedGroups = new Set();
+
+    function updateGroups(currentGroupId) {
+      document.querySelectorAll('.toc-group[data-group-id]').forEach((group) => {
+        const id = group.dataset.groupId;
+        const expanded = pinnedGroups.has(id) || id === currentGroupId;
+        group.classList.toggle('expanded', expanded);
+        document.querySelectorAll(`.toc-group-toggle[data-group="${id}"]`)
+          .forEach((btn) => btn.setAttribute('aria-expanded', expanded ? 'true' : 'false'));
+      });
+    }
 
     function positionGutter(el, offset, anchorStartPage, articleBottomPage, scrollY) {
       if (!el) return;
@@ -353,6 +417,32 @@ const menuToggle = document.getElementById('menuToggle');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         history.pushState(null, '', window.location.pathname + window.location.search + '#');
         document.querySelector('.toc-mobile')?.removeAttribute('open');
+      });
+    });
+
+
+    document.querySelectorAll('.toc-group-toggle').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.dataset.group;
+        if (pinnedGroups.has(id)) pinnedGroups.delete(id); else pinnedGroups.add(id);
+        updateActiveHeading();
+      });
+    });
+
+    const allGroupIds = [...document.querySelectorAll('.toc-group[data-group-id]')]
+      .map((g) => g.dataset.groupId)
+      .filter((id, i, arr) => arr.indexOf(id) === i); // de-dupe: mobile + desktop both render the same groups
+
+    document.querySelectorAll('.toc-expand-all').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allPinned = allGroupIds.every((id) => pinnedGroups.has(id));
+        if (allPinned) pinnedGroups.clear();
+        else allGroupIds.forEach((id) => pinnedGroups.add(id));
+        document.querySelectorAll('.toc-expand-all')
+          .forEach((b) => { b.textContent = allPinned ? 'expand all' : 'collapse all'; });
+        updateActiveHeading();
       });
     });
 

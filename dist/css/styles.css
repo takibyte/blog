@@ -266,7 +266,7 @@ nav{display:flex;gap:30px;font-size:14px;color:var(--muted);}
 nav a:hover{color:var(--ink);}
 nav a.active{color:var(--accent-1);}
 
-.theme-select{
+/* .theme-select{
   font-family:var(--font-mono);
   font-size:12px;
   background:var(--surface);
@@ -281,6 +281,88 @@ nav a.active{color:var(--accent-1);}
 .theme-select.mobile{
   width:100%;
   margin:16px 0 20px;
+} */
+
+/* ---- theme dropdown (desktop) ----
+   Styled after .toc-mobile-sections' summary/panel pattern: bordered
+   toggle, chevron that rotates on open, menu of options below. */
+
+.theme-dropdown{
+  position:relative;
+  font-family:var(--font-mono);
+}
+.theme-dropdown-toggle{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;
+  background:var(--surface);
+  color:var(--ink);
+  border:1px solid var(--line);
+  padding:7px 9px;
+  border-radius:6px;
+  cursor:pointer;
+  list-style:none;
+  width:128px;
+}
+.theme-dropdown-label{
+  flex:1 1 auto;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.theme-dropdown-toggle::-webkit-details-marker{display:none;}
+.theme-dropdown-toggle:hover{border-color:var(--accent-1);}
+.theme-dropdown-chevron{color:var(--muted);flex-shrink:0;transition:transform .2s ease;}
+.theme-dropdown[open] .theme-dropdown-chevron{transform:rotate(180deg);}
+
+.theme-dropdown-menu{
+  position:absolute;
+  top:calc(100% + 6px);
+  right:0;
+  min-width:128px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:6px;
+  display:flex;flex-direction:column;gap:2px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  z-index:60;
+}
+
+.theme-option{
+  display:block;width:100%;text-align:left;
+  background:none;border:none;
+  /* border-left:2px solid transparent; */
+  padding:8px 10px;
+  border-radius:4px;
+  font-size:12.5px;color:var(--muted);
+  cursor:pointer;
+}
+.theme-option:hover{color:var(--ink);background:color-mix(in srgb, var(--line) 50%, transparent);}
+.theme-option.active{color:var(--accent-1);border-left-color:var(--accent-1);}
+
+/* ---- theme dropdown (mobile) ----
+   No toggle of its own — the hamburger's mobile-nav dropdown is already
+   the disclosure, so this is a flat list styled like .toc-nav's links. */
+/* ---- theme dropdown (mobile) ----
+   Same details/summary widget as desktop, but full-width/left-aligned
+   and its menu sits in normal document flow below the toggle (not
+   floated), so it just pushes the rest of .mobile-nav down rather than
+   overlaying anything. */
+.theme-dropdown.theme-dropdown-mobile{
+  width:100%;
+  margin:16px 0 20px;
+}
+.theme-dropdown-mobile .theme-dropdown-toggle{
+  width:100%;
+  justify-content:space-between;
+}
+.theme-dropdown-mobile .theme-dropdown-menu{
+  position:static;
+  margin-top:8px;
+  width:100%;
+  box-shadow:none;
+  max-height:none;
 }
 
 .subscribe{
@@ -336,14 +418,17 @@ footer{
 
 .mobile-nav{
   display:none;
-  max-width:1200px;margin:0 auto;
+  max-width:1280px;margin:0 auto;
   padding:0 32px;
   border-bottom:1px solid var(--line);
   overflow:hidden;
   max-height:0;
   transition:max-height .2s ease;
 }
-.mobile-nav.open{max-height:280px;}
+.mobile-nav.open{
+  max-height:100dvh;
+  overflow-y:auto;
+}
 .mobile-nav a{
   display:block;
   padding:16px 0;
@@ -1082,8 +1167,7 @@ article.body img{
   .subscribe{display:none;}
   .menu-toggle{display:flex;}
   .mobile-nav{display:block;}
-  #theme-select{display:none;}
-  .theme-select.mobile{display:block;}
+  .theme-dropdown:not(.theme-dropdown-mobile){display:none;}
 }
 @media (max-width:560px){
   .grid{grid-template-columns:1fr;}
@@ -1100,7 +1184,7 @@ article.body img{
   .subscribe{display:none;}
   .menu-toggle{display:flex;}
   .mobile-nav{display:block;}
-  #theme-select{display:none;}
+  .theme-dropdown:not(.theme-dropdown-mobile){display:none;}
 }
 
 /* ---- Logs (archive) ---- */
@@ -1192,7 +1276,7 @@ article.body img{
   display:block;
   font-size:12.5px;color:var(--accent-1);letter-spacing:0.05em;
   margin-bottom:16px;
-  border-left:2px solid transparent;
+  /* border-left:2px solid transparent; */
   /* padding-left:6px; */
   padding-bottom:14px;
   border-bottom:1px solid var(--line);
@@ -1230,6 +1314,8 @@ article.body img{
   min-width:0;    /* same trick, one level deeper, so the text span below can actually shrink */
   color:var(--muted);font-weight:normal;
 }
+.toc-current-hidden{display:none;}
+
 #toc-current-text{
   display:inline-block;
   min-width:0;
@@ -1237,11 +1323,16 @@ article.body img{
   text-overflow:ellipsis;
   white-space:nowrap;
 }
+
 .toc-mobile summary::after{flex-shrink:0;padding-left:12px;} /* keeps the "+" a fixed size regardless of how tight things get */
 
 
 .toc-top-link:hover{color:var(--accent-1);}
 .toc-nav{display:flex;flex-direction:column;gap:9px;min-width:0;}
+
+.toc-nav > .toc-expand-all{
+  margin-bottom:0;
+}
 .toc-link{
   font-size:13px;color:var(--muted);line-height:1.5;
   border-left:2px solid transparent;padding-left:12px;
@@ -1285,7 +1376,7 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
     top:110px;
     visibility:hidden; /* prevents a flash at the wrong spot before the script runs and positions it — the script sets this to visible immediately */
     /* 380 = half of .wrap's 760px max-width, 40 = gap, 200 = toc width. */
-    right:calc(50% - 380px - 40px - 200px);
+    right:calc(50% - 380px - 52px - 200px);
     max-height:calc(100vh - 72px);
     overflow-y:auto;
   }
@@ -1304,13 +1395,73 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
     position:fixed;
     top:110px;
     visibility:hidden;
-    left:calc(50% - 380px - 40px - 200px);
+    left:calc(50% - 380px - 52px - 200px);
     max-height:calc(100vh - 72px);
     overflow-y:auto;
   }
+}
 
 .toc-crumb-nav{display:flex;flex-direction:column;gap:14px;}
 .toc-crumb-nav-link{font-size:12.5px;color:var(--muted);line-height:1.5;}
 .toc-crumb-nav-link:hover{color:var(--ink);}
 .toc-crumb-nav-link.next{text-align:right;}
+
+/* ---- collapsible H3 groups within the TOC ----
+   Each H2 with H3 children gets wrapped in .toc-group > .toc-group-inner
+   using the CSS grid 0fr/1fr accordion trick — grid-template-rows
+   animates smoothly to the group's actual content height with no JS
+   measuring, unlike a fixed max-height guess. Necessary here since a
+   group's H3 count varies log to log. */
+.toc-h2-row{
+  display:flex;align-items:center;gap:6px;
 }
+.toc-h2-row .toc-link{flex:1 1 auto;}
+
+.toc-group-toggle{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  width:18px;height:18px;
+  background:none;border:none;
+  color:var(--muted);cursor:pointer;padding:0;
+}
+.toc-group-toggle:hover{color:var(--ink);}
+.toc-group-toggle svg{transition:transform .2s ease;}
+.toc-group-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
+.toc-h2-row:hover .toc-group-toggle svg{transform:rotate(180deg);}
+
+.toc-group{
+  display:grid;
+  grid-template-rows:0fr;
+  overflow:hidden;
+  transition:grid-template-rows .25s ease;
+}
+.toc-group-inner{
+  min-height:0;
+  display:flex;flex-direction:column;gap:9px;
+  padding-top:0;
+  transition:padding-top .25s ease;
+}
+.toc-group.expanded .toc-group-inner{
+  padding-top:6px;
+}
+.toc-group.expanded{grid-template-rows:1fr;}
+
+
+.toc-expand-all{
+  display:block;
+  text-align:left;
+  background:none;border:none;
+  font-size:11px;color:var(--muted);
+  cursor:pointer;padding:0;
+  margin-bottom:14px;
+}
+.toc-expand-all:hover{color:var(--accent-1);}
+
+.toc-group-wrap{
+
+}
+.toc-group-wrap:hover .toc-group{
+  grid-template-rows:1fr;
+}
+
+

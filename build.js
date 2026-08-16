@@ -89,32 +89,51 @@ function statusBadgeClass(status) {
   return { active: 'status-active', complete: 'status-complete', paused: 'status-paused' }[status] ?? '';
 }
 
-function renderThemeSelect() {
-  return `
-    <select id="theme-select" class="theme-select" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>`
+const THEMES = [
+  { value: 'dark', label: 'Dark' },
+  { value: 'light', label: 'Light' },
+  { value: 'tokyonight', label: 'Tokyo night' },
+  { value: 'nord', label: 'Nord' },
+  { value: 'redteam', label: 'Red team' },
+  { value: 'blueteam', label: 'Blue team' },
+  { value: 'cyberpunk', label: 'Cyberpunk' },
+  { value: 'paper', label: 'Paper' },
+];
+
+function renderThemeOptions() {
+  return THEMES.map(t => `<button type="button" class="theme-option mono" data-theme-value="${t.value}" role="option">${t.label}</button>`).join('\n        ');
 }
 
+// Desktop — a <details> dropdown styled after the mobile TOC's
+// summary/panel pattern (chevron toggle, bordered surface menu),
+// instead of a native <select>.
+function renderThemeSelect() {
+  return `
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        ${renderThemeOptions()}
+      </div>
+    </details>`;
+}
+
+// Mobile — same collapsible details/summary pattern as desktop, just
+// full-width and left-aligned rather than a floating menu, so it reads
+// as part of the stacked nav rather than a separate floating control.
 function renderThemeSelectMobile() {
   return `
-    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>`
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        ${renderThemeOptions()}
+      </div>
+    </details>`;
 }
 
 /* ============================================================================
@@ -236,27 +255,71 @@ function renderSeriesBadge(seriesInfo) {
 }
 
 // Table of contents — shared link list markup used by both the desktop
-// sidebar and the mobile collapsible panel.
+// sidebar and the mobile collapsible panel. H3s are grouped under their
+// preceding H2 into a collapsible block (see .toc-group in styles.css),
+// so a log with a lot of sub-sections doesn't turn the sidebar into a
+// wall of text — only the group around wherever the reader currently is
+// stays open (see the parent-heading tracking in log.html's script).
 function renderTocLinks(headings) {
-  return headings.map(h => `
-      <a href="#${h.id}" class="toc-link toc-level-${h.level}" data-target="${h.id}">${h.text}</a>`).join('');
+  let html = '';
+  let inGroup = false;
+
+  headings.forEach((h, i) => {
+    if (h.level === 2) {
+      if (inGroup) { html += `</div></div></div>`; inGroup = false; } // one more closing div for the wrapper
+
+      const hasChildren = headings[i + 1] && headings[i + 1].level === 3;
+      const wrapOpen = hasChildren ? `<div class="toc-group-wrap">` : '';
+      html += `
+      ${wrapOpen}<div class="toc-h2-row">
+        <a href="#${h.id}" class="toc-link toc-level-2" data-target="${h.id}">${h.text}</a>`;
+      if (hasChildren) {
+        html += `
+        <button type="button" class="toc-group-toggle" data-group="${h.id}" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>`;
+      }
+      html += `</div>`;
+
+      if (hasChildren) {
+        html += `<div class="toc-group" data-group-id="${h.id}"><div class="toc-group-inner">`;
+        inGroup = true;
+      } else if (!hasChildren) {
+        // no wrapper was opened for this H2, nothing more to do
+      }
+    } else {
+      html += `
+      <a href="#${h.id}" class="toc-link toc-level-3" data-target="${h.id}">${h.text}</a>`;
+    }
+  });
+
+  if (inGroup) html += `</div></div></div>`;
+  return html;
+}
+
+function hasSubheadings(headings) {
+  return headings.some((h, i) => h.level === 2 && headings[i + 1] && headings[i + 1].level === 3);
 }
 
 function renderTocMobile(headings, title, id) {
+  const expandAll = hasSubheadings(headings) ? `<button type="button" class="toc-expand-all mono">expand all</button>` : '';
   return `
     <details class="toc-mobile">
       <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// ${id}</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
       <nav class="toc-nav">
         <a href="#" class="toc-mobile-title toc-top-link">${title} ↑</a>
+        ${expandAll}
         ${renderTocLinks(headings)}
       </nav>
     </details>`;
 }
 
 function renderTocDesktop(headings, title, id) {
+  const expandAll = hasSubheadings(headings) ? `<button type="button" class="toc-expand-all mono">expand all</button>` : '';
   return `
     <aside class="toc">
       <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
+      ${expandAll}
       <nav class="toc-nav">${renderTocLinks(headings)}
       </nav>
     </aside>`;
@@ -620,6 +683,7 @@ rawLogs.forEach((log) => {
     .replaceAll('{{author}}', data.author ?? '')
     .replaceAll('{{date}}', formattedDate ?? '')
     .replace('{{category}}', (data.category ?? '').toUpperCase())
+    .replace('{{categoryClass}}', data.category ?? '')
     .replaceAll('{{tags}}', renderTags(tags))
     .replaceAll('{{id}}', id)
     .replace('{{cover}}', data.cover ? `<img class="log-media" src="./images/${data.cover}" alt="">` : '')

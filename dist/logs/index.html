@@ -29,16 +29,22 @@
     <a href="/about/">About</a>
   </nav>
   
-    <select id="theme-select" class="theme-select" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
   <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
@@ -50,16 +56,22 @@
   <a class="active" href="/logs/">Logs</a>
   <a href="/about/">About</a>
   
-    <select id="theme-select-mobile" class="theme-select mobile" aria-label="Theme">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-      <option value="tokyonight">Tokyo night</option>
-      <option value="nord">Nord</option>
-      <option value="redteam">Red team</option>
-      <option value="blueteam">Blue team</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="paper">Paper</option>
-    </select>
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
