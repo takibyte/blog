@@ -646,7 +646,7 @@ const menuToggle = document.getElementById('menuToggle');
       link.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        history.pushState(null, '', window.location.pathname + window.location.search + '#');
+        history.pushState(null, '', window.location.pathname + window.location.search + '');
         document.querySelector('.toc-mobile')?.removeAttribute('open');
       });
     });

@@ -1444,6 +1444,9 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
 .toc-group.expanded .toc-group-inner{
   padding-top:6px;
 }
+.toc-group-wrap:hover .toc-group-inner{
+  padding-top:6px;
+}
 .toc-group.expanded{grid-template-rows:1fr;}
 
 
