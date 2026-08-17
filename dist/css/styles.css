@@ -1541,12 +1541,3 @@ article.body img{
   border-radius:4px;
   cursor:zoom-out;
 }
-
-@media (max-width:900px){
-  .lightbox img{
-    max-width:100vw;
-    border-radius:0px;
-  }
-}
-
-
