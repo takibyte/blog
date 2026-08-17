@@ -75,38 +75,7 @@
   <!-- <a class="subscribe" href="#">subscribe →</a> -->
 </div>
 
-<div class="wrap">
-  <div class="log-header page-header-spacing">
-    <div class="breadcrumb">
-      <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span>Upgrading the port scanner with multi-threading
-    </div>
-    <div class="log-cat cat-homelab mono cat-tools">TOOLS</div>
-    <h1 class="headline">Upgrading the port scanner with multi-threading</h1>
-    <p class="dek">Switching out the loop logic for multi-threading, and handling errors.</p>
-    <div class="meta-row">
-      <a href="/about/"><div class="author-avatar"></div></a>
-      <div class="meta-text">
-        <div class="name"><a href="/about/">takibyte</a></div>
-        <div class="sub mono">
-          <span>14 June 2026 · 10 min</span>
-          <span>TB-2026-0006</span>
-        </div>
-      </div>
-      <!-- <div class="stats">
-        <span></span>
-      </div> -->
-    </div>
-  </div>
 
-  <img class="log-media" src="./images/cover.webp" alt="">
-
-  
-    <div class="series-badge">
-      <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
-      <span class="mono">2 of 3</span>
-    </div>
-
-  
     <details class="toc-mobile">
       <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// TB-2026-0006</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
       <nav class="toc-nav">
@@ -149,6 +118,10 @@
         <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a></div>
       </nav>
     </details>
+
+<div class="log-grid">
+
+  
     <aside class="toc-crumb-desktop">
       <a href="#" class="toc-label mono toc-top-link toc-title-link">// TB-2026-0006</a>
       <div class="toc-crumb-nav">
@@ -156,49 +129,40 @@
         <a href="/logs/improving-the-port-scanner-with-argparse/" class="toc-crumb-nav-link next">Improving the port scanner with argparse →</a>
       </div>
     </aside>
-    <aside class="toc">
-      <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
-      <button type="button" class="toc-expand-all mono">expand all</button>
-      <nav class="toc-nav">
-      <div class="toc-h2-row">
-        <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a></div>
-      <div class="toc-group-wrap"><div class="toc-h2-row">
-        <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
-        <button type="button" class="toc-group-toggle" data-group="error-handling" aria-expanded="false" aria-label="Toggle subsections">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button></div><div class="toc-group" data-group-id="error-handling"><div class="toc-group-inner">
-      <a href="#try-and-except-error-handling-in-python" class="toc-link toc-level-3" data-target="try-and-except-error-handling-in-python">Try and except — error handling in Python</a>
-      <a href="#handling-service-name-retrieval" class="toc-link toc-level-3" data-target="handling-service-name-retrieval">Handling service name retrieval</a>
-      <a href="#handling-the-main-socket-connection" class="toc-link toc-level-3" data-target="handling-the-main-socket-connection">Handling the main socket connection</a>
-      <a href="#handling-the-main-function-call" class="toc-link toc-level-3" data-target="handling-the-main-function-call">Handling the main function call</a></div></div></div>
-      <div class="toc-group-wrap"><div class="toc-h2-row">
-        <a href="#from-loops-to-threads" class="toc-link toc-level-2" data-target="from-loops-to-threads">From loops to threads</a>
-        <button type="button" class="toc-group-toggle" data-group="from-loops-to-threads" aria-expanded="false" aria-label="Toggle subsections">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button></div><div class="toc-group" data-group-id="from-loops-to-threads"><div class="toc-group-inner">
-      <a href="#the-problem-with-looping-a-port-scan" class="toc-link toc-level-3" data-target="the-problem-with-looping-a-port-scan">The problem with looping a port scan</a>
-      <a href="#the-advantages-of-multi-threading" class="toc-link toc-level-3" data-target="the-advantages-of-multi-threading">The advantages of multi-threading</a>
-      <a href="#introducing-with-statements" class="toc-link toc-level-3" data-target="introducing-with-statements">Introducing 'with' statements</a></div></div></div>
-      <div class="toc-group-wrap"><div class="toc-h2-row">
-        <a href="#implementing-multi-threading" class="toc-link toc-level-2" data-target="implementing-multi-threading">Implementing multi-threading</a>
-        <button type="button" class="toc-group-toggle" data-group="implementing-multi-threading" aria-expanded="false" aria-label="Toggle subsections">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button></div><div class="toc-group" data-group-id="implementing-multi-threading"><div class="toc-group-inner">
-      <a href="#unpacking-the-lambda-function" class="toc-link toc-level-3" data-target="unpacking-the-lambda-function">Unpacking the lambda function</a>
-      <a href="#running-the-scanner-with-multi-threading" class="toc-link toc-level-3" data-target="running-the-scanner-with-multi-threading">Running the scanner with multi-threading</a></div></div></div>
-      <div class="toc-group-wrap"><div class="toc-h2-row">
-        <a href="#race-conditions" class="toc-link toc-level-2" data-target="race-conditions">Race conditions</a>
-        <button type="button" class="toc-group-toggle" data-group="race-conditions" aria-expanded="false" aria-label="Toggle subsections">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </button></div><div class="toc-group" data-group-id="race-conditions"><div class="toc-group-inner">
-      <a href="#resolving-race-conditions-with-a-threading-lock" class="toc-link toc-level-3" data-target="resolving-race-conditions-with-a-threading-lock">Resolving race conditions with a threading lock</a></div></div></div>
-      <div class="toc-h2-row">
-        <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a></div>
-      </nav>
-    </aside>
 
-  <article class="body">
-    <h2 id="recapping-the-last-entry">Recapping the last entry</h2>
+  <div class="wrap">
+    <div class="log-header page-header-spacing">
+      <div class="breadcrumb">
+        <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span><a href="">Upgrading the port scanner with multi-threading</a>
+      </div>
+      <div class="log-cat cat-homelab mono cat-tools">TOOLS</div>
+      <h1 class="headline">Upgrading the port scanner with multi-threading</h1>
+      <p class="dek">Switching out the loop logic for multi-threading, and handling errors.</p>
+      <div class="meta-row">
+        <a href="/about/"><div class="author-avatar"></div></a>
+        <div class="meta-text">
+          <div class="name"><a href="/about/">takibyte</a></div>
+          <div class="sub mono">
+            <span>14 June 2026 · 10 min</span>
+            <span>TB-2026-0006</span>
+          </div>
+        </div>
+        <!-- <div class="stats">
+          <span></span>
+        </div> -->
+      </div>
+    </div>
+
+    <img class="log-media" src="./images/cover.webp" alt="">
+
+    
+    <div class="series-badge">
+      <a href="/projects/pscan-multi-threaded-port-scanner/">Part of project: pscan — Multi-threaded port-scanner →</a>
+      <span class="mono">2 of 3</span>
+    </div>
+
+    <article class="body">
+      <h2 id="recapping-the-last-entry">Recapping the last entry</h2>
 <p>In the previous log entry, I showed how I made the fundamentals of the port scanner: setting up an initial socket connection within a function, and then looping that function through a range of ports.</p>
 <p>However, though the scanner functions fine right now, it is missing some things that will improve it significantly.</p>
 <h2 id="error-handling">Error handling</h2>
@@ -445,27 +409,27 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
 <p>And there we go, in this log entry we have: implemented error handling to carefully handle some errors, restructured the code using &#39;with&#39; statements, and implemented multi-threading with ThreadPoolExecutor(), whilst protecting from race conditions with threading.Lock().</p>
 <p>In the next and final log entry, I will be adding argparse functionality — so the port scanner is CLI interactive — as well as add some other polishing touches.</p>
 
-  </article>
+    </article>
 
-  <div class="tags">
-    <span class="tag">Tools</span>
-    <span class="tag">Python</span>
-    <span class="tag">TCP/IP</span>
-    <span class="tag">Networking</span>
-  </div>
-
-  <a href="/about/">
-    <div class="author-card">
-      <div class="author-avatar"></div>
-      <div>
-        <h4>takibyte</h4>
-        <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
-      </div>
+    <div class="tags">
+      <a href="/logs/?q=tools" class="tag">Tools</a>
+    <a href="/logs/?q=python" class="tag">Python</a>
+    <a href="/logs/?q=tcp%2Fip" class="tag">TCP/IP</a>
+    <a href="/logs/?q=networking" class="tag">Networking</a>
     </div>
-  </a>
 
-  <div class="log-nav">
-    <a href="/logs/building-a-port-scanner-with-python/">
+    <a href="/about/">
+      <div class="author-card">
+        <div class="author-avatar"></div>
+        <div>
+          <h4>takibyte</h4>
+          <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
+        </div>
+      </div>
+    </a>
+
+    <div class="log-nav">
+      <a href="/logs/building-a-port-scanner-with-python/">
       <div class="dir">← Previous</div>
       <div class="ptitle">Building a port scanner with Python</div>
     </a>
@@ -473,7 +437,51 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
       <div class="dir">Next →</div>
       <div class="ptitle">Improving the port scanner with argparse</div>
     </a>
+    </div>
   </div>
+
+  
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
+      <button type="button" class="toc-expand-all mono">expand all</button>
+      <nav class="toc-nav">
+      <div class="toc-h2-row">
+        <a href="#recapping-the-last-entry" class="toc-link toc-level-2" data-target="recapping-the-last-entry">Recapping the last entry</a></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#error-handling" class="toc-link toc-level-2" data-target="error-handling">Error handling</a>
+        <button type="button" class="toc-group-toggle" data-group="error-handling" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="error-handling"><div class="toc-group-inner">
+      <a href="#try-and-except-error-handling-in-python" class="toc-link toc-level-3" data-target="try-and-except-error-handling-in-python">Try and except — error handling in Python</a>
+      <a href="#handling-service-name-retrieval" class="toc-link toc-level-3" data-target="handling-service-name-retrieval">Handling service name retrieval</a>
+      <a href="#handling-the-main-socket-connection" class="toc-link toc-level-3" data-target="handling-the-main-socket-connection">Handling the main socket connection</a>
+      <a href="#handling-the-main-function-call" class="toc-link toc-level-3" data-target="handling-the-main-function-call">Handling the main function call</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#from-loops-to-threads" class="toc-link toc-level-2" data-target="from-loops-to-threads">From loops to threads</a>
+        <button type="button" class="toc-group-toggle" data-group="from-loops-to-threads" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="from-loops-to-threads"><div class="toc-group-inner">
+      <a href="#the-problem-with-looping-a-port-scan" class="toc-link toc-level-3" data-target="the-problem-with-looping-a-port-scan">The problem with looping a port scan</a>
+      <a href="#the-advantages-of-multi-threading" class="toc-link toc-level-3" data-target="the-advantages-of-multi-threading">The advantages of multi-threading</a>
+      <a href="#introducing-with-statements" class="toc-link toc-level-3" data-target="introducing-with-statements">Introducing 'with' statements</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#implementing-multi-threading" class="toc-link toc-level-2" data-target="implementing-multi-threading">Implementing multi-threading</a>
+        <button type="button" class="toc-group-toggle" data-group="implementing-multi-threading" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="implementing-multi-threading"><div class="toc-group-inner">
+      <a href="#unpacking-the-lambda-function" class="toc-link toc-level-3" data-target="unpacking-the-lambda-function">Unpacking the lambda function</a>
+      <a href="#running-the-scanner-with-multi-threading" class="toc-link toc-level-3" data-target="running-the-scanner-with-multi-threading">Running the scanner with multi-threading</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#race-conditions" class="toc-link toc-level-2" data-target="race-conditions">Race conditions</a>
+        <button type="button" class="toc-group-toggle" data-group="race-conditions" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="race-conditions"><div class="toc-group-inner">
+      <a href="#resolving-race-conditions-with-a-threading-lock" class="toc-link toc-level-3" data-target="resolving-race-conditions-with-a-threading-lock">Resolving race conditions with a threading lock</a></div></div></div>
+      <div class="toc-h2-row">
+        <a href="#what-weve-covered-and-whats-next" class="toc-link toc-level-2" data-target="what-weve-covered-and-whats-next">What we've covered and what's next</a></div>
+      </nav>
+    </aside>
+
 </div>
 
 <footer>
@@ -483,208 +491,205 @@ In the code block above I have enabled access to <code>threading.Lock()</code> b
 
 <script>
 const menuToggle = document.getElementById('menuToggle');
-  const mobileNav = document.getElementById('mobileNav');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    menuToggle.classList.toggle('open', isOpen);
-    menuToggle.setAttribute('aria-expanded', isOpen);
-  });
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  menuToggle.classList.toggle('open', isOpen);
+  menuToggle.setAttribute('aria-expanded', isOpen);
+});
 
-  // Table of contents — desktop sidebar + mobile panel behavior. One scroll
-  // handler drives all of it: (a) which heading is "active" in whichever
-  // TOC is currently visible, (b) the desktop sidebar's hide/fixed/park
-  // state machine, and (c) the mobile panel fading in once you reach the
-  // cover/article and fading out again past the end of it. Both (b) and
-  // (c) share the same live-recomputed anchor/article boundaries each
-  // frame — nothing is cached from page load, so there's nothing that can
-  // go stale if the mobile nav dropdown opens and shifts the layout above.
-  // Mobile and desktop each get their own anchor + offset (see
-  // getAnchor()/getOffset() below) so the two breakpoints' fade/park
-  // points can be tuned independently.
-  const tocSidebar = document.querySelector('.toc');
-  const mobileToc = document.querySelector('.toc-mobile');
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const leftGutter = document.querySelector('.toc-crumb-desktop');
+// Table of contents — active-heading tracking, arrow fade, TOC group
+// expand/collapse, and the mobile bar's fade in/out. Gutter POSITIONING
+// is no longer handled here — .log-grid + position:sticky (see
+// styles.css) does that natively now, so there's no JS position/fixed/
+// absolute state machine anymore.
+const tocSidebar = document.querySelector('.toc');
+const mobileToc = document.querySelector('.toc-mobile');
+const tocLinks = document.querySelectorAll('.toc-link');
+const leftGutter = document.querySelector('.toc-crumb-desktop');
 
-  if (tocSidebar || mobileToc || leftGutter) {
-    const article = document.querySelector('article.body');
+if (tocSidebar || mobileToc || leftGutter) {
+  const article = document.querySelector('article.body');
+  const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // only the mobile bar still needs an anchor — its fade in/out is scroll-position-based
 
-    const isDesktop = () => window.matchMedia('(min-width:1280px)').matches;
-
-    const OFFSET_DESKTOP = 48;   // px from viewport top the desktop sidebar sits at, matches its CSS top
-    const OFFSET_MOBILE = 0;    // px — mobile bar fade-in trigger, tune independently of desktop
-    const ANCHOR_DESKTOP = document.querySelector('article.body') || article;
-    const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // swap for a different element if mobile should anchor elsewhere
-
-    function getOffset() { return isDesktop() ? OFFSET_DESKTOP : OFFSET_MOBILE; }
-    function getAnchor() { return isDesktop() ? ANCHOR_DESKTOP : ANCHOR_MOBILE; }
-
-    const BOTTOM_BUFFER = 24; // small breathing room before the article's actual end (desktop sidebar only)
-
-    function updateActiveHeading() {
-      if (!tocLinks.length) return;
-      let current = null;
-      const TOLERANCE = 4; // px — absorbs sub-pixel/rounding drift from scroll-margin-top landing
-      for (const h of headings) {
-        const margin = parseFloat(getComputedStyle(h).scrollMarginTop) || 0;
-        if (h.getBoundingClientRect().top - margin <= TOLERANCE) {
+  function updateActiveHeading() {
+    if (!tocLinks.length) return;
+    let current = null;
+    const TOLERANCE = 4; // px — absorbs sub-pixel/rounding drift from scroll-margin-top landing
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top - getScrollMargin() <= TOLERANCE) {
           current = h;
         } else {
           break;
         }
-      }
-      tocLinks.forEach((link) => link.classList.remove('active'));
-      document.querySelectorAll('.toc-label').forEach((el) => el.classList.remove('active'));
+    }
+    tocLinks.forEach((link) => link.classList.remove('active'));
+    document.querySelectorAll('.toc-label').forEach((el) => el.classList.remove('active'));
 
-      if (current) {
-        document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
-          .forEach((link) => link.classList.add('active'));
-      } else {
-        document.querySelectorAll('.toc-label').forEach((el) => el.classList.add('active'));
-      }
-
-      const currentTextEl = document.getElementById('toc-current-text');
-      if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
-
-      document.querySelectorAll('.toc-current').forEach((el) => {
-        el.classList.toggle('toc-current-hidden', !current);
-      });
-
-      const currentGroupId = current ? parentGroup[current.id] : null;
-      updateGroups(currentGroupId);
+    if (current) {
+      document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+        .forEach((link) => link.classList.add('active'));
+    } else {
+      document.querySelectorAll('.toc-label').forEach((el) => el.classList.add('active'));
     }
 
-    const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+    const currentTextEl = document.getElementById('toc-current-text');
+    if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
 
-    // Maps every heading id to the id of its "group" — itself if it's an H2,
-    // or the nearest preceding H2 if it's an H3. Drives which .toc-group
-    // stays open as you scroll (see updateGroups below).
-    const parentGroup = {};
-    {
-      let lastH2 = null;
-      headings.forEach((h) => {
-        if (h.tagName === 'H2') { lastH2 = h.id; parentGroup[h.id] = h.id; }
-        else { parentGroup[h.id] = lastH2; }
-      });
-    }
-
-    // Groups the reader has explicitly pinned open (via the per-group toggle
-    // or "expand all") — these stay open regardless of scroll position,
-    // layered on top of whichever group auto-opens from scrolling.
-    const pinnedGroups = new Set();
-
-    function updateGroups(currentGroupId) {
-      document.querySelectorAll('.toc-group[data-group-id]').forEach((group) => {
-        const id = group.dataset.groupId;
-        const expanded = pinnedGroups.has(id) || id === currentGroupId;
-        group.classList.toggle('expanded', expanded);
-        document.querySelectorAll(`.toc-group-toggle[data-group="${id}"]`)
-          .forEach((btn) => btn.setAttribute('aria-expanded', expanded ? 'true' : 'false'));
-      });
-    }
-
-    function positionGutter(el, offset, anchorStartPage, articleBottomPage, scrollY) {
-      if (!el) return;
-      const stopTop = articleBottomPage - el.offsetHeight - BOTTOM_BUFFER;
-      el.style.visibility = 'visible';
-
-      if (scrollY + offset < anchorStartPage) {
-        el.style.position = 'absolute';
-        el.style.top = `${anchorStartPage}px`;
-      } else if (scrollY + offset < stopTop) {
-        el.style.position = 'fixed';
-        el.style.top = `${offset}px`;
-      } else {
-        el.style.position = 'absolute';
-        el.style.top = `${stopTop}px`;
-      }
-    }
-
-    function updateTocPositions() {
-      const scrollY = window.scrollY;
-      const offset = getOffset();
-      const anchor = getAnchor();
-      const anchorStartPage = anchor.getBoundingClientRect().top + scrollY;
-      const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
-
-      const inArticle = scrollY + offset >= anchorStartPage;
-      document.querySelectorAll('.toc-arrow').forEach((el) => el.classList.toggle('visible', inArticle));
-
-      if (isDesktop()) {
-        positionGutter(tocSidebar, offset, anchorStartPage, articleBottomPage, scrollY);
-        positionGutter(leftGutter, offset, anchorStartPage, articleBottomPage, scrollY);
-      } else {
-        if (tocSidebar) tocSidebar.style.visibility = 'hidden';
-        if (leftGutter) leftGutter.style.visibility = 'hidden';
-      }
-
-      if (mobileToc) {
-        const visible = scrollY + offset >= anchorStartPage && scrollY + offset < articleBottomPage;
-        if (!visible) mobileToc.removeAttribute('open');
-        mobileToc.classList.toggle('is-visible', visible);
-      }
-    }
-
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateActiveHeading();
-          updateTocPositions();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    updateActiveHeading();
-    updateTocPositions();
-
-    document.querySelectorAll('.toc-top-link').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        history.pushState(null, '', window.location.pathname + window.location.search + '');
-        document.querySelector('.toc-mobile')?.removeAttribute('open');
-      });
+    document.querySelectorAll('.toc-current').forEach((el) => {
+      el.classList.toggle('toc-current-hidden', !current);
     });
 
+    const currentGroupId = current ? parentGroup[current.id] : null;
+    updateGroups(currentGroupId);
 
-    document.querySelectorAll('.toc-group-toggle').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const id = btn.dataset.group;
-        if (pinnedGroups.has(id)) pinnedGroups.delete(id); else pinnedGroups.add(id);
+    const inArticle = !!current;
+    document.querySelectorAll('.toc-arrow').forEach((el) => el.classList.toggle('visible', inArticle));
+  }
+
+  const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+
+  let cachedScrollMargin = null;
+  function getScrollMargin() {
+    if (cachedScrollMargin === null && headings.length) {
+      cachedScrollMargin = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) || 0;
+    }
+    return cachedScrollMargin;
+  }
+
+  // Maps every heading id to the id of its "group" — itself if it's an H2,
+  // or the nearest preceding H2 if it's an H3. Drives which .toc-group
+  // stays open as you scroll (see updateGroups below).
+  const parentGroup = {};
+  {
+    let lastH2 = null;
+    headings.forEach((h) => {
+      if (h.tagName === 'H2') { lastH2 = h.id; parentGroup[h.id] = h.id; }
+      else { parentGroup[h.id] = lastH2; }
+    });
+  }
+
+  // Groups the reader has explicitly pinned open (via the per-group toggle
+  // or "expand all") — these stay open regardless of scroll position,
+  // layered on top of whichever group auto-opens from scrolling.
+  const pinnedGroups = new Set();
+
+  function updateGroups(currentGroupId) {
+    document.querySelectorAll('.toc-group[data-group-id]').forEach((group) => {
+      const id = group.dataset.groupId;
+      const expanded = pinnedGroups.has(id) || id === currentGroupId;
+      group.classList.toggle('expanded', expanded);
+      document.querySelectorAll(`.toc-group-toggle[data-group="${id}"]`)
+        .forEach((btn) => btn.setAttribute('aria-expanded', expanded ? 'true' : 'false'));
+    });
+  }
+
+  // Mobile bar fade in/out is still scroll-position-based — this is
+  // the only "position tracking" left, and it only ever touches
+  // .toc-mobile, never the sticky desktop gutters.
+  function updateMobileTocVisibility() {
+    if (!mobileToc) return;
+    const scrollY = window.scrollY;
+    const anchorStartPage = ANCHOR_MOBILE.getBoundingClientRect().top + scrollY;
+    const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+    const visible = scrollY >= anchorStartPage && scrollY < articleBottomPage;
+    if (!visible) mobileToc.removeAttribute('open');
+    mobileToc.classList.toggle('is-visible', visible);
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
         updateActiveHeading();
+        updateMobileTocVisibility();
+        ticking = false;
       });
-    });
-
-    const allGroupIds = [...document.querySelectorAll('.toc-group[data-group-id]')]
-      .map((g) => g.dataset.groupId)
-      .filter((id, i, arr) => arr.indexOf(id) === i); // de-dupe: mobile + desktop both render the same groups
-
-    document.querySelectorAll('.toc-expand-all').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allPinned = allGroupIds.every((id) => pinnedGroups.has(id));
-        if (allPinned) pinnedGroups.clear();
-        else allGroupIds.forEach((id) => pinnedGroups.add(id));
-        document.querySelectorAll('.toc-expand-all')
-          .forEach((b) => { b.textContent = allPinned ? 'expand all' : 'collapse all'; });
-        updateActiveHeading();
-      });
-    });
-
-    // Jumping to a section closes the mobile panel — otherwise it's left
-    // sitting open over the top of the article you just navigated to.
-    if (mobileToc) {
-      mobileToc.querySelectorAll('.toc-link').forEach((link) => {
-        link.addEventListener('click', () => mobileToc.removeAttribute('open'));
-      });
+      ticking = true;
     }
   }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { cachedScrollMargin = null; onScroll(); });
+  updateActiveHeading();
+  updateMobileTocVisibility();
+
+  document.querySelectorAll('.toc-top-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.pushState(null, '', window.location.pathname + window.location.search + '');
+      document.querySelector('.toc-mobile')?.removeAttribute('open');
+    });
+  });
+
+  document.querySelectorAll('.toc-group-toggle').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.dataset.group;
+      if (pinnedGroups.has(id)) pinnedGroups.delete(id); else pinnedGroups.add(id);
+      updateActiveHeading();
+    });
+  });
+
+  const allGroupIds = [...document.querySelectorAll('.toc-group[data-group-id]')]
+    .map((g) => g.dataset.groupId)
+    .filter((id, i, arr) => arr.indexOf(id) === i);
+
+  document.querySelectorAll('.toc-expand-all').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const allPinned = allGroupIds.every((id) => pinnedGroups.has(id));
+      if (allPinned) pinnedGroups.clear();
+      else allGroupIds.forEach((id) => pinnedGroups.add(id));
+      document.querySelectorAll('.toc-expand-all')
+        .forEach((b) => { b.textContent = allPinned ? 'expand all' : 'collapse all'; });
+      updateActiveHeading();
+    });
+  });
+
+  if (mobileToc) {
+    mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+      link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+    });
+  }
+}
+
+// Image lightbox — click any image in the article body to view it
+// fullscreen, click anywhere to dismiss. Event delegation on
+// article.body rather than per-image listeners, so this works
+// regardless of how many images a post has with one listener.
+const articleBody = document.querySelector('article.body');
+if (articleBody) {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  const lightboxImg = document.createElement('img');
+  lightbox.appendChild(lightboxImg);
+  document.body.appendChild(lightbox);
+
+  articleBody.addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+      lightboxImg.src = e.target.src;
+      lightboxImg.alt = e.target.alt || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden'; // prevent background scroll while open
+    }
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
 </script>
 
 </body>

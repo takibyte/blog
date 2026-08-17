@@ -646,10 +646,20 @@ footer{
 .project-card h3{
   font-size:20px;font-weight:600;line-height:1.3;
   margin-bottom:10px;letter-spacing:-0.01em;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
 .project-card p{
   font-size:14px;color:var(--muted);line-height:1.6;
   margin-bottom:20px;flex-grow:1;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
 
 .project-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
@@ -680,6 +690,10 @@ footer{
 .progress-track{
   height:4px;border-radius:2px;background:var(--line);
   margin-bottom:20px;overflow:hidden;
+}
+.progress-track-placeholder{
+  height:4px;
+  margin-bottom:20px;
 }
 .progress-track.in-hero{max-width:340px;margin-top:20px;margin-bottom:0;}
 .progress-fill{height:100%;background:var(--success);border-radius:2px;}
@@ -763,8 +777,25 @@ footer{
 }
 
 
-.log-title{font-size:19px;font-weight:600;line-height:1.35;margin-bottom:8px;}
-.log-excerpt{font-size:14px;color:var(--muted);line-height:1.6;max-width:58ch;}
+.log-title{
+  font-size:19px;font-weight:600;line-height:1.35;margin-bottom:8px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.log-excerpt{
+  font-size:14px;color:var(--muted);line-height:1.6;max-width:58ch;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  
+  /* reserves 2 lines' worth of height even if the dek is shorter */
+  min-height:calc(1.6em * 2); 
+}
 
 .log-meta{
   text-align:right;
@@ -950,6 +981,7 @@ article.body img{
   border:1px solid var(--line);
   border-radius:10px;
 }
+
 .author-card .author-avatar{width:48px;height:48px;flex-shrink:0;}
 .author-card h4{font-size:15px;margin-bottom:4px;}
 .author-card p{font-size:13.5px;color:var(--muted);line-height:1.55;}
@@ -1169,12 +1201,12 @@ article.body img{
   .mobile-nav{display:block;}
   .theme-dropdown:not(.theme-dropdown-mobile){display:none;}
 }
-@media (max-width:560px){
+@media (max-width:650px){
   .grid{grid-template-columns:1fr;}
 }
 
 /* ---- Projects ---- */
-@media (max-width:800px){
+@media (max-width:900px){
   .project-grid{grid-template-columns:1fr;}
 }
 
@@ -1292,7 +1324,7 @@ article.body img{
 .toc-mobile-title{
   display:block;
   font-size:13px;color:var(--ink);
-  padding-bottom:14px;
+  padding-bottom:16px;
   border-bottom:1px solid var(--line);
 }
 .toc-mobile-title:hover{color:var(--accent-1);}
@@ -1355,47 +1387,54 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
   html{scroll-behavior:smooth;}
 }
 
-/* ---- desktop: sidebar in the right gutter ----
-   Hidden until there's comfortable room beside the centered 760px .wrap.
-   Horizontal position is calculated off viewport center, since .wrap is
-   centered — not tied to any container, so it can't affect .wrap's layout.
-   `position` and `top` below are just the initial/fallback values — the
-   script in log.html takes over on scroll to hide it above the article,
-   pin it to the viewport while you're reading, and park it at a fixed
-   page position once you scroll past the article's end (see positionToc()
-   in log.html) so it can never drift into the footer. */
-.toc{display:none;}
+/* ---- log page grid — three columns at desktop width ----
+   .log-grid wraps .wrap plus its two gutter siblings. Below 1280px it's
+   just a plain block (mobile-nav/.toc-mobile handle nav at that size,
+   see .toc-mobile above); at 1280px+ it becomes a real grid, and the
+   gutters use position:sticky — no JS positioning needed at all. Sticky
+   natively does what the old fixed/absolute state machine did by hand:
+   follows the viewport while scrolling through .log-grid, then stops
+   tracking once it hits .log-grid's own bottom edge (which is wherever
+   .wrap's content — article, tags, author-card, log-nav — ends). */
+.log-grid{
+  display:block;
+}
+
+.toc,
+.toc-crumb-desktop{
+  display:none;
+}
 
 @media (min-width:1280px){
   .toc-mobile{display:none;}
   article.body h2, article.body h3{scroll-margin-top:28px;}
-  .toc{
-    display:block;
-    width:200px;
-    position:fixed;
-    top:110px;
-    visibility:hidden; /* prevents a flash at the wrong spot before the script runs and positions it — the script sets this to visible immediately */
-    /* 380 = half of .wrap's 760px max-width, 40 = gap, 200 = toc width. */
-    right:calc(50% - 380px - 52px - 200px);
-    max-height:calc(100vh - 72px);
-    overflow-y:auto;
+
+  .log-grid{
+    display:grid;
+    grid-template-columns:200px 760px 200px;
+    column-gap:52px;
+    max-width:1264px; /* 200 + 52 + 760 + 52 + 200 */
+    margin:0 auto;
+    align-items:start;
+    padding-bottom:24px;
   }
 
-  /* To move it to the left instead, swap the rule above for:
-  .toc{ right:auto; left:calc(50% - 380px - 40px - 200px); }
-  */
-}
+  /* .wrap keeps its own max-width/padding for every other page (About,
+     etc.) — this override only applies when it's a grid column inside
+     .log-grid, where the grid track width already does that job. */
+  .log-grid > .wrap{
+    max-width:none;
+    margin:0;
+    padding:0;
+  }
 
-.toc-crumb-desktop{display:none;}
-
-@media (min-width:1280px){
+  .toc,
   .toc-crumb-desktop{
     display:block;
-    width:200px;
-    position:fixed;
-    top:110px;
-    visibility:hidden;
-    left:calc(50% - 380px - 52px - 200px);
+    position:sticky;
+    top:48px;
+    margin-top:48px;
+    align-self:start;
     max-height:calc(100vh - 72px);
     overflow-y:auto;
   }
@@ -1465,6 +1504,49 @@ article.body h2, article.body h3{scroll-margin-top:88px;}
 }
 .toc-group-wrap:hover .toc-group{
   grid-template-rows:1fr;
+}
+
+
+/* ---- image lightbox ----
+   Fullscreen overlay for article images. Built once per page load as a
+   single reused <div>/<img> pair (see log.html) rather than per-image
+   markup, so it works regardless of how many images a post has. */
+article.body img{
+  cursor:zoom-in;
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .2s ease, visibility 0s linear .2s;
+  cursor:zoom-out;
+}
+.lightbox.open{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .2s ease, visibility 0s linear 0s;
+}
+.lightbox img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  border-radius:4px;
+  cursor:zoom-out;
+}
+
+@media (max-width:900px){
+  .lightbox img{
+    max-width:100vw;
+    border-radius:0px;
+  }
 }
 
 

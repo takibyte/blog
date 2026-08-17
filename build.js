@@ -221,7 +221,7 @@ marked.use({ extensions: [calloutExtension] });
    ============================================================================ */
 
 function renderTags(tags) {
-  return tags.map(t => `<span class="tag">${t}</span>`).join('\n    ');
+  return tags.map(t => `<a href="/logs/?q=${encodeURIComponent(t.toLowerCase())}" class="tag">${t}</a>`).join('\n    ');
 }
 
 // Previous/next log navigation (chronological, all logs — independent of any project/series)
@@ -301,7 +301,7 @@ function hasSubheadings(headings) {
   return headings.some((h, i) => h.level === 2 && headings[i + 1] && headings[i + 1].level === 3);
 }
 
-function renderTocMobile(headings, title, id) {
+function renderTocMobileBlock(headings, title, id) {
   const expandAll = hasSubheadings(headings) ? `<button type="button" class="toc-expand-all mono">expand all</button>` : '';
   return `
     <details class="toc-mobile">
@@ -314,7 +314,7 @@ function renderTocMobile(headings, title, id) {
     </details>`;
 }
 
-function renderTocDesktop(headings, title, id) {
+function renderTocRightBlock(headings, title, id) {
   const expandAll = hasSubheadings(headings) ? `<button type="button" class="toc-expand-all mono">expand all</button>` : '';
   return `
     <aside class="toc">
@@ -347,7 +347,7 @@ function resolveCrumbNav(prevLog, nextLog, seriesInfo) {
   return { prevItem, nextItem };
 }
 
-function renderTocCrumbDesktop(prevLog, nextLog, seriesInfo, id) {
+function renderTocCrumbLeftBlock(prevLog, nextLog, seriesInfo, id) {
   const { prevItem, nextItem } = resolveCrumbNav(prevLog, nextLog, seriesInfo);
 
   const prevHtml = prevItem
@@ -366,16 +366,6 @@ function renderTocCrumbDesktop(prevLog, nextLog, seriesInfo, id) {
         ${nextHtml}
       </div>
     </aside>`;
-}
-
-// Table of contents — mobile collapsible panel + desktop sidebar, combined
-// into one block. Returns '' if the log doesn't have enough headings to
-// bother with (see TOC_MIN_HEADINGS). Doesn't touch the article's own
-// markup at all — it's just inserted as a sibling before it.
-function renderToc(headings, title, id, prevLog, nextLog, seriesInfo) {
-  const leftGutter = renderTocCrumbDesktop(prevLog, nextLog, seriesInfo, id);
-  if (headings.length < TOC_MIN_HEADINGS) return leftGutter;
-  return `${renderTocMobile(headings, title, id)}${leftGutter}${renderTocDesktop(headings, title, id)}`;
 }
 
 // Normalizes prev/next log references to {title, slug} regardless of shape —
@@ -408,7 +398,8 @@ function renderLogEntry(p) {
     data-title="${p.title.toLowerCase()}"
     data-dek="${p.dek.toLowerCase()}"
     data-tags="${p.tags.join(',').toLowerCase()}"
-    data-category="${p.category}">
+    data-category="${p.category}"
+    data-id="${p.id.toLowerCase()}">
       <div class="log-date">${p.shortDate}<span class="year">${p.year}</span></div>
       <div class="log-main">
         <div class="log-cat ${p.categoryClass}">${p.category}</div>
@@ -492,9 +483,17 @@ function renderProjectCard(p) {
        </span><span class="view-link">View project →</span>`
     : `<span class="count">${p.linkedLogs.length} ${p.linkedLogs.length === 1 ? 'log' : 'logs'}</span><span class="view-link">View project →</span>`;
 
-  const progressBar = p.type === 'series'
-    ? `<div class="progress-track"><div class="progress-fill" style="width:${Math.round((p.linkedLogs.length / p.estimatedTotal) * 100)}%;"></div></div>`
-    : '';
+  let progressBar;
+  if (p.type === 'series') {
+    const pct = Math.round((p.linkedLogs.length / p.estimatedTotal) * 100);
+    progressBar = `<div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>`;
+  } else if (p.roadmap && p.roadmap.length) {
+    const done = p.roadmap.filter(r => r.done).length;
+    const pct = Math.round((done / p.roadmap.length) * 100);
+    progressBar = `<div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>`;
+  } else {
+    progressBar = `<div class="progress-track-placeholder"></div>`; // tool with no roadmap defined — reserve the space anyway for consistent card height
+  }
 
   return `
     <a class="project-card" href="/projects/${p.slug}/" data-status="${p.status}" data-type="${p.type}">
@@ -688,7 +687,9 @@ rawLogs.forEach((log) => {
     .replaceAll('{{id}}', id)
     .replace('{{cover}}', data.cover ? `<img class="log-media" src="./images/${data.cover}" alt="">` : '')
     .replace('{{minutes}}', minutes)
-    .replace('{{toc}}', renderToc(headings, data.title ?? '', id ?? '', prevLog, nextLog, seriesInfo))
+    .replace('{{tocMobile}}', headings.length >= TOC_MIN_HEADINGS ? renderTocMobileBlock(headings, data.title ?? '', id ?? '') : '')
+    .replace('{{tocCrumbLeft}}', renderTocCrumbLeftBlock(prevLog, nextLog, seriesInfo, id ?? ''))
+    .replace('{{tocRight}}', headings.length >= TOC_MIN_HEADINGS ? renderTocRightBlock(headings, data.title ?? '', id ?? '') : '')
     .replace('{{content}}', html)
     .replace('{{seriesBadge}}', renderSeriesBadge(seriesInfo))
     .replace('{{logNav}}', renderLogNav(prevLog, nextLog))

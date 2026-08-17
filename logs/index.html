@@ -101,7 +101,13 @@ const allTag = document.querySelector('.tag-filter[data-filter="all"]');
 const logs = document.querySelectorAll('.log-row');
 const resultCount = document.querySelector('.result-count');
 
-let activeTags = new Set(); // empty set = "all"
+// Pre-fill search from a ?q= param — used by tag links on individual log
+// pages (see build.js renderTags) to land here with the tag already searched.
+const params = new URLSearchParams(window.location.search);
+const initialQuery = params.get('q');
+if (initialQuery) searchInput.value = initialQuery;
+
+let activeTag = null; // null = "all"
 
 function applyFilters() {
   const query = searchInput.value.trim().toLowerCase();
@@ -112,9 +118,15 @@ function applyFilters() {
     const dek = log.dataset.dek || '';
     const tags = log.dataset.tags || '';
     const category = log.dataset.category || '';
+    const id = log.dataset.id || '';
 
-    const matchesSearch = !query || title.includes(query) || dek.includes(query) || tags.includes(query);
-    const matchesTag = activeTags.size === 0 || activeTags.has(category);
+    const matchesSearch = !query
+      || title.includes(query)
+      || dek.includes(query)
+      || tags.includes(query)
+      || category.toLowerCase().includes(query)
+      || id.includes(query);
+    const matchesTag = activeTag === null || activeTag === category;
 
     const visible = matchesSearch && matchesTag;
     log.style.display = visible ? '' : 'none';
@@ -125,14 +137,13 @@ function applyFilters() {
   updateFirstVisibleBorder();
 }
 
-function updateAllState() {
-  allTag.classList.toggle('active', activeTags.size === 0);
+function setActiveTag(filter) {
+  activeTag = filter;
+  tagFilters.forEach(t => t.classList.toggle('active', t.dataset.filter === (filter ?? 'all')));
 }
 
 allTag.addEventListener('click', () => {
-  activeTags.clear();
-  tagFilters.forEach(t => t.classList.remove('active'));
-  allTag.classList.add('active');
+  setActiveTag(null);
   applyFilters();
 });
 
@@ -141,16 +152,7 @@ tagFilters.forEach(tag => {
 
   tag.addEventListener('click', () => {
     const filter = tag.dataset.filter;
-
-    if (activeTags.has(filter)) {
-      activeTags.delete(filter);
-      tag.classList.remove('active');
-    } else {
-      activeTags.add(filter);
-      tag.classList.add('active');
-    }
-
-    updateAllState();
+    setActiveTag(activeTag === filter ? null : filter); // clicking the already-active tag deselects back to "all"
     applyFilters();
   });
 });
@@ -164,10 +166,18 @@ function updateFirstVisibleBorder() {
 }
 
 applyFilters();
-updateAllState();
+setActiveTag(null);
 
 document.getElementById('logSearch').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
+    const query = this.value.trim();
+    const url = new URL(window.location);
+    if (query) {
+      url.searchParams.set('q', query);
+    } else {
+      url.searchParams.delete('q'); // empty search on Enter — clean URL rather than a dangling ?q=
+    }
+    history.replaceState(null, '', url);
     this.blur();
   }
 });
