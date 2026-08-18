@@ -20,6 +20,7 @@ const rootIndexTemplate = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf
 const logsIndexTemplate = fs.readFileSync(path.join(logsDir, 'index.html'), 'utf-8');
 const projectsIndexTemplate = fs.readFileSync(path.join(projectsDir, 'index.html'), 'utf-8');
 const aboutIndexTemplate = fs.readFileSync(path.join(aboutDir, 'index.html'), 'utf-8');
+const notFoundTemplate = fs.readFileSync(path.join(rootDir, '404.html'), 'utf-8');
 
 // Top-level files/folders copied into dist as-is (no processing).
 // NOTE: 'logs' and 'projects' are deliberately excluded — both are built manually below.
@@ -789,6 +790,12 @@ const aboutIndexPage = aboutIndexTemplate
   .replace('{{themeSelect}}', renderThemeSelect())
   .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
 fs.writeFileSync(path.join(outDir, 'about', 'index.html'), aboutIndexPage);
+
+// -- 404.html --
+const notFoundPage = notFoundTemplate
+  .replace('{{themeSelect}}', renderThemeSelect())
+  .replace('{{themeSelectMobile}}', renderThemeSelectMobile());
+fs.writeFileSync(path.join(outDir, '404.html'), notFoundPage);
 
 /* ============================================================================
    13. SITEMAP

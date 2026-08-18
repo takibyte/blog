@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>404 — takibyte</title>
+<meta name="description" content="Page not found.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+
+<!-- Fallback for no-JS / crawlers that respect meta refresh. JS below
+     handles the countdown + redirect for everyone else and fires first. -->
+<meta http-equiv="refresh" content="6; url=/">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js' defer></script>
+
+<style>
+  /* Page-specific — small enough not to warrant touching styles.css */
+  .notfound-wrap{
+    min-height:calc(100vh - 260px);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    padding:60px 32px;
+  }
+  .notfound-code{
+    font-family:var(--font-mono);
+    font-size:14px;letter-spacing:0.08em;
+    color:var(--accent-1);
+    margin-bottom:20px;
+  }
+  .notfound-code::before{
+    content:"";
+    display:inline-block;
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent-1);
+    box-shadow:0 0 8px var(--accent-1);
+    margin-right:10px;
+  }
+  .notfound-wrap h1{
+    font-size:64px;font-weight:700;letter-spacing:-0.02em;
+    line-height:1;margin-bottom:20px;
+  }
+  .notfound-wrap p{
+    font-size:16px;color:var(--muted);line-height:1.6;
+    max-width:46ch;margin-bottom:36px;
+  }
+  .notfound-wrap p code{
+    font-family:var(--font-mono);
+    font-size:0.87em;
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:2px 6px;border-radius:4px;
+    color:var(--accent-3);
+    word-break:break-all;
+  }
+  .notfound-redirect{
+    font-family:var(--font-mono);
+    font-size:12.5px;color:var(--faint);
+    margin-top:32px;
+  }
+  .notfound-redirect a{color:var(--accent-1);}
+  .notfound-redirect a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+</div>
+
+<main>
+  <div class="notfound-wrap">
+    <div class="notfound-code mono">ERROR // 404</div>
+    <h1>Page not found</h1>
+    <p>
+      That page doesn't exist — it may have been renamed or moved when the site
+      migrated to <code>lab.takibyte.com</code>.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn-primary" href="/">Go to homepage</a>
+      <a class="btn-outline" href="/logs/">Browse logs →</a>
+    </div>
+
+    <div class="notfound-redirect mono">
+      Redirecting you to the homepage in <span id="countdown">6</span>s —
+      <a href="/">go now</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+<script>
+  // Countdown + JS-driven redirect. Runs ahead of the <meta refresh>
+  // fallback above (which only matters if JS is disabled).
+  (function(){
+    var seconds = 6;
+    var el = document.getElementById('countdown');
+    var interval = setInterval(function(){
+      seconds -= 1;
+      if (el) el.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        window.location.href = '/';
+      }
+    }, 1000);
+  })();
+</script>
+
+</body>
+</html>
