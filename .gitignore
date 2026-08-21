@@ -7,9 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-drafts
-overhaul-files
 node_modules
+drafts
+.overhaul-files
+.redirects
 dist-ssr
 *.local
 
