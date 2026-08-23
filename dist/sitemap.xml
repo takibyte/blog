@@ -13,7 +13,7 @@
     <loc>https://lab.takibyte.com/about/</loc>
   </url>
   <url>
-    <loc>https://lab.takibyte.com/projects/ctf-writeup-collection/</loc>
+    <loc>https://lab.takibyte.com/projects/ctf-writeups/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/projects/pscan-multi-threaded-port-scanner/</loc>
@@ -23,6 +23,9 @@
   </url>
   <url>
     <loc>https://lab.takibyte.com/projects/packet-capture-and-analysis-with-wireshark/</loc>
+  </url>
+  <url>
+    <loc>https://lab.takibyte.com/logs/nmap-scan-capture-and-analysis-with-wireshark/</loc>
   </url>
   <url>
     <loc>https://lab.takibyte.com/logs/packet-capture-and-analysis-fundamentals-with-wireshark/</loc>

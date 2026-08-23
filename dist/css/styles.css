@@ -493,7 +493,7 @@ footer{
 .cat-homelab{color:var(--accent-1);}
 .cat-ctf{color:var(--accent-2);}
 .cat-tools{color:var(--accent-3);}
-.cat-notes{color:var(--muted);}
+.cat-notes{color:var(--accent-5);}
 
 /* Project type badge — distinguishes a "series" (log collection) from
    a "tool" (a shipped script/utility) on the Projects grid */

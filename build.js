@@ -42,7 +42,7 @@ const TOC_MIN_HEADINGS = 4;
 
 const ICONS = {
   scanner:  { path: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>', color: 3 },
-  wifi:     { path: '<path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/>', color: 5 },
+  wifi:     { path: '<path d="M12 20h.01M8.5 16.5a5 5 0 017 0M5 13a10 10 0 0114 0M2 9.5a15 15 0 0120 0"/>', color: 1 },
   shield:   { path: '<path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/>', color: 5 },
   book:     { path: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/>', color: 2 },
   bolt:     { path: '<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>', color: 2 },
@@ -85,7 +85,7 @@ function slugify(str) {
 function categoryClass(cat) {
   if (cat === 'HOMELAB') return 'cat-homelab';
   if (cat === 'TOOLS') return 'cat-tools';
-  if (cat === 'CTF WRITEUPS') return 'cat-ctf';
+  if (cat === 'CTF') return 'cat-ctf';
   if (cat === 'NOTES') return 'cat-notes';
   return '';
 }
