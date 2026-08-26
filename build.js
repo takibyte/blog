@@ -48,7 +48,7 @@ const ICONS = {
   bolt:     { path: '<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>', color: 2 },
   flame:    { path: '<path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/>', color: 4 },
   lock:     { path: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>', color: 3 },
-  terminal: { path: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>', color: 1 },
+  terminal: { path: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>', color: 5 },
   key:      { path: '<circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3M18 5l3 3"/>', color: 2 },
   server:   { path: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>', color: 1 },
   bug:      { path: '<rect x="8" y="6" width="8" height="12" rx="4"/><path d="M12 2v4M8 10H4M8 14H4M16 10h4M16 14h4M9 6L7 4M15 6l2-2M9 18l-2 2M15 18l2 2"/>', color: 4 },
@@ -727,7 +727,7 @@ for (const p of projects) {
     .replace('{{iconSvg}}', p.icon.path)
     .replace('{{tags}}', p.tags.map(t => `<span class="project-tag">${t}</span>`).join('\n'))
     .replace('{{heroExtra}}', p.type === 'tool' ? renderCta(p) : renderProgress(p))
-    .replace('{{whatItDoesHeading}}', p.type === 'tool' ? '// what it does' : '// why this series')
+    .replace('{{whatItDoesHeading}}', p.type === 'tool' ? '// readme' : '// why this series')
     .replace('{{body}}', p.bodyHtml)
     .replace('{{roadmapSection}}', renderRoadmap(p))
     .replace('{{linkedLogsSection}}', renderLinkedLogs(p))

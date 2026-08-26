@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>pscan — Multi-threaded port scanner</title>
-<meta name="description" content="Building a network port scanner from scratch with Python. From implementing the core socket module, to learning about locking threads.">
+<title>Security scripts</title>
+<meta name="description" content="A collection of security scripts for automation.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
@@ -77,30 +77,31 @@
 
 <div class="wrap">
   <div class="breadcrumb page-header-spacing">
-    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span><a href="">pscan — Multi-threaded port scanner</a>
+    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span><a href="">Security scripts</a>
   </div>
 
   <section class="project-hero">
-    <div class="project-icon lg icon-3">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    <div class="project-icon lg icon-5">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
     </div>
     <div>
       <div class="badge-group">
         <span class="badge type-tool">Tool</span>
-        <span class="badge status-complete">Complete</span>
+        <span class="badge status-paused">Paused</span>
       </div>
-      <h1>pscan — Multi-threaded port scanner</h1>
-      <p class="desc">Building a network port scanner from scratch with Python. From implementing the core socket module, to learning about locking threads.</p>
+      <h1>Security scripts</h1>
+      <p class="desc">A collection of security scripts for automation.</p>
 
       <div class="project-tags">
-        <span class="project-tag">Python</span>
-<span class="project-tag">Sockets</span>
-<span class="project-tag">CLI</span>
+        <span class="project-tag">Scripts</span>
+<span class="project-tag">Automation</span>
+<span class="project-tag">Python</span>
+<span class="project-tag">Bash</span>
       </div>
 
       
     <div class="cta-row">
-      <a class="btn-primary" href="https://github.com/takibyte/pscan">
+      <a class="btn-primary" href="https://github.com/takibyte/security-scripts">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
         View on GitHub</a>
       <a class="btn-outline" href="#read-the-devlog">Read the devlog ↓</a>
@@ -112,27 +113,7 @@
   <section class="section">
     <div class="eyebrow mono">// readme</div>
     <article class="bio tight">
-      <p>This is a simple port scanner written in Python. It allows you to scan a range of ports on a specified host to check which ports are open.</p>
-
-<div class="code-block">
-  <div class="code-block-head">
-    <span>terminal</span>
-    <div class="code-block-dots"><span></span><span></span><span></span></div>
-  </div>
-  <pre>usage: pscan [-h] [--start START] [--end END] [host]
-
-A simple port scanner
-
-positional arguments:
-  host           <span class="hljs-built_in">hostname</span> <span class="hljs-built_in">or</span> IPv4 address
-
-<span class="hljs-keyword">options</span>:
-  -h, --<span class="hljs-keyword">help</span>     show this <span class="hljs-keyword">help</span> message <span class="hljs-built_in">and</span> <span class="hljs-keyword">exit</span>
-  --start START  start of the port <span class="hljs-built_in">range</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> scanned
-  --end END      end of the port <span class="hljs-built_in">range</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">be</span> scanned
-
-example usage: <span class="hljs-keyword">python3</span> pscan.<span class="hljs-keyword">py</span> --start <span class="hljs-number">1</span> --end <span class="hljs-number">1024</span> example.<span class="hljs-keyword">com</span></pre>
-</div>
+      
     </article>
 
     <!-- <div class="code-block">
@@ -145,62 +126,13 @@ example usage: <span class="hljs-keyword">python3</span> pscan.<span class="hljs
     <section class="section">
       <div class="eyebrow mono">// roadmap</div>
       <div class="roadmap-list">
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Implement Python socket module
-    </div>
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Make the first socket connection
-    </div>
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Scanning multiple ports
-    </div>
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Error handling
-    </div>
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Upgrade loops to threads
-    </div>
-    <div class="roadmap-item done">
-      <span class="check">✓</span>
-      Adding argparse
+    <div class="roadmap-item">
+      <span class="check"></span>
+      Failed ssh login monitor
     </div></div>
     </section>
 
   
-    <section class="section" id="read-the-devlog">
-      <div class="eyebrow mono">// devlog</div>
-      <p class="section-note">Logs written while building this, in order.</p>
-      <div class="series-list">
-    <a class="series-item" href="/logs/building-a-port-scanner-with-python/">
-      <span class="series-num mono">01</span>
-      <div>
-        <div class="series-title">Building a port scanner with Python</div>
-        <div class="series-excerpt">How I built a simple network port scanner from scratch with Python.</div>
-      </div>
-      <div class="series-meta">28 May<br>2026</div>
-    </a>
-    <a class="series-item" href="/logs/upgrading-the-port-scanner-with-multi-threading/">
-      <span class="series-num mono">02</span>
-      <div>
-        <div class="series-title">Upgrading the port scanner with multi-threading</div>
-        <div class="series-excerpt">Switching out the loop logic for multi-threading, and handling errors.</div>
-      </div>
-      <div class="series-meta">14 June<br>2026</div>
-    </a>
-    <a class="series-item" href="/logs/improving-the-port-scanner-with-argparse/">
-      <span class="series-num mono">03</span>
-      <div>
-        <div class="series-title">Improving the port scanner with argparse</div>
-        <div class="series-excerpt">Adding CLI interactivity with argparse, and final thoughts.</div>
-      </div>
-      <div class="series-meta">21 July<br>2026</div>
-    </a></div>
-    </section>
 
 </div>
 

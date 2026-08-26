@@ -5,7 +5,7 @@ author: takibyte
 date: 2026-08-14
 category: homelab
 tags: [Wireshark, Packet capture, Network protocols]
-cover: cover.webp
+cover: cover1.2.webp
 ---
 
 ## The plan for this homelab
