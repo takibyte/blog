@@ -17,3 +17,4 @@ logs:                    # ordered slugs — curated order, not auto-sorted
 
 ---
 
+This project is a collection of security scripts I've made for automating various security tasks.
