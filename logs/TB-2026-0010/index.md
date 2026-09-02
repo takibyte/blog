@@ -98,7 +98,7 @@ From here, like before, we can right-click on one of the port 22 packets to eith
 
 After applying the filter for the TCP stream involving port 22, we end up with the screenshot shown above. This is the exact same situation as before (with the -sT scan), but now with the -sS scan capture.
 
-Remember when we discussed the SYN stealth / half-open scan earlier (in the previous entry), and how it intentionally doesn't complete the 3-way handshake? This screenshot shows that clearly. There are three packets in this TCP conversation: `[SYN], [SYN, ACK], [RST, ACK]`. Kali sends a `[SYN]` packet, Ubuntu responds with a `[SYN, ACK]` packet, but here instead of replying with `[ACK]` like normal, Kali instead responds with `[RST, ACK]`, abruptly and preemptively tearing down the socket connection before a proper connection can be established.
+Remember when we discussed the SYN stealth / half-open scan earlier (in the previous entry), and how it intentionally doesn't complete the 3-way handshake? This screenshot shows that clearly. There are three packets in this TCP conversation: `[SYN], [SYN, ACK], [RST]`. Kali sends a `[SYN]` packet, Ubuntu responds with a `[SYN, ACK]` packet, but here instead of replying with `[ACK]` like normal, Kali instead responds with `[RST]`, abruptly and preemptively tearing down the socket connection before a proper connection can be established.
 
 If we look to the packet details panel, we will see that the 'conversation completeness' is detailed as 'incomplete', even though Nmap has successfully determined the port to be open. We can also notice that most of the TCP flags are absent in the completeness map.
 
@@ -153,7 +153,7 @@ Finally, here is a clearer visual comparison of all three scan types we've done 
 
 ### Open port TCP stream conversations
 
-The Nmap -sT and -sS scans are quite similar, both using the essential TCP packets to scan a socket: `[SYN], [SYN, ACK], [RST, ACK]`, with the -sT TCP connect scan also having the additional `[ACK]` before `[RST, ACK]`, completing the 3-way TCP handshake.
+The Nmap -sT and -sS scans are somewhat similar, the -sT TCP connect scan has the following packets: `[SYN], [SYN, ACK], [ACK], [RST, ACK]`, completing the TCP 3-way handshake. The -sS stealth has the same first two packets: `[SYN] and [SYN, ACK]`, and then only a third packet: `[RST]`, which doesn't complete the TCP 3-way handshake, and instead tears down the socket connection abruptly, without even acknowledging the `[SYN, ACK]` preceding it.
 
 The pscan conversation on the other hand, starts with the same 3-way TCP handshake as the -sT TCP connect scan, but instead of tearing down the connection with: `[RST, ACK]`, it attempts to do a formal 4-way closing handshake with: `[FIN, ACK], [ACK], [FIN, ACK], [ACK]`, but instead ends with a messier: `[FIN, ACK], [ACK], [FIN, ACK], [RST], [RST]`. As mentioned above in more detail, this happened due to the limitations of the program, and uncleared data in the kernel buffer before closing the connection.
 
