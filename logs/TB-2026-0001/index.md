@@ -40,10 +40,10 @@ So here, the plan can be split into two parts: the certifications and path compl
         <span class="check">✓</span> TryHackMe Pre Security Path
     </div>        
     <div class="roadmap-item done">
-        <span class="check">✓</span> Network+ Certification
+        <span class="check">✓</span> CompTIA Network+ Certification
     </div>
     <div class="roadmap-item done">
-        <span class="check">✓</span> Security+ Certification
+        <span class="check">✓</span> CompTIA Security+ Certification
     </div>
     <div class="roadmap-item done">
         <span class="check">✓</span> TryHackMe Security 101 Path
@@ -52,8 +52,20 @@ So here, the plan can be split into two parts: the certifications and path compl
         <span class="check"></span> TryHackMe SOC Analyst Level 1 Path
     </div>
     <div class="roadmap-item">
+        <span class="check"></span> CompTIA CySA+ Certification
+    </div>
+    <div class="roadmap-item">
+        <span class="check"></span> TryHackMe SOC Analyst Level 2 Path
+    </div>
+    <div class="roadmap-item">
         <span class="check"></span> TryHackMe Jr Penetration Tester Path
     </div>
+    <!-- <div class="roadmap-item">
+        <span class="check"></span> TryHackMe PT1 Certification
+    </div>
+    <div class="roadmap-item">
+        <span class="check"></span> OffSec OSCP+ Certification
+    </div> -->
 </div>
 <br>
 

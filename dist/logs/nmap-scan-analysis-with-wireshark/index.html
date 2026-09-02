@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nmap scan analysis with Wireshark</title>
+<meta name="description" content="Part 2 of capturing and analysing Nmap -sT and -sS port scans with Wireshark.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js' defer></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a class="active" href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/projects/">Projects</a>
+  <a class="active" href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+
+    <details class="toc-mobile">
+      <summary><span class="toc-summary-label"><span class="toc-summary-prefix">// TB-2026-0010</span><span class="toc-current mono">#<span id="toc-current-text"></span></span></span></summary>
+      <nav class="toc-nav">
+        <a href="#" class="toc-mobile-title toc-top-link">Nmap scan analysis with Wireshark ↑</a>
+        <button type="button" class="toc-expand-all mono">expand all</button>
+        
+      <div class="toc-h2-row">
+        <a href="#a-summary-of-last-entry" class="toc-link toc-level-2" data-target="a-summary-of-last-entry">A summary of last entry</a></div>
+      <div class="toc-h2-row">
+        <a href="#capture-analysis" class="toc-link toc-level-2" data-target="capture-analysis">Capture analysis</a></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#nmap--st-capture-analysis" class="toc-link toc-level-2" data-target="nmap--st-capture-analysis">Nmap -sT capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="nmap--st-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="nmap--st-capture-analysis"><div class="toc-group-inner">
+      <a href="#-st-packet-list-overview" class="toc-link toc-level-3" data-target="-st-packet-list-overview">-sT packet list overview</a>
+      <a href="#following-the-packet-stream" class="toc-link toc-level-3" data-target="following-the-packet-stream">Following the packet stream</a>
+      <a href="#-st-conversation-completeness" class="toc-link toc-level-3" data-target="-st-conversation-completeness">-sT conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#nmap--ss-capture-analysis" class="toc-link toc-level-2" data-target="nmap--ss-capture-analysis">Nmap -sS capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="nmap--ss-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="nmap--ss-capture-analysis"><div class="toc-group-inner">
+      <a href="#-ss-packet-list-overview" class="toc-link toc-level-3" data-target="-ss-packet-list-overview">-sS packet list overview</a>
+      <a href="#-ss-conversation-completeness" class="toc-link toc-level-3" data-target="-ss-conversation-completeness">-sS conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#pscan-capture-analysis" class="toc-link toc-level-2" data-target="pscan-capture-analysis">pscan capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="pscan-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="pscan-capture-analysis"><div class="toc-group-inner">
+      <a href="#pscan-packet-list-overview" class="toc-link toc-level-3" data-target="pscan-packet-list-overview">pscan packet list overview</a>
+      <a href="#pscan-conversation-completeness" class="toc-link toc-level-3" data-target="pscan-conversation-completeness">pscan conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#comparative-analysis" class="toc-link toc-level-2" data-target="comparative-analysis">Comparative analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="comparative-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="comparative-analysis"><div class="toc-group-inner">
+      <a href="#open-port-tcp-stream-conversations" class="toc-link toc-level-3" data-target="open-port-tcp-stream-conversations">Open port TCP stream conversations</a>
+      <a href="#closed-port-tcp-stream-conversations" class="toc-link toc-level-3" data-target="closed-port-tcp-stream-conversations">Closed port TCP stream conversations</a></div></div></div>
+      <div class="toc-h2-row">
+        <a href="#tying-it-all-together" class="toc-link toc-level-2" data-target="tying-it-all-together">Tying it all together</a></div>
+      </nav>
+    </details>
+
+<div class="log-grid">
+
+  
+    <aside class="toc-crumb-desktop">
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// TB-2026-0010</a>
+      <div class="toc-crumb-nav">
+        <a href="/logs/nmap-scan-capture-with-wireshark/" class="toc-crumb-nav-link">← Nmap scan capture with Wireshark</a>
+        <a href="/logs/" class="toc-crumb-nav-link next">All logs →</a>
+      </div>
+    </aside>
+
+  <div class="wrap">
+    <div class="log-header page-header-spacing">
+      <div class="breadcrumb">
+        <a href="/">takibyte</a><span class="sep">/</span><a href="/logs/">Logs</a><span class="sep">/</span><a href="">Nmap scan analysis with Wireshark</a>
+      </div>
+      <div class="log-cat cat-homelab mono cat-homelab">HOMELAB</div>
+      <h1 class="headline">Nmap scan analysis with Wireshark</h1>
+      <p class="dek">Part 2 of capturing and analysing Nmap -sT and -sS port scans with Wireshark.</p>
+      <div class="meta-row">
+        <a href="/about/"><div class="author-avatar"></div></a>
+        <div class="meta-text">
+          <div class="name"><a href="/about/">takibyte</a></div>
+          <div class="sub mono">
+            <span>2 September 2026 · 13 min</span>
+            <span>TB-2026-0010</span>
+          </div>
+        </div>
+        <!-- <div class="stats">
+          <span></span>
+        </div> -->
+      </div>
+    </div>
+
+    <img class="log-media" src="./images/cover.webp" alt="">
+
+    
+    <div class="series-badge">
+      <a href="/projects/packet-capture-and-analysis-with-wireshark/">Part of project: Packet capture and analysis with Wireshark →</a>
+      <span class="mono">3 of 3</span>
+    </div>
+
+    <article class="body">
+      <h2 id="a-summary-of-last-entry">A summary of last entry</h2>
+<p>In the last entry, I ran three port scans against the same Ubuntu VM target: Nmap&#39;s -sT TCP connect scan, Nmap&#39;s -sS SYN stealth scan, and a scan from pscan, the basic Python port scanner I built in an earlier project. While executing each scan, I captured each with Wireshark into their own filtered <code>.pcapng</code> file.</p>
+<h2 id="capture-analysis">Capture analysis</h2>
+<p>With these three capture files now ready for analysis, in this log entry we will now analyse the relevant parts of each capture, before doing a comparative analysis focussing on the differences and similarities in: </p>
+<ul>
+<li>the overall captured packet list</li>
+<li>an open port TCP conversation</li>
+<li>a closed port TCP conversation</li>
+<li>the packet details of interesting packets</li>
+</ul>
+<h2 id="nmap--st-capture-analysis">Nmap -sT capture analysis</h2>
+<h3 id="-st-packet-list-overview">-sT packet list overview</h3>
+<p><img src="./images/nmap-sT-1.webp" alt="Nmap -sT 1"></p>
+<p>Looking at the <code>.pcapng</code> file for the -sT scan here, we can immediately see the packet list panel up top. There are a number of packets and frames sent at the initiation of the scan, we can see some ARP, ICMP and TCP packets. </p>
+<p>Recall from the scan output earlier (in the last entry), that Nmap first does a ping scan before conducting the full -sT scan? This is what we are seeing over the course of the first 16 packets. This is mainly to test if the target host is even up and reachable. If the target host is not reachable, there is no point trying to scan potentially thousands of ports on a target that cannot be reached, that would be a waste. Therefore, Nmap does a quick ping scan and ARP resolution, to check the host is up, if it is, it will continue the scan.</p>
+<p><img src="./images/nmap-sT-2.webp" alt="Nmap -sT 2"></p>
+<p>The screenshot above shows a portion of the capture file, much of the capture file looks like this. Since 99/100 ports that were scanned are closed, most will have the same pattern: SYN packet from Kali &gt; Ubuntu to attempt a socket connection, and RST, ACK from Ubuntu &gt; Kali to effectively confirm a closed port and drop the connection. I&#39;ll show a specific example of this a little further down.</p>
+<p>This screenshot also covers the packets involved in the connection to the only open port: port 22 (ssh). We&#39;ll look at this packet conversation a little closer in a moment.</p>
+<h3 id="following-the-packet-stream">Following the packet stream</h3>
+<p><img src="./images/nmap-sT-3.webp" alt="Nmap -sT 3"></p>
+<p>In Wireshark, there is a convenient way to isolate packets related to a single back and forth conversation between two hosts connecting on the network. In the above screenshot we can see one way to do this. Because I want to take a closer look at the TCP conversation involving the open port 22, I can choose to follow the TCP stream to automatically set a filter that isolates this conversation. Right-clicking on one of the involved packets (or going to &#39;Analyze&#39; in the menu bar), we can select &#39;Follow &gt; TCP Stream&#39;.</p>
+<p><img src="./images/nmap-sT-4.webp" alt="Nmap -sT 4"></p>
+<p>This screenshot is another method that has a like effect. We can right-click on one of the packets in the conversation and select &#39;Conversation Filter &gt; TCP&#39;.</p>
+<p>Either of these two options will apply the <code>tcp.stream eq x</code> filter (with the relevant TCP stream conversation number substituted for <code>x</code>), and lead to the result shown in the next two screenshots.</p>
+<h3 id="-st-conversation-completeness">-sT conversation completeness</h3>
+<p>So here we are getting to the main substance of this homelab. In the following two screenshots we can see the TCP conversation isolated for an open port (port 22) in the first image, and a closed port (port 80), in the second image.</p>
+<p><strong>TCP stream / conversation, open port 22</strong>
+<img src="./images/nmap-sT-5.webp" alt="Nmap -sT 5"></p>
+<p>In the screenshot above we can see the isolated TCP conversation involving the scan of port 22. The TCP flags match up with what we talked about earlier which is nice to see. There are four packets shown in this conversation: <code>[SYN], [SYN, ACK], [ACK], [RST, ACK]</code>. </p>
+<p>The TCP 3-way handshake is shown in its completed form here with <code>[SYN], [SYN, ACK], [ACK]</code>. If we observe the source and destination IP addresses of each packet in the conversation, we can see that the Kali VM IP <code>192.168.8.209</code> is sending a <code>[SYN]</code> TCP packet to the Ubuntu VM IP <code>192.168.8.120</code> as its destination address. The unfolding of the back and forth pattern between these addresses can be seen with the remaining TCP packets and respective flags in this conversation. </p>
+<p>We can also note that it says &#39;complete&#39; in the packet details panel under &#39;conversation completeness&#39;. Interestingly, under this same packet details section, it shows that all TCP flags are present except for the Data and FIN flags.</p>
+<p>The fourth packet in this conversation <code>[RST, ACK]</code>, is not part of the 3-way handshake, but is instead the connection teardown/termination. Nmap uses the abrupt <code>[RST, ACK]</code> shown here.</p>
+<p><strong>TCP stream / conversation, closed port 80</strong>
+<img src="./images/nmap-sT-6.webp" alt="Nmap -sT 6"></p>
+<p>In this screenshot, we see an example of a TCP conversation for the scan of a closed port. There are 99 conversations with the same pattern as this is the main scan, I chose to select port 80 as an example for this writeup.</p>
+<p>The pattern is shorter here, it consists of only <code>[SYN]</code> and <code>[RST, ACK]</code>. The Kali VM IP <code>192.168.8.209</code> sends a <code>[SYN]</code> TCP packet to the Ubuntu VM IP <code>192.168.8.120</code> as its destination address (just as before), but this time the Ubuntu VM sends back <code>[RST, ACK]</code>. This is because the port is closed, and no connection can be established, resulting in the termination of the socket connection.</p>
+<p>If we look to the packet details section we can see that &#39;the conversation completeness&#39; section reads as &#39;incomplete&#39;, with most TCP flags absent.</p>
+<h2 id="nmap--ss-capture-analysis">Nmap -sS capture analysis</h2>
+<h3 id="-ss-packet-list-overview">-sS packet list overview</h3>
+<p><img src="./images/nmap-sS-1.webp" alt="Nmap -sS 1"></p>
+<p>Moving on to the -sS SYN scan <code>.pcapng</code> file now, we can see a similar initial packet list panel to the -sT scan. Like that capture, the Nmap -sS scan starts with an ICMP ping scan to test the connection and for host discovery, including an initial scan of port 80 and 443 (this is done as a verification failsafe in case a firewall were to filter ICMP packets, as some often do).</p>
+<p>It&#39;s also worth noting the absence of any ARP packets here compared to the -sT scan. This is likely because or ARP caching, since I ran the -sS scan almost immediately after the -sT scan (which did produce ARP packets), it is most likely because the ARP table already had the addresses it needed for this connection cached.</p>
+<p><img src="./images/nmap-sS-2.webp" alt="Nmap -sS 2"></p>
+<p>This 2nd screenshot shows a portion of the capture a bit further down the list, and like before it covers some of the packets involved in the open port 22 TCP conversation. If we look closely we can notice some differences, specifically some missing parts of the TCP conversation for the scan of port 22, but we&#39;ll go over it in the next screenshot where it&#39;s a bit clearer.</p>
+<p>From here, like before, we can right-click on one of the port 22 packets to either follow the TCP stream, or apply the conversation filter.</p>
+<h3 id="-ss-conversation-completeness">-sS conversation completeness</h3>
+<p><strong>TCP stream / conversation, open port 22</strong>
+<img src="./images/nmap-sS-3.webp" alt="Nmap -sS 3"></p>
+<p>After applying the filter for the TCP stream involving port 22, we end up with the screenshot shown above. This is the exact same situation as before (with the -sT scan), but now with the -sS scan capture.</p>
+<p>Remember when we discussed the SYN stealth / half-open scan earlier (in the previous entry), and how it intentionally doesn&#39;t complete the 3-way handshake? This screenshot shows that clearly. There are three packets in this TCP conversation: <code>[SYN], [SYN, ACK], [RST, ACK]</code>. Kali sends a <code>[SYN]</code> packet, Ubuntu responds with a <code>[SYN, ACK]</code> packet, but here instead of replying with <code>[ACK]</code> like normal, Kali instead responds with <code>[RST, ACK]</code>, abruptly and preemptively tearing down the socket connection before a proper connection can be established.</p>
+<p>If we look to the packet details panel, we will see that the &#39;conversation completeness&#39; is detailed as &#39;incomplete&#39;, even though Nmap has successfully determined the port to be open. We can also notice that most of the TCP flags are absent in the completeness map.</p>
+<p><strong>TCP stream / conversation, closed port 80</strong>
+<img src="./images/nmap-sS-4.webp" alt="Nmap -sS 4"></p>
+<p>Now lets look at the closed port 80 conversation as before, but now with the -sS scan capture. With the level of detail we&#39;ve been looking at so far, there appear to be no significant differences between the closed port conversation of the -sT and -sS Nmap scans. -sS also consists only of the <code>[SYN]</code> and <code>[RST, ACK]</code> TCP packets.</p>
+<h2 id="pscan-capture-analysis">pscan capture analysis</h2>
+<h3 id="pscan-packet-list-overview">pscan packet list overview</h3>
+<p><img src="./images/pscan-1.webp" alt="pscan 1"></p>
+<p>Now let&#39;s move on to the final scan type I did, the scan from pscan. There is actually quite a bit of a difference already in this initial packet list panel screenshot shown above. </p>
+<p>First, there are a few repeated ARP requests and replies in a row before the first SYN TCP packet. After looking this up, this seems to be a result of the way multi-threading is used in pscan. With Nmap, an initial &#39;host discovery&#39; phase is carried out, likely <em>without</em> multi-threading, once the host availability has been confirmed, the scan phase begins, which <em>would</em> involve multi-threading. In pscan, there is only the one main phase (which uses multi-threading), and no host discovery or validation. Multiple threads trigger the ARP packets to be sent simultaneously, resulting in duplicate ARP packets.</p>
+<p>Another thing to notice is that there is no ICMP ping scan, as mentioned above, this is due to the lack of a host discovery phase.</p>
+<p>And thirdly, we can see that the scanning progresses in a sequential order (when you factor for multi-thread time differences). This is in contrast to the Nmap scans, which appeared to be random or use some other non-sequential algorithm (though I know scanning sequentially is an option in Nmap).</p>
+<p><img src="./images/pscan-2.webp" alt="pscan 2"></p>
+<p>Observing this 2nd screenshot from a further down portion of the capture, we can see a similar sequential scan pattern occurring. We can also see part of the open port 22 scan TCP conversation, and all the other closed port scans receiving red <code>[RST, ACK]</code> packets from the Ubuntu VM IP in return to the Kali VM IP <code>[SYN]</code> packets.</p>
+<h3 id="pscan-conversation-completeness">pscan conversation completeness</h3>
+<p><strong>TCP stream / conversation, open port 22</strong>
+<img src="./images/pscan-3.webp" alt="pscan 3"></p>
+<p>After once again applying the TCP stream conversation filter to the open port 22 TCP conversation, we can see the isolated packets from that conversation shown in the screenshot above.</p>
+<p>Interestingly, the open port conversation with pscan is the longest conversation. And looking to the packet details panel under &#39;conversation completeness&#39; we not only see the conversation marked as &#39;complete&#39;, but every TCP flag is present. </p>
+<p>The reason for this can be explained due to the following: the pscan scanner I built uses Python&#39;s <code>with</code> statements to gracefully close each socket connection with each thread, rather than tear down the connection forcefully. This <em>should</em> result in each open socket scan finishing and closing the conversation with the more formal 4-way closing handshake: <code>[FIN, ACK], [ACK], [FIN, ACK], [ACK]</code>, but instead we got a longer sequence with 2 RST packets at the end: <code>[FIN, ACK], [ACK], [FIN, ACK], [RST], [RST]</code>. Also, there is an SSH protocol banner message before the 2nd <code>[FIN, ACK]</code>. </p>
+<p>After researching, it appears that this SSH banner message is the reason for the not so smooth closing handshake (when an RST flag is involved the connection has aborted abruptly). Apparently SSH is a &#39;server speaks first&#39; protocol, so as soon as the connection was established, SSH pushes its ID banner onto the wire, and it gets received into the receiving hosts kernel buffer (this is why the conversation completeness notes &#39;WITH_DATA&#39;). Since pscan doesn&#39;t handle this data with <code>recv()</code>, and the data is sitting in the buffer, the OS can&#39;t gracefully close the connection with data still in the buffer, so it responds by using <code>[RST]</code> to halt the connection.</p>
+<p>Why two <code>[RST]</code> packets? This I&#39;m not so sure about, but it seems to be a result of both the OS and the SSH server connection trying to halt the connection independently. I suppose this is a good demonstration for why Nmap might be opting to take control and force the connection closed itself with <code>[RST, ACK]</code>, not only does it make it faster, but it avoids strange and messy cases like this.</p>
+<p><strong>TCP stream / conversation, closed port 80</strong>
+<img src="./images/pscan-4.webp" alt="pscan 4"></p>
+<p>The screenshot above shows the TCP conversation for closed port 80 from the pscan capture. Comparing this with the previous two scan types, we can see that the closed port connection interaction here is essentially the same.</p>
+<h2 id="comparative-analysis">Comparative analysis</h2>
+<p>Finally, here is a clearer visual comparison of all three scan types we&#39;ve done so far, for both the open and closed port TCP stream conversations we looked at.</p>
+<h3 id="open-port-tcp-stream-conversations">Open port TCP stream conversations</h3>
+<p>The Nmap -sT and -sS scans are quite similar, both using the essential TCP packets to scan a socket: <code>[SYN], [SYN, ACK], [RST, ACK]</code>, with the -sT TCP connect scan also having the additional <code>[ACK]</code> before <code>[RST, ACK]</code>, completing the 3-way TCP handshake.</p>
+<p>The pscan conversation on the other hand, starts with the same 3-way TCP handshake as the -sT TCP connect scan, but instead of tearing down the connection with: <code>[RST, ACK]</code>, it attempts to do a formal 4-way closing handshake with: <code>[FIN, ACK], [ACK], [FIN, ACK], [ACK]</code>, but instead ends with a messier: <code>[FIN, ACK], [ACK], [FIN, ACK], [RST], [RST]</code>. As mentioned above in more detail, this happened due to the limitations of the program, and uncleared data in the kernel buffer before closing the connection.</p>
+<p><strong>Nmap -sT TCP stream open port 22</strong>
+<img src="./images/nmap-sT-7.webp" alt="Nmap -sT 7"></p>
+<p><strong>Nmap -sS TCP stream open port 22</strong>
+<img src="./images/nmap-sS-5.webp" alt="Nmap -sS 5"></p>
+<p><strong>pscan TCP stream open port 22</strong>
+<img src="./images/pscan-5.webp" alt="pscan 5"></p>
+<h3 id="closed-port-tcp-stream-conversations">Closed port TCP stream conversations</h3>
+<p>As previously discussed, the closed port TCP conversations are essentially the same between these three scan types. All feature a <code>[SYN]</code> TCP packet from Kali VM &gt; Ubuntu VM, and a <code>[RST, ACK]</code> TCP packet from Ubuntu VM &gt; Kali VM.</p>
+<p><strong>Nmap -sT TCP stream closed port 80</strong>
+<img src="./images/nmap-sT-8.webp" alt="Nmap -sT 8"></p>
+<p><strong>Nmap -sS TCP stream closed port 80</strong>
+<img src="./images/nmap-sS-6.webp" alt="Nmap -sS 6"></p>
+<p><strong>pscan TCP stream closed port 80</strong>
+<img src="./images/pscan-6.webp" alt="pscan 6"></p>
+<h2 id="tying-it-all-together">Tying it all together</h2>
+<p>In these two entries on Nmap capture and anlaysis we&#39;ve covered:</p>
+<ul>
+<li>How to use two different types of Nmap scans: -sT and -sS (including some optional flags)</li>
+<li>An overview of the TCP 3-way handshake, how -sS doesn&#39;t complete it whereas -sT does</li>
+<li>Comparisons with pscan, a simple Python port scanner built in a previous project</li>
+<li>Capturing each scan into a filtered <code>.pcapng</code> capture file</li>
+<li>Analysis and comparison of the packet list</li>
+<li>How to isolate a TCP stream conversation</li>
+<li>Analysis and comparison of an open port TCP conversation</li>
+<li>Analysis and comparison of a closed port TCP conversation</li>
+</ul>
+<p>These past two entries on Nmap scan capture and analysis have been good for me to get more familiar with: Nmap scanning, packet capture across a multi-VM network, comparative Wireshark analysis across multiple capture files, and particularly — TCP conversation flags.</p>
+<p>That wraps up this entry, thanks for reading! I hope you&#39;ll join me in the next one.</p>
+
+    </article>
+
+    <div class="tags">
+      <a href="/logs/?q=wireshark" class="tag">Wireshark</a>
+    <a href="/logs/?q=nmap" class="tag">Nmap</a>
+    <a href="/logs/?q=packet%20capture" class="tag">Packet capture</a>
+    <a href="/logs/?q=network%20protocols" class="tag">Network protocols</a>
+    </div>
+
+    <a href="/about/">
+      <div class="author-card">
+        <div class="author-avatar"></div>
+        <div>
+          <h4>takibyte</h4>
+          <p>Building a homelab, working through TryHackMe, and writing down notes while I learn.</p>
+        </div>
+      </div>
+    </a>
+
+    <div class="log-nav">
+      <a href="/logs/nmap-scan-capture-with-wireshark/">
+      <div class="dir">← Previous</div>
+      <div class="ptitle">Nmap scan capture with Wireshark</div>
+    </a>
+    <div></div>
+    </div>
+  </div>
+
+  
+    <aside class="toc">
+      <a href="#" class="toc-label mono toc-top-link toc-title-link">// contents <span class="toc-arrow">↑</span></a>
+      <button type="button" class="toc-expand-all mono">expand all</button>
+      <nav class="toc-nav">
+      <div class="toc-h2-row">
+        <a href="#a-summary-of-last-entry" class="toc-link toc-level-2" data-target="a-summary-of-last-entry">A summary of last entry</a></div>
+      <div class="toc-h2-row">
+        <a href="#capture-analysis" class="toc-link toc-level-2" data-target="capture-analysis">Capture analysis</a></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#nmap--st-capture-analysis" class="toc-link toc-level-2" data-target="nmap--st-capture-analysis">Nmap -sT capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="nmap--st-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="nmap--st-capture-analysis"><div class="toc-group-inner">
+      <a href="#-st-packet-list-overview" class="toc-link toc-level-3" data-target="-st-packet-list-overview">-sT packet list overview</a>
+      <a href="#following-the-packet-stream" class="toc-link toc-level-3" data-target="following-the-packet-stream">Following the packet stream</a>
+      <a href="#-st-conversation-completeness" class="toc-link toc-level-3" data-target="-st-conversation-completeness">-sT conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#nmap--ss-capture-analysis" class="toc-link toc-level-2" data-target="nmap--ss-capture-analysis">Nmap -sS capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="nmap--ss-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="nmap--ss-capture-analysis"><div class="toc-group-inner">
+      <a href="#-ss-packet-list-overview" class="toc-link toc-level-3" data-target="-ss-packet-list-overview">-sS packet list overview</a>
+      <a href="#-ss-conversation-completeness" class="toc-link toc-level-3" data-target="-ss-conversation-completeness">-sS conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#pscan-capture-analysis" class="toc-link toc-level-2" data-target="pscan-capture-analysis">pscan capture analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="pscan-capture-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="pscan-capture-analysis"><div class="toc-group-inner">
+      <a href="#pscan-packet-list-overview" class="toc-link toc-level-3" data-target="pscan-packet-list-overview">pscan packet list overview</a>
+      <a href="#pscan-conversation-completeness" class="toc-link toc-level-3" data-target="pscan-conversation-completeness">pscan conversation completeness</a></div></div></div>
+      <div class="toc-group-wrap"><div class="toc-h2-row">
+        <a href="#comparative-analysis" class="toc-link toc-level-2" data-target="comparative-analysis">Comparative analysis</a>
+        <button type="button" class="toc-group-toggle" data-group="comparative-analysis" aria-expanded="false" aria-label="Toggle subsections">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button></div><div class="toc-group" data-group-id="comparative-analysis"><div class="toc-group-inner">
+      <a href="#open-port-tcp-stream-conversations" class="toc-link toc-level-3" data-target="open-port-tcp-stream-conversations">Open port TCP stream conversations</a>
+      <a href="#closed-port-tcp-stream-conversations" class="toc-link toc-level-3" data-target="closed-port-tcp-stream-conversations">Closed port TCP stream conversations</a></div></div></div>
+      <div class="toc-h2-row">
+        <a href="#tying-it-all-together" class="toc-link toc-level-2" data-target="tying-it-all-together">Tying it all together</a></div>
+      </nav>
+    </aside>
+
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  menuToggle.classList.toggle('open', isOpen);
+  menuToggle.setAttribute('aria-expanded', isOpen);
+});
+
+// Table of contents — active-heading tracking, arrow fade, TOC group
+// expand/collapse, and the mobile bar's fade in/out. Gutter POSITIONING
+// is no longer handled here — .log-grid + position:sticky (see
+// styles.css) does that natively now, so there's no JS position/fixed/
+// absolute state machine anymore.
+const tocSidebar = document.querySelector('.toc');
+const mobileToc = document.querySelector('.toc-mobile');
+const tocLinks = document.querySelectorAll('.toc-link');
+const leftGutter = document.querySelector('.toc-crumb-desktop');
+
+if (tocSidebar || mobileToc || leftGutter) {
+  const article = document.querySelector('article.body');
+  const ANCHOR_MOBILE = document.querySelector('.log-header') || article; // only the mobile bar still needs an anchor — its fade in/out is scroll-position-based
+
+  function updateActiveHeading() {
+    if (!tocLinks.length) return;
+    let current = null;
+    const TOLERANCE = 4; // px — absorbs sub-pixel/rounding drift from scroll-margin-top landing
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top - getScrollMargin() <= TOLERANCE) {
+          current = h;
+        } else {
+          break;
+        }
+    }
+    tocLinks.forEach((link) => link.classList.remove('active'));
+    document.querySelectorAll('.toc-label').forEach((el) => el.classList.remove('active'));
+
+    if (current) {
+      document.querySelectorAll(`.toc-link[data-target="${current.id}"]`)
+        .forEach((link) => link.classList.add('active'));
+    } else {
+      document.querySelectorAll('.toc-label').forEach((el) => el.classList.add('active'));
+    }
+
+    const currentTextEl = document.getElementById('toc-current-text');
+    if (currentTextEl) currentTextEl.textContent = current ? current.textContent : '';
+
+    document.querySelectorAll('.toc-current').forEach((el) => {
+      el.classList.toggle('toc-current-hidden', !current);
+    });
+
+    const currentGroupId = current ? parentGroup[current.id] : null;
+    updateGroups(currentGroupId);
+
+    const inArticle = !!current;
+    document.querySelectorAll('.toc-arrow').forEach((el) => el.classList.toggle('visible', inArticle));
+  }
+
+  const headings = [...document.querySelectorAll('article.body h2[id], article.body h3[id]')];
+
+
+  let cachedScrollMargin = null;
+  function getScrollMargin() {
+    if (cachedScrollMargin === null && headings.length) {
+      cachedScrollMargin = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) || 0;
+    }
+    return cachedScrollMargin;
+  }
+
+  // Maps every heading id to the id of its "group" — itself if it's an H2,
+  // or the nearest preceding H2 if it's an H3. Drives which .toc-group
+  // stays open as you scroll (see updateGroups below).
+  const parentGroup = {};
+  {
+    let lastH2 = null;
+    headings.forEach((h) => {
+      if (h.tagName === 'H2') { lastH2 = h.id; parentGroup[h.id] = h.id; }
+      else { parentGroup[h.id] = lastH2; }
+    });
+  }
+
+  // Groups the reader has explicitly pinned open (via the per-group toggle
+  // or "expand all") — these stay open regardless of scroll position,
+  // layered on top of whichever group auto-opens from scrolling.
+  const pinnedGroups = new Set();
+
+  function updateGroups(currentGroupId) {
+    document.querySelectorAll('.toc-group[data-group-id]').forEach((group) => {
+      const id = group.dataset.groupId;
+      const expanded = pinnedGroups.has(id) || id === currentGroupId;
+      group.classList.toggle('expanded', expanded);
+      document.querySelectorAll(`.toc-group-toggle[data-group="${id}"]`)
+        .forEach((btn) => btn.setAttribute('aria-expanded', expanded ? 'true' : 'false'));
+    });
+  }
+
+  // Mobile bar fade in/out is still scroll-position-based — this is
+  // the only "position tracking" left, and it only ever touches
+  // .toc-mobile, never the sticky desktop gutters.
+  function updateMobileTocVisibility() {
+    if (!mobileToc) return;
+    const scrollY = window.scrollY;
+    const anchorStartPage = ANCHOR_MOBILE.getBoundingClientRect().top + scrollY;
+    const articleBottomPage = article.getBoundingClientRect().bottom + scrollY;
+    const visible = scrollY >= anchorStartPage && scrollY < articleBottomPage;
+    if (!visible) mobileToc.removeAttribute('open');
+    mobileToc.classList.toggle('is-visible', visible);
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveHeading();
+        updateMobileTocVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { cachedScrollMargin = null; onScroll(); });
+  updateActiveHeading();
+  updateMobileTocVisibility();
+
+  document.querySelectorAll('.toc-top-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.pushState(null, '', window.location.pathname + window.location.search + '');
+      document.querySelector('.toc-mobile')?.removeAttribute('open');
+    });
+  });
+
+  document.querySelectorAll('.toc-group-toggle').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.dataset.group;
+      if (pinnedGroups.has(id)) pinnedGroups.delete(id); else pinnedGroups.add(id);
+      updateActiveHeading();
+    });
+  });
+
+  const allGroupIds = [...document.querySelectorAll('.toc-group[data-group-id]')]
+    .map((g) => g.dataset.groupId)
+    .filter((id, i, arr) => arr.indexOf(id) === i);
+
+  document.querySelectorAll('.toc-expand-all').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const allPinned = allGroupIds.every((id) => pinnedGroups.has(id));
+      if (allPinned) pinnedGroups.clear();
+      else allGroupIds.forEach((id) => pinnedGroups.add(id));
+      document.querySelectorAll('.toc-expand-all')
+        .forEach((b) => { b.textContent = allPinned ? 'expand all' : 'collapse all'; });
+      updateActiveHeading();
+    });
+  });
+
+  if (mobileToc) {
+    mobileToc.querySelectorAll('.toc-link').forEach((link) => {
+      link.addEventListener('click', () => mobileToc.removeAttribute('open'));
+    });
+  }
+}
+
+// Image lightbox — click any image in the article body to view it
+// fullscreen, click anywhere to dismiss. Event delegation on
+// article.body rather than per-image listeners, so this works
+// regardless of how many images a post has with one listener.
+const articleBody = document.querySelector('article.body');
+if (articleBody) {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  const lightboxImg = document.createElement('img');
+  lightbox.appendChild(lightboxImg);
+  document.body.appendChild(lightbox);
+
+  articleBody.addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+      lightboxImg.src = e.target.src;
+      lightboxImg.alt = e.target.alt || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden'; // prevent background scroll while open
+    }
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>

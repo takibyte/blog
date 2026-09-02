@@ -440,7 +440,7 @@ function renderProgress(p) {
   const pct = Math.round((p.linkedLogs.length / p.estimatedTotal) * 100);
   return `
     <div class="progress-track in-hero"><div class="progress-fill" style="width:${pct}%;"></div></div>
-    <div class="section-note no-margin">${p.linkedLogs.length} of an estimated ${p.estimatedTotal} logs</div>`;
+    <div class="section-note no-margin">${p.linkedLogs.length} of ${p.estimatedTotal} logs completed</div>`;
 }
 
 // Roadmap checklist — only rendered if frontmatter defines one

@@ -5,7 +5,7 @@ type: series
 status: paused
 icon: ctf
 featured: false
-order: 4
+order: 5
 tags: [CTF, Penetration testing, TryHackMe]
 estimatedTotal: 8        # series only — drives the progress bar %
 logs:

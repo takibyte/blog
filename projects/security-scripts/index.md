@@ -5,7 +5,7 @@ type: tool
 status: paused
 icon: terminal
 featured: false
-order: 5
+order: 6
 tags: [Scripts, Automation, Python, Bash]
 github: https://github.com/takibyte/security-scripts   # tool only
 roadmap:                                          # tool only, omit for series

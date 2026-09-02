@@ -10,6 +10,8 @@ tags: [Wireshark, Packet capture, Network protocols]
 estimatedTotal: 4        # series only — drives the progress bar %
 logs:
     - Packet capture and analysis fundamentals with Wireshark
+    - Nmap scan capture with Wireshark
+    - Nmap scan analysis with Wireshark
 
 ---
 

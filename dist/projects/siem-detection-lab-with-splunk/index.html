@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SIEM detection lab with Splunk</title>
+<meta name="description" content="Building a SIEM detection lab and triaging alerts.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  (function(){
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+
+<script src='/js/theme.js' defer></script>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">takibyte</a>
+  <nav>
+    <a class="active" href="/projects/">Projects</a>
+    <a href="/logs/">Logs</a>
+    <a href="/about/">About</a>
+  </nav>
+  
+    <details class="theme-dropdown">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a class="active" href="/projects/">Projects</a>
+  <a href="/logs/">Logs</a>
+  <a href="/about/">About</a>
+  
+    <details class="theme-dropdown theme-dropdown-mobile">
+      <summary class="theme-dropdown-toggle mono">
+        <span class="theme-dropdown-label">Theme</span>
+        <svg class="theme-dropdown-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="theme-dropdown-menu" role="listbox">
+        <button type="button" class="theme-option mono" data-theme-value="dark" role="option">Dark</button>
+        <button type="button" class="theme-option mono" data-theme-value="light" role="option">Light</button>
+        <button type="button" class="theme-option mono" data-theme-value="tokyonight" role="option">Tokyo night</button>
+        <button type="button" class="theme-option mono" data-theme-value="nord" role="option">Nord</button>
+        <button type="button" class="theme-option mono" data-theme-value="redteam" role="option">Red team</button>
+        <button type="button" class="theme-option mono" data-theme-value="blueteam" role="option">Blue team</button>
+        <button type="button" class="theme-option mono" data-theme-value="cyberpunk" role="option">Cyberpunk</button>
+        <button type="button" class="theme-option mono" data-theme-value="paper" role="option">Paper</button>
+      </div>
+    </details>
+  <!-- <a class="subscribe" href="#">subscribe →</a> -->
+</div>
+
+<div class="wrap">
+  <div class="breadcrumb page-header-spacing">
+    <a href="/">takibyte</a><span class="sep">/</span><a href="/projects/">Projects</a><span class="sep">/</span><a href="">SIEM detection lab with Splunk</a>
+  </div>
+
+  <section class="project-hero">
+    <div class="project-icon lg icon-5">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+    </div>
+    <div>
+      <div class="badge-group">
+        <span class="badge type-series">Series</span>
+        <span class="badge status-paused">Paused</span>
+      </div>
+      <h1>SIEM detection lab with Splunk</h1>
+      <p class="desc">Building a SIEM detection lab and triaging alerts.</p>
+
+      <div class="project-tags">
+        <span class="project-tag">SIEM</span>
+<span class="project-tag">Detection</span>
+<span class="project-tag">Splunk</span>
+<span class="project-tag">SOC</span>
+      </div>
+
+      
+    <div class="progress-track in-hero"><div class="progress-fill" style="width:0%;"></div></div>
+    <div class="section-note no-margin">0 of 8 logs completed</div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow mono">// why this series</div>
+    <article class="bio tight">
+      <p>In this project I will set up a detection lab on my homelab network, using Splunk as the SIEM software, and generating events to detect via endpoint forwarders on my network.</p>
+
+    </article>
+
+    <!-- <div class="code-block">
+
+    </div> -->
+    
+  </section>
+
+  
+
+  
+
+</div>
+
+<footer>
+  <span><a href="https://takibyte.com">takibyte.com</a> — est. 2026</span>
+  <span><a href="https://github.com/takibyte">GitHub</a> · <a href="https://tryhackme.com/p/takibyte">TryHackMe</a></span>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>
